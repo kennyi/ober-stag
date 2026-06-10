@@ -1,0 +1,429 @@
+/* OBER — fake rideshare site. Uber-dark aesthetic with a lemon accent. */
+
+:root {
+  --bg: #0b0b0b;
+  --bg-alt: #141414;
+  --card: #1c1c1c;
+  --text: #f5f5f5;
+  --muted: #9a9a9a;
+  --accent: #f7d51d;
+  --border: #2a2a2a;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  transition: background 0.4s, color 0.4s;
+}
+
+/* ---------- Lemon mode: the whole site turns lemon ---------- */
+body.lemon-mode {
+  --bg: #fff9c4;
+  --bg-alt: #fff59d;
+  --card: #fffde7;
+  --text: #5d4a00;
+  --muted: #8a7420;
+  --accent: #c9a800;
+  --border: #f0e68c;
+}
+body.lemon-mode .hero h1 .accent { color: #c9a800; }
+
+/* ---------- Nav ---------- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.logo-dot { color: var(--accent); }
+
+.nav-links { display: flex; gap: 1.5rem; }
+
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.nav-links a:hover { color: var(--text); }
+
+.lemon-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.lemon-btn:hover { transform: rotate(20deg) scale(1.15); }
+
+/* ---------- Hero ---------- */
+.hero {
+  text-align: center;
+  padding: 7rem 1.5rem 6rem;
+  max-width: 60rem;
+  margin: 0 auto;
+}
+
+.hero-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 9vw, 6rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+.hero h1 .accent { color: var(--accent); }
+
+.hero-sub {
+  font-size: 1.3rem;
+  color: var(--muted);
+  margin: 2rem 0 2.5rem;
+}
+
+.cta {
+  display: inline-block;
+  background: var(--accent);
+  color: #111;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 1rem 2.5rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transition: transform 0.15s;
+}
+.cta:hover { transform: scale(1.04); }
+
+.hero-fineprint {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+/* ---------- Sections ---------- */
+.section {
+  padding: 5rem 1.5rem;
+  max-width: 70rem;
+  margin: 0 auto;
+}
+
+.section h2 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.5rem;
+}
+
+.section-sub { color: var(--muted); font-size: 1.1rem; margin-bottom: 2.5rem; }
+
+.section-alt {
+  max-width: none;
+  background: var(--bg-alt);
+}
+.section-alt > * { max-width: 70rem; margin-left: auto; margin-right: auto; }
+.section-alt h2, .section-alt .section-sub { margin-left: auto; margin-right: auto; }
+
+.section-dark {
+  max-width: none;
+  text-align: center;
+  background: var(--accent);
+  color: #111;
+}
+.section-dark h2 { color: #111; }
+
+.muted { color: var(--muted); font-weight: 400; font-size: 0.9em; }
+
+/* ---------- Ride widget ---------- */
+.ride-widget {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 2rem;
+  margin-bottom: 3rem;
+}
+
+.ride-inputs { display: flex; flex-wrap: wrap; gap: 1rem; }
+
+.ride-inputs input {
+  flex: 1 1 16rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.ride-inputs button {
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  border: none;
+  background: var(--accent);
+  color: #111;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+.ride-inputs button:hover { transform: scale(1.04); }
+
+.ride-response {
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+  border-radius: 0.5rem;
+  background: var(--bg);
+  border-left: 4px solid var(--accent);
+  font-size: 1.1rem;
+  animation: slide-in 0.3s ease;
+}
+
+.hidden { display: none; }
+
+@keyframes slide-in {
+  from { opacity: 0; transform: translateY(0.5rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Tiers ---------- */
+.tiers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1.5rem;
+}
+
+.tier-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 2rem;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.tier-card:hover { transform: translateY(-4px); border-color: var(--accent); }
+
+.tier-featured { border-color: var(--accent); }
+
+.tier-emoji { font-size: 2.5rem; margin-bottom: 0.75rem; }
+
+.tier-card h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+
+.tier-card p { color: var(--muted); font-size: 0.95rem; }
+
+.tier-price {
+  margin-top: 1rem;
+  color: var(--accent) !important;
+  font-weight: 600;
+}
+
+/* ---------- Driver card ---------- */
+.driver-card {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+.driver-photo {
+  flex: 0 0 14rem;
+  height: 14rem;
+  border-radius: 1rem;
+  background: var(--bg);
+  border: 2px dashed var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 2.5rem;
+  overflow: hidden;
+}
+.driver-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+.photo-placeholder small { font-size: 0.85rem; color: var(--muted); line-height: 1.3; }
+
+.driver-info { flex: 1 1 20rem; }
+
+.driver-info h3 { font-size: 1.8rem; margin-bottom: 0.25rem; }
+
+.driver-rating { color: var(--accent); font-size: 1.2rem; margin-bottom: 1rem; }
+.driver-rating strong { color: var(--text); }
+
+.driver-stats { list-style: none; margin-bottom: 1.5rem; }
+.driver-stats li { padding: 0.3rem 0; color: var(--text); }
+
+.badges { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+.badge {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 2rem;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.85rem;
+}
+
+/* ---------- Tracker ---------- */
+.tracker {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 2rem;
+}
+
+.tracker h3 { margin-bottom: 0.5rem; }
+
+.tracker-status { color: var(--muted); margin-bottom: 1.25rem; }
+
+.steps-bar {
+  height: 0.8rem;
+  background: var(--bg);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.steps-fill {
+  height: 100%;
+  width: 92%;
+  background: var(--accent);
+  border-radius: 1rem;
+  transition: width 0.8s ease;
+}
+
+.steps-label { margin-top: 0.75rem; font-size: 0.9rem; color: var(--muted); }
+
+/* ---------- Reviews ---------- */
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: 1.5rem;
+}
+
+.review {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.75rem;
+}
+
+.stars { color: var(--accent); letter-spacing: 0.15em; margin-bottom: 0.75rem; }
+
+.reviewer { margin-top: 1rem; color: var(--muted); font-size: 0.9rem; }
+
+/* ---------- Ober Eats ---------- */
+.eats-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 2.5rem;
+}
+
+.eats-card h3 { margin-bottom: 1.5rem; font-size: 1.4rem; }
+
+.menu { list-style: none; }
+
+.menu li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 1.05rem;
+}
+
+.menu-note { color: var(--muted); font-size: 0.9rem; text-align: right; }
+
+.eats-footer { margin-top: 1.5rem; color: var(--accent); font-weight: 600; }
+
+/* ---------- FAQ ---------- */
+.faq-list details {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 0.75rem;
+  cursor: pointer;
+}
+
+.faq-list summary { font-weight: 600; font-size: 1.05rem; }
+
+.faq-list details p { margin-top: 0.75rem; color: var(--muted); }
+
+/* ---------- Stag section ---------- */
+.stag-text { font-size: 1.4rem; margin: 1.5rem 0; }
+
+.stag-countdown {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+
+.stag-fineprint { font-size: 0.9rem; opacity: 0.7; }
+
+/* ---------- Gallery ---------- */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 1rem;
+}
+
+.gallery-slot {
+  aspect-ratio: 1;
+  background: var(--card);
+  border: 2px dashed var(--border);
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  opacity: 0.6;
+}
+
+/* ---------- Footer ---------- */
+.footer {
+  text-align: center;
+  padding: 4rem 1.5rem;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.footer .logo { font-size: 2rem; margin-bottom: 1rem; display: block; }
+
+/* ---------- Mobile ---------- */
+@media (max-width: 640px) {
+  .nav { padding: 1rem; }
+  .nav-links { display: none; }
+  .hero { padding: 4rem 1rem 3rem; }
+  .driver-photo { flex-basis: 100%; }
+}

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OBER — Get there. Eventually.</title>
+  <meta name="description" content="Ireland's most reluctant ride-sharing service. One driver. Zero enthusiasm. Five stars." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍋</text></svg>" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ===================== NAV ===================== -->
+  <nav class="nav">
+    <a class="logo" href="#top">OBER<span class="logo-dot">.</span></a>
+    <div class="nav-links">
+      <a href="#ride">Ride</a>
+      <a href="#driver">Your Driver</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#eats">Ober Eats</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <button id="lemon-toggle" class="lemon-btn" title="Lemon Mode">🍋</button>
+  </nav>
+
+  <!-- ===================== HERO ===================== -->
+  <header class="hero" id="top">
+    <p class="hero-eyebrow">Proudly serving Naas, Eadestown &amp; anywhere the lads are stranded</p>
+    <h1>Get there.<br><span class="accent">Eventually.</span></h1>
+    <p class="hero-sub">
+      Ireland's most reluctant ride-sharing service.<br>
+      One driver. Zero enthusiasm. Five stars.
+    </p>
+    <a href="#ride" class="cta">Request a ride</a>
+    <p class="hero-fineprint">Requests subject to refusal. All requests are refused.</p>
+  </header>
+
+  <!-- ===================== RIDE REQUEST ===================== -->
+  <section class="section" id="ride">
+    <h2>Request an Ober</h2>
+    <p class="section-sub">Enter your trip details. Our driver will consider it. Briefly.</p>
+
+    <div class="ride-widget">
+      <div class="ride-inputs">
+        <input type="text" id="pickup" placeholder="Pickup — e.g. Somewhere in Kildare, 2am" />
+        <input type="text" id="destination" placeholder="Destination — e.g. Airport" />
+        <button id="request-btn">Request Ober</button>
+      </div>
+      <div id="ride-response" class="ride-response hidden"></div>
+    </div>
+
+    <!-- Ride tiers -->
+    <div class="tiers">
+      <div class="tier-card">
+        <div class="tier-emoji">🚗</div>
+        <h3>Ober Standard</h3>
+        <p>One Kia. Immaculate. Climate control set to his preference, not yours.</p>
+        <p class="tier-price">€0 — he won't take your money, he'll just remember</p>
+      </div>
+      <div class="tier-card">
+        <div class="tier-emoji">🚐</div>
+        <h3>Ober XL</h3>
+        <p>Six lads, three pickup points, one county, 2am. Completed in total silence.</p>
+        <p class="tier-price">€0 + lifelong debt</p>
+      </div>
+      <div class="tier-card tier-featured">
+        <div class="tier-emoji">🍋</div>
+        <h3>Ober Lemon</h3>
+        <p>Premium tier. Driver arrives in full costume. Availability: one weekend only, June 2026.</p>
+        <p class="tier-price">Priceless</p>
+      </div>
+      <div class="tier-card">
+        <div class="tier-emoji">🛋️</div>
+        <h3>Ober Couch</h3>
+        <p>He stays home. You stay home. Nobody goes anywhere. Our most popular service.</p>
+        <p class="tier-price">Free, forever</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DRIVER PROFILE ===================== -->
+  <section class="section section-alt" id="driver">
+    <h2>Meet your driver</h2>
+    <div class="driver-card">
+      <div class="driver-photo" id="driver-photo">
+        <span class="photo-placeholder">📸<br><small>driver photo<br>incoming</small></span>
+      </div>
+      <div class="driver-info">
+        <h3>Oran "Ober" Clare</h3>
+        <p class="driver-rating">★★★★★ <strong>5.0</strong> <span class="muted">(rating cannot be changed, we tried)</span></p>
+        <ul class="driver-stats">
+          <li><strong>14,782</strong> trips completed <span class="muted">(0 paid)</span></li>
+          <li><strong>Vehicle:</strong> Kia — spotless, beloved, discussed at length</li>
+          <li><strong>Member since:</strong> the amp incident</li>
+          <li><strong>Education:</strong> Print &amp; Design, Mickey Mouse College, Dublin</li>
+          <li><strong>Languages:</strong> English, Funny Voices, No</li>
+        </ul>
+        <div class="badges">
+          <span class="badge">🚱 Barely Drinks</span>
+          <span class="badge">👟 10,000 Steps Verified</span>
+          <span class="badge">🏋️ Gym Before Anything</span>
+          <span class="badge">🛋️ Couch Certified</span>
+          <span class="badge">❌ Says No</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live tracker gag -->
+    <div class="tracker">
+      <h3>Live driver location</h3>
+      <p class="tracker-status" id="tracker-status">📍 Doing loops of Eadestown for the step count…</p>
+      <div class="steps-bar">
+        <div class="steps-fill" id="steps-fill"></div>
+      </div>
+      <p class="steps-label"><span id="steps-count">9,214</span> / 10,000 steps — he is not getting in the car until this is done</p>
+    </div>
+  </section>
+
+  <!-- ===================== REVIEWS ===================== -->
+  <section class="section" id="reviews">
+    <h2>Riders love Ober</h2>
+    <p class="section-sub">Every review verified. Every rating five stars. We don't know how either.</p>
+    <div class="reviews-grid">
+      <div class="review">
+        <p class="stars">★★★★★</p>
+        <p>"Drove like an absolute maniac the entire way. Arrived ten minutes early. Couldn't fault it."</p>
+        <p class="reviewer">— Steve</p>
+      </div>
+      <div class="review">
+        <p class="stars">★★★★★</p>
+        <p>"Collected six of us from three different corners of Kildare at 2am. Didn't complain once. Didn't speak once."</p>
+        <p class="reviewer">— Fallo</p>
+      </div>
+      <div class="review">
+        <p class="stars">★★★★★</p>
+        <p>"Asked him to come out after. He said no. Asked for a lift home instead. Already in the car park. That's Ober."</p>
+        <p class="reviewer">— Killian</p>
+      </div>
+      <div class="review">
+        <p class="stars">★★★★★</p>
+        <p>"Five stars. He also took the bins out, moved a wardrobe and did the garden. Lovely lad. See you tomorrow, same time."</p>
+        <p class="reviewer">— Louise (mother-in-law-to-be)</p>
+      </div>
+      <div class="review">
+        <p class="stars">★★★★★</p>
+        <p>"Great driver. Great fridge. The coke situation is between me and him."</p>
+        <p class="reviewer">— Dermot (father-in-law-to-be)</p>
+      </div>
+      <div class="review">
+        <p class="stars">★★★★★</p>
+        <p>"Who?"</p>
+        <p class="reviewer">— Stephen (shook everyone else's hand)</p>
+      </div>
+      <div class="review">
+        <p class="stars">★★★★★</p>
+        <p>"Sold him a bass amp in school. It was grand. He's been on about it for fifteen years. Anyway, five stars from me."</p>
+        <p class="reviewer">— Ian (he gave me one star back)</p>
+      </div>
+      <div class="review">
+        <p class="stars">★★★★★</p>
+        <p>"Said 'airport? not too bad' and then said nothing else for forty minutes. Perfect journey."</p>
+        <p class="reviewer">— Anonymous rider</p>
+      </div>
+      <div class="review">
+        <p class="stars">★★★★★</p>
+        <p>"He never starts. I never stop. It works."</p>
+        <p class="reviewer">— Olivia (the fiancée, the festival, the force of nature)</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== OBER EATS ===================== -->
+  <section class="section section-alt" id="eats">
+    <h2>Ober Eats</h2>
+    <p class="section-sub">When you find the one, you commit.</p>
+    <div class="eats-card">
+      <h3>Tonight's menu</h3>
+      <ul class="menu">
+        <li><span>The Burger</span> <span class="menu-note">night 1–47, consecutive</span></li>
+        <li><span>The Burger (again)</span> <span class="menu-note">he's not bored, you're bored</span></li>
+        <li><span>Chicken Wings Era</span> <span class="menu-note">discontinued — a moment of silence</span></li>
+        <li><span>The Steak Phase</span> <span class="menu-note">coming soon, for four months, then never again</span></li>
+      </ul>
+      <p class="eats-footer">⭐ "Jar Jar Burgers" — loyalty so strong it became a nickname.</p>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="section" id="faq">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-list">
+      <details>
+        <summary>Will my driver come out after dropping us off?</summary>
+        <p>No.</p>
+      </details>
+      <details>
+        <summary>Can I offer my driver a drink?</summary>
+        <p>You can. Watch him recoil. He has the gym in the morning. He always has the gym in the morning.</p>
+      </details>
+      <details>
+        <summary>Why is my trip going in circles?</summary>
+        <p>Check the step count above. He's close. Let him finish.</p>
+      </details>
+      <details>
+        <summary>Can I get a refund?</summary>
+        <p>Refunds were permanently discontinued following the bass amp incident. He knows what he did. (It was Ian. Ian knows what he did.)</p>
+      </details>
+      <details>
+        <summary>Is Ober affiliated with Uber?</summary>
+        <p>Legally, we're required to say no. He'd say no anyway. He says no to everything.</p>
+      </details>
+      <details>
+        <summary>What music will be playing?</summary>
+        <p>Bass. Sort of.</p>
+      </details>
+      <details>
+        <summary>My driver pulled into a house in Eadestown and a woman handed him a list. How long will this take?</summary>
+        <p>The jobs take as long as the jobs take. The garden won't do itself. The bins won't bring themselves out. Your trip will resume shortly.</p>
+      </details>
+      <details>
+        <summary>Is the service available in August 2026?</summary>
+        <p>No. Driver unavailable — he's marrying Olivia. He poked her sister on Facebook once and it escalated beautifully. He's also becoming Ian's brother-in-law, which means he is never, ever getting rid of him.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- ===================== STAG ANNOUNCEMENT ===================== -->
+  <section class="section section-dark" id="stag">
+    <h2>⚠️ Service interruption notice</h2>
+    <p class="stag-text">
+      OBER will be <strong>offline 19–21 June 2026</strong>.<br>
+      For one weekend only, the driver becomes the passenger.
+    </p>
+    <p class="stag-countdown" id="countdown"></p>
+    <p class="stag-fineprint">Lemon costume mandatory. Resistance is expected and will be ignored.</p>
+  </section>
+
+  <!-- ===================== GALLERY PLACEHOLDER ===================== -->
+  <section class="section" id="evidence">
+    <h2>The Evidence Locker</h2>
+    <p class="section-sub">Photographic proof of everything claimed above. Currently being gathered from the lads.</p>
+    <div class="gallery">
+      <div class="gallery-slot">🗂️</div>
+      <div class="gallery-slot">📸</div>
+      <div class="gallery-slot">🚗</div>
+      <div class="gallery-slot">🛋️</div>
+      <div class="gallery-slot">🏋️</div>
+      <div class="gallery-slot">🍋</div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <p class="logo">OBER<span class="logo-dot">.</span></p>
+    <p>© 2026 Ober Technologies (a lad in a Kia). Not affiliated with Uber, fun after 9pm, or rounds.</p>
+    <p class="muted">By using this service you agree to hear about the bass amp.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
