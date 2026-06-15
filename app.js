@@ -48,6 +48,33 @@ requestBtn.addEventListener("click", () => {
   rideResponse.style.animation = "";
 });
 
+// ---------- Dashcam footage: YouTube embeds ----------
+// To add a video: paste a new { id, title } below.
+// id = the bit after youtu.be/  (e.g. https://youtu.be/ILyfh7CquqY  ->  "ILyfh7CquqY")
+const videos = [
+  { id: "ILyfh7CquqY", title: "Exhibit A — recovered dashcam footage" },
+];
+
+const videoGrid = document.getElementById("video-grid");
+if (videoGrid) {
+  videoGrid.innerHTML = videos
+    .map(
+      (v) => `
+    <figure class="video-card">
+      <div class="video-frame">
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/${v.id}"
+          title="${v.title}"
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
+      <figcaption>${v.title}</figcaption>
+    </figure>`
+    )
+    .join("");
+}
+
 // ---------- Step counter: forever almost done ----------
 const stepsCount = document.getElementById("steps-count");
 const stepsFill = document.getElementById("steps-fill");
