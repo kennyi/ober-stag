@@ -75,6 +75,69 @@ if (videoGrid) {
     .join("");
 }
 
+// ---------- Evidence Locker: photo gallery ----------
+// To add a photo: paste a new { src, caption } below.
+// src = a file in the repo ("assets/img/oran-gym.jpg") OR any full image URL.
+const photos = [
+  // { src: "assets/img/example.jpg", caption: "Caught in the act" },
+];
+
+const gallery = document.getElementById("gallery");
+if (gallery) {
+  if (photos.length === 0) {
+    // Friendly placeholder until the lads cough up the goods.
+    gallery.innerHTML = ["🗂️", "📸", "🚗", "🛋️", "🏋️", "🍋"]
+      .map((e) => `<div class="gallery-slot">${e}</div>`)
+      .join("");
+  } else {
+    gallery.innerHTML = photos
+      .map(
+        (p, i) => `
+      <figure class="gallery-item" data-index="${i}">
+        <img src="${p.src}" alt="${p.caption || ""}" loading="lazy" />
+        ${p.caption ? `<figcaption>${p.caption}</figcaption>` : ""}
+      </figure>`
+      )
+      .join("");
+  }
+}
+
+// ---------- Lightbox ----------
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+const lightboxCaption = document.getElementById("lightbox-caption");
+const lightboxClose = document.getElementById("lightbox-close");
+
+function openLightbox(index) {
+  const p = photos[index];
+  if (!p) return;
+  lightboxImg.src = p.src;
+  lightboxImg.alt = p.caption || "";
+  lightboxCaption.textContent = p.caption || "";
+  lightbox.hidden = false;
+}
+
+function closeLightbox() {
+  lightbox.hidden = true;
+  lightboxImg.src = "";
+}
+
+if (gallery) {
+  gallery.addEventListener("click", (e) => {
+    const item = e.target.closest(".gallery-item");
+    if (item) openLightbox(Number(item.dataset.index));
+  });
+}
+if (lightboxClose) lightboxClose.addEventListener("click", closeLightbox);
+if (lightbox) {
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+}
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && lightbox && !lightbox.hidden) closeLightbox();
+});
+
 // ---------- Step counter: forever almost done ----------
 const stepsCount = document.getElementById("steps-count");
 const stepsFill = document.getElementById("steps-fill");

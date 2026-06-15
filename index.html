@@ -243,19 +243,21 @@
     <p class="stag-fineprint">Lemon costume mandatory. Resistance is expected and will be ignored.</p>
   </section>
 
-  <!-- ===================== GALLERY PLACEHOLDER ===================== -->
+  <!-- ===================== EVIDENCE LOCKER (photo gallery) ===================== -->
   <section class="section" id="evidence">
     <h2>The Evidence Locker</h2>
-    <p class="section-sub">Photographic proof of everything claimed above. Currently being gathered from the lads.</p>
-    <div class="gallery">
-      <div class="gallery-slot">🗂️</div>
-      <div class="gallery-slot">📸</div>
-      <div class="gallery-slot">🚗</div>
-      <div class="gallery-slot">🛋️</div>
-      <div class="gallery-slot">🏋️</div>
-      <div class="gallery-slot">🍋</div>
-    </div>
+    <p class="section-sub">Photographic proof of everything claimed above. Tap any exhibit to enlarge.</p>
+    <div class="gallery" id="gallery"></div>
   </section>
+
+  <!-- Lightbox overlay (opens when a photo is tapped) -->
+  <div class="lightbox" id="lightbox" hidden>
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close">×</button>
+    <figure class="lightbox-figure">
+      <img id="lightbox-img" src="" alt="" />
+      <figcaption id="lightbox-caption"></figcaption>
+    </figure>
+  </div>
 
   <!-- ===================== FOOTER ===================== -->
   <footer class="footer">
