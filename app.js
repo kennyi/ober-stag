@@ -79,7 +79,17 @@ if (videoGrid) {
 // To add a photo: paste a new { src, caption } below.
 // src = a file in the repo ("assets/img/oran-gym.jpg") OR any full image URL.
 const photos = [
-  // { src: "assets/img/example.jpg", caption: "Caught in the act" },
+  { src: "assets/img/5380552f-4a8a-4256-9d59-8416883a1082.jpg", caption: "Couch Certified — pictured in his natural habitat." },
+  { src: "assets/img/3d694535-0458-46d3-b188-2a17464a7b5b.jpg", caption: "Off duty. Still won't give you a lift." },
+  { src: "assets/img/IMG-20211010-WA0032.jpg", caption: "Five stars or you walk." },
+  { src: "assets/img/PXL_20251031_224657615.jpg", caption: "He said no to this. Olivia said yes for him." },
+  { src: "assets/img/f63787f3-f7de-4dd1-a904-0bf6a88e8259.jpg", caption: "Eccentric isn't a phase, it's a personality." },
+  { src: "assets/img/IMG-20201101-WA0008.jpg", caption: "Available for weddings and christenings. Lifts, no." },
+  { src: "assets/img/PXL_20250613_172741888.jpg", caption: "Bewildered. As standard." },
+  { src: "assets/img/PXL_20260207_165324674.jpg", caption: "Barely drinks. Pictured: the exception." },
+  { src: "assets/img/Screenshot_20160731-165600.png", caption: "Gym every morning. This is the gym working." },
+  { src: "assets/img/Screenshot_20170518-205452.png", caption: "Guns out, couch adjacent." },
+  { src: "assets/img/Screenshot_20160717-122421.png", caption: "Founding member. The amp era." },
 ];
 
 const gallery = document.getElementById("gallery");
