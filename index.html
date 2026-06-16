@@ -6,7 +6,7 @@
   <title>OBER — Get there. Eventually.</title>
   <meta name="description" content="Ireland's most reluctant ride-sharing service. One driver. Zero enthusiasm. Five stars." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍋</text></svg>" />
-  <link rel="stylesheet" href="styles.css?v=5" />
+  <link rel="stylesheet" href="styles.css?v=6" />
 </head>
 <body>
 
@@ -258,21 +258,24 @@
     <p class="stag-fineprint">Lemon costume mandatory. Resistance is expected and will be ignored.</p>
   </section>
 
-  <!-- ===================== EVIDENCE LOCKER (photo gallery) ===================== -->
+  <!-- ===================== EVIDENCE LOCKER (carousel) ===================== -->
   <section class="section" id="evidence">
     <h2>The Evidence Locker</h2>
-    <p class="section-sub">Photographic proof of everything claimed above. Tap any exhibit to enlarge.</p>
-    <div class="gallery" id="gallery"></div>
+    <p class="section-sub">Exhibit by exhibit. Click the arrows, the thumbnails, or use ← → keys.</p>
+    <div class="carousel" id="carousel">
+      <div class="carousel-stage">
+        <button class="car-nav car-prev" id="car-prev" type="button" aria-label="Previous exhibit">‹</button>
+        <figure class="car-figure">
+          <img id="car-img" src="" alt="" />
+          <figcaption id="car-caption"></figcaption>
+        </figure>
+        <button class="car-nav car-next" id="car-next" type="button" aria-label="Next exhibit">›</button>
+        <span class="car-counter" id="car-counter"></span>
+        <button class="car-fs" id="car-fs" type="button" aria-label="Toggle fullscreen">⛶</button>
+      </div>
+      <div class="car-thumbs" id="car-thumbs"></div>
+    </div>
   </section>
-
-  <!-- Lightbox overlay (opens when a photo is tapped) -->
-  <div class="lightbox" id="lightbox" hidden>
-    <button class="lightbox-close" id="lightbox-close" aria-label="Close">×</button>
-    <figure class="lightbox-figure">
-      <img id="lightbox-img" src="" alt="" />
-      <figcaption id="lightbox-caption"></figcaption>
-    </figure>
-  </div>
 
   <!-- ===================== FOOTER ===================== -->
   <footer class="footer">
@@ -281,6 +284,6 @@
     <p class="muted">By using this service you agree to hear about the bass amp.</p>
   </footer>
 
-  <script src="app.js?v=5"></script>
+  <script src="app.js?v=6"></script>
 </body>
 </html>

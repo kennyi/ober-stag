@@ -275,61 +275,73 @@ const photos = [
   { src: "assets/img/Screenshot_20160717-122421.png", caption: "Founding member. The amp era." },
 ];
 
-const gallery = document.getElementById("gallery");
-if (gallery) {
-  if (photos.length === 0) {
-    // Friendly placeholder until the lads cough up the goods.
-    gallery.innerHTML = ["🗂️", "📸", "🚗", "🛋️", "🏋️", "🍋"]
-      .map((e) => `<div class="gallery-slot">${e}</div>`)
-      .join("");
-  } else {
-    gallery.innerHTML = photos
-      .map(
-        (p, i) => `
-      <figure class="gallery-item" data-index="${i}">
-        <img src="${p.src}" alt="${p.caption || ""}" loading="lazy" />
-        ${p.caption ? `<figcaption>${p.caption}</figcaption>` : ""}
-      </figure>`
-      )
-      .join("");
-  }
-}
+const carousel = document.getElementById("carousel");
+const carImg = document.getElementById("car-img");
+const carCaption = document.getElementById("car-caption");
+const carCounter = document.getElementById("car-counter");
+const carThumbs = document.getElementById("car-thumbs");
+const carPrev = document.getElementById("car-prev");
+const carNext = document.getElementById("car-next");
+const carFs = document.getElementById("car-fs");
 
-// ---------- Lightbox ----------
-const lightbox = document.getElementById("lightbox");
-const lightboxImg = document.getElementById("lightbox-img");
-const lightboxCaption = document.getElementById("lightbox-caption");
-const lightboxClose = document.getElementById("lightbox-close");
+let carIndex = 0;
 
-function openLightbox(index) {
-  const p = photos[index];
+function renderCarousel() {
+  const p = photos[carIndex];
   if (!p) return;
-  lightboxImg.src = p.src;
-  lightboxImg.alt = p.caption || "";
-  lightboxCaption.textContent = p.caption || "";
-  lightbox.hidden = false;
+  carImg.src = p.src;
+  carImg.alt = p.caption || "";
+  carCaption.textContent = p.caption || "";
+  carCounter.textContent = `${carIndex + 1} / ${photos.length}`;
+  Array.from(carThumbs.children).forEach((t, i) => t.classList.toggle("active", i === carIndex));
+  const activeThumb = carThumbs.children[carIndex];
+  if (activeThumb) activeThumb.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
 }
 
-function closeLightbox() {
-  lightbox.hidden = true;
-  lightboxImg.src = "";
+function carGoTo(i) {
+  carIndex = (i + photos.length) % photos.length;
+  renderCarousel();
 }
 
-if (gallery) {
-  gallery.addEventListener("click", (e) => {
-    const item = e.target.closest(".gallery-item");
-    if (item) openLightbox(Number(item.dataset.index));
-  });
+function carInView() {
+  if (document.fullscreenElement === carousel) return true;
+  const r = carousel.getBoundingClientRect();
+  return r.top < window.innerHeight && r.bottom > 0;
 }
-if (lightboxClose) lightboxClose.addEventListener("click", closeLightbox);
-if (lightbox) {
-  lightbox.addEventListener("click", (e) => {
-    if (e.target === lightbox) closeLightbox();
+
+if (carousel && photos.length) {
+  carThumbs.innerHTML = photos
+    .map(
+      (p, i) =>
+        `<button class="car-thumb" type="button" data-index="${i}" aria-label="Exhibit ${i + 1}"><img src="${p.src}" alt="" loading="lazy" /></button>`
+    )
+    .join("");
+
+  carThumbs.addEventListener("click", (e) => {
+    const t = e.target.closest(".car-thumb");
+    if (t) carGoTo(Number(t.dataset.index));
   });
+  carPrev.addEventListener("click", () => carGoTo(carIndex - 1));
+  carNext.addEventListener("click", () => carGoTo(carIndex + 1));
+  carFs.addEventListener("click", () => {
+    if (!document.fullscreenElement) carousel.requestFullscreen?.().catch(() => {});
+    else document.exitFullscreen?.();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    const tag = (e.target.tagName || "").toLowerCase();
+    if (tag === "input" || tag === "textarea") return;
+    if (!carInView()) return;
+    if (e.key === "ArrowLeft") carGoTo(carIndex - 1);
+    else if (e.key === "ArrowRight") carGoTo(carIndex + 1);
+  });
+
+  renderCarousel();
+} else if (carousel) {
+  if (carImg) carImg.remove();
+  if (carCaption) carCaption.textContent = "Evidence being gathered from the lads…";
+  if (carCounter) carCounter.textContent = "0 / 0";
 }
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && lightbox && !lightbox.hidden) closeLightbox();
-});
 
 // ---------- Step counter: forever almost done ----------
 const stepsCount = document.getElementById("steps-count");

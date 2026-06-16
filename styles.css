@@ -717,103 +717,135 @@ body.lemon-mode .hero h1 .accent { color: #c9a800; }
   color: var(--text);
 }
 
-/* ---------- Gallery (Evidence Locker) ---------- */
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-  gap: 1rem;
-}
+/* ---------- Evidence Locker carousel ---------- */
+.carousel { max-width: 62rem; margin: 0 auto; }
 
-.gallery-item {
+.carousel-stage {
   position: relative;
-  margin: 0;
-  aspect-ratio: 1;
-  border-radius: 1rem;
-  overflow: hidden;
-  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  min-height: 360px;
   background: var(--card);
   border: 1px solid var(--border);
+  border-radius: 1rem;
+  overflow: hidden;
 }
 
-.gallery-item img {
+.car-figure {
+  margin: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.gallery-item:hover img { transform: scale(1.06); }
+.car-figure img { max-width: 100%; max-height: 100%; object-fit: contain; }
 
-.gallery-item figcaption {
+.car-figure figcaption {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 1.5rem 0.85rem 0.7rem;
-  font-size: 0.85rem;
-  color: #fff;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
-.gallery-item:hover figcaption { opacity: 1; }
-
-/* Empty-state placeholder tiles */
-.gallery-slot {
-  aspect-ratio: 1;
-  background: var(--card);
-  border: 2px dashed var(--border);
-  border-radius: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 3rem;
-  opacity: 0.6;
-}
-
-/* ---------- Lightbox ---------- */
-.lightbox {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  background: rgba(0, 0, 0, 0.92);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-}
-.lightbox[hidden] { display: none; }
-
-.lightbox-figure {
-  margin: 0;
-  max-width: 90vw;
-  max-height: 90vh;
+  padding: 2.5rem 1.25rem 1rem;
   text-align: center;
-}
-
-.lightbox-figure img {
-  max-width: 90vw;
-  max-height: 80vh;
-  object-fit: contain;
-  border-radius: 0.5rem;
-}
-
-.lightbox-figure figcaption {
-  margin-top: 1rem;
-  color: #f5f5f5;
   font-size: 1rem;
+  color: #fff;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
 }
 
-.lightbox-close {
+.car-nav {
   position: absolute;
-  top: 1.25rem;
-  right: 1.75rem;
-  background: none;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
   border: none;
+  background: rgba(0, 0, 0, 0.55);
   color: #fff;
-  font-size: 2.5rem;
+  font-size: 1.9rem;
   line-height: 1;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, color 0.15s;
 }
+.car-nav:hover { background: var(--accent); color: #111; }
+.car-prev { left: 0.75rem; }
+.car-next { right: 0.75rem; }
+
+.car-counter {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.9rem;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 0.8rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 1rem;
+}
+
+.car-fs {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.9rem;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  border: none;
+  font-size: 0.95rem;
+  padding: 0.3rem 0.55rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.car-fs:hover { background: var(--accent); color: #111; }
+
+.car-thumbs {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding-bottom: 0.5rem;
+  overflow-x: auto;
+}
+.car-thumb {
+  flex: 0 0 auto;
+  width: 4.5rem;
+  height: 4.5rem;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--card);
+  opacity: 0.5;
+  transition: opacity 0.15s, border-color 0.15s;
+}
+.car-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.car-thumb:hover { opacity: 0.85; }
+.car-thumb.active { opacity: 1; border-color: var(--accent); }
+
+/* Fullscreen presentation mode */
+.carousel:fullscreen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #000;
+  padding: 1rem;
+}
+.carousel:fullscreen .carousel-stage {
+  flex: 1;
+  height: auto;
+  border: none;
+  border-radius: 0;
+  background: #000;
+}
+.carousel:fullscreen .car-thumbs { flex: 0 0 auto; }
 
 /* ---------- Footer ---------- */
 .footer {
