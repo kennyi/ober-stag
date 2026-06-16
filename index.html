@@ -6,7 +6,7 @@
   <title>OBER — Get there. Eventually.</title>
   <meta name="description" content="Ireland's most reluctant ride-sharing service. One driver. Zero enthusiasm. Five stars." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍋</text></svg>" />
-  <link rel="stylesheet" href="styles.css?v=3" />
+  <link rel="stylesheet" href="styles.css?v=4" />
 </head>
 <body>
 
@@ -51,13 +51,65 @@
     <p class="section-sub">Enter your trip details. Our driver will consider it. Briefly.</p>
 
     <div class="ride-widget">
-      <div class="ride-form">
-        <div class="ride-inputs">
-          <input type="text" id="pickup" placeholder="Pickup — e.g. Somewhere in Kildare, 2am" />
-          <input type="text" id="destination" placeholder="Destination — e.g. Airport" />
-          <button id="request-btn">Request Ober</button>
+      <div class="ride-left">
+        <div class="ride-form">
+          <div class="ride-inputs">
+            <input type="text" id="pickup" placeholder="Pickup — e.g. Somewhere in Kildare, 2am" />
+            <input type="text" id="destination" placeholder="Destination — e.g. Airport" />
+            <button id="request-btn">Request Ober</button>
+          </div>
+          <p class="ride-hint">Tip: he respects exactly three destinations. The rest, you'll see.</p>
         </div>
-        <p class="ride-hint">Tip: he respects exactly three destinations. The rest, you'll see.</p>
+
+        <!-- Your driver, as an Irish licence -->
+        <div class="licence" id="driver">
+          <div class="licence-header">
+            <svg class="eu-emblem" viewBox="0 0 60 60" width="50" height="50" aria-hidden="true">
+              <circle cx="30" cy="30" r="29" fill="#003399" />
+              <g fill="#ffcc00" font-size="7" text-anchor="middle" dominant-baseline="central" font-family="serif">
+                <text x="30" y="11">★</text><text x="40" y="13.2">★</text><text x="47.3" y="20">★</text>
+                <text x="50" y="30">★</text><text x="47.3" y="40">★</text><text x="40" y="46.8">★</text>
+                <text x="30" y="49">★</text><text x="20" y="46.8">★</text><text x="12.7" y="40">★</text>
+                <text x="10" y="30">★</text><text x="12.7" y="20">★</text><text x="20" y="13.2">★</text>
+              </g>
+              <text x="30" y="32" fill="#ffcc00" font-size="12" font-weight="bold" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">IRL</text>
+            </svg>
+            <div class="licence-titles">
+              <p class="lic-t1">Ceadúnas Tiomána · Driving Licence</p>
+              <p class="lic-t2">ÉIRE · IRELAND</p>
+            </div>
+            <span class="lic-stamp">★ 5.0<br /><small>RATING LOCKED</small></span>
+          </div>
+
+          <div class="licence-body">
+            <div class="licence-left">
+              <img class="licence-photo" src="assets/img/PXL_20220115_001216262.jpg" alt="Oran 'Ober' Clare" />
+              <p class="licence-sig">Oran Clare</p>
+              <p class="lic-field lic-driverno"><span class="lic-num">5.</span> OBER·14782·LEMON</p>
+            </div>
+            <div class="licence-right">
+              <p class="lic-field"><span class="lic-num">1.</span><span class="lic-label">Surname</span> CLARE</p>
+              <p class="lic-field"><span class="lic-num">2.</span><span class="lic-label">First names</span> ORAN "OBER"</p>
+              <p class="lic-field"><span class="lic-num">3.</span><span class="lic-label">Born</span> MONREAD, NAAS</p>
+              <p class="lic-field"><span class="lic-num">4a.</span><span class="lic-label">Issued</span> THE AMP INCIDENT</p>
+              <p class="lic-field"><span class="lic-num">4b.</span><span class="lic-label">Expires</span> NEVER · SEE: IAN</p>
+              <p class="lic-field"><span class="lic-num">4c.</span><span class="lic-label">Authority</span> N.D.L.S. · NAAS DESIGNATED LIFT SERVICE</p>
+              <p class="lic-field"><span class="lic-num">8.</span><span class="lic-label">Address</span> THE COUCH, EADESTOWN</p>
+              <p class="lic-field"><span class="lic-num">9.</span><span class="lic-label">Categories</span> B · COUCH · NO</p>
+            </div>
+          </div>
+
+          <div class="licence-foot">
+            <div class="licence-endorsements">
+              <span class="badge">🚱 Barely Drinks</span>
+              <span class="badge">👟 10,000 Steps</span>
+              <span class="badge">🏋️ Gym Before Anything</span>
+              <span class="badge">🛋️ Couch Certified</span>
+              <span class="badge">❌ Says No</span>
+            </div>
+            <p class="licence-note">Vehicle: Kia (spotless, beloved, discussed at length) · College: Print &amp; Design, Mickey Mouse, Dublin · Languages: English, Funny Voices, No · 14,782 trips completed (0 paid)</p>
+          </div>
+        </div>
       </div>
 
       <!-- Fake Pixel 10 running the "Ober" chat app -->
@@ -86,6 +138,16 @@
       </div>
     </div>
 
+    <!-- Live driver location tracker -->
+    <div class="tracker">
+      <h3>Live driver location</h3>
+      <p class="tracker-status" id="tracker-status">📍 Doing loops of Eadestown for the step count…</p>
+      <div class="steps-bar">
+        <div class="steps-fill" id="steps-fill"></div>
+      </div>
+      <p class="steps-label"><span id="steps-count">9,214</span> / 10,000 steps — he is not getting in the car until this is done</p>
+    </div>
+
     <!-- Ride tiers -->
     <div class="tiers">
       <div class="tier-card">
@@ -112,69 +174,6 @@
         <p>He stays home. You stay home. Nobody goes anywhere. Our most popular service.</p>
         <p class="tier-price">Free, forever</p>
       </div>
-    </div>
-  </section>
-
-  <!-- ===================== DRIVER PROFILE ===================== -->
-  <section class="section section-alt" id="driver">
-    <h2>Meet your driver</h2>
-    <div class="licence">
-      <div class="licence-header">
-        <svg class="eu-emblem" viewBox="0 0 60 60" width="50" height="50" aria-hidden="true">
-          <circle cx="30" cy="30" r="29" fill="#003399" />
-          <g fill="#ffcc00" font-size="7" text-anchor="middle" dominant-baseline="central" font-family="serif">
-            <text x="30" y="11">★</text><text x="40" y="13.2">★</text><text x="47.3" y="20">★</text>
-            <text x="50" y="30">★</text><text x="47.3" y="40">★</text><text x="40" y="46.8">★</text>
-            <text x="30" y="49">★</text><text x="20" y="46.8">★</text><text x="12.7" y="40">★</text>
-            <text x="10" y="30">★</text><text x="12.7" y="20">★</text><text x="20" y="13.2">★</text>
-          </g>
-          <text x="30" y="32" fill="#ffcc00" font-size="12" font-weight="bold" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">IRL</text>
-        </svg>
-        <div class="licence-titles">
-          <p class="lic-t1">Ceadúnas Tiomána · Driving Licence</p>
-          <p class="lic-t2">ÉIRE · IRELAND</p>
-        </div>
-        <span class="lic-stamp">★ 5.0<br /><small>RATING LOCKED</small></span>
-      </div>
-
-      <div class="licence-body">
-        <div class="licence-left">
-          <img class="licence-photo" src="assets/img/PXL_20220115_001216262.jpg" alt="Oran 'Ober' Clare" />
-          <p class="licence-sig">Oran Clare</p>
-          <p class="lic-field lic-driverno"><span class="lic-num">5.</span> OBER·14782·LEMON</p>
-        </div>
-        <div class="licence-right">
-          <p class="lic-field"><span class="lic-num">1.</span><span class="lic-label">Surname</span> CLARE</p>
-          <p class="lic-field"><span class="lic-num">2.</span><span class="lic-label">First names</span> ORAN "OBER"</p>
-          <p class="lic-field"><span class="lic-num">3.</span><span class="lic-label">Born</span> MONREAD, NAAS</p>
-          <p class="lic-field"><span class="lic-num">4a.</span><span class="lic-label">Issued</span> THE AMP INCIDENT</p>
-          <p class="lic-field"><span class="lic-num">4b.</span><span class="lic-label">Expires</span> NEVER · SEE: IAN</p>
-          <p class="lic-field"><span class="lic-num">4c.</span><span class="lic-label">Authority</span> N.D.L.S. · NAAS DESIGNATED LIFT SERVICE</p>
-          <p class="lic-field"><span class="lic-num">8.</span><span class="lic-label">Address</span> THE COUCH, EADESTOWN</p>
-          <p class="lic-field"><span class="lic-num">9.</span><span class="lic-label">Categories</span> B · COUCH · NO</p>
-        </div>
-      </div>
-
-      <div class="licence-foot">
-        <div class="licence-endorsements">
-          <span class="badge">🚱 Barely Drinks</span>
-          <span class="badge">👟 10,000 Steps</span>
-          <span class="badge">🏋️ Gym Before Anything</span>
-          <span class="badge">🛋️ Couch Certified</span>
-          <span class="badge">❌ Says No</span>
-        </div>
-        <p class="licence-note">Vehicle: Kia (spotless, beloved, discussed at length) · College: Print &amp; Design, Mickey Mouse, Dublin · Languages: English, Funny Voices, No · 14,782 trips completed (0 paid)</p>
-      </div>
-    </div>
-
-    <!-- Live tracker gag -->
-    <div class="tracker">
-      <h3>Live driver location</h3>
-      <p class="tracker-status" id="tracker-status">📍 Doing loops of Eadestown for the step count…</p>
-      <div class="steps-bar">
-        <div class="steps-fill" id="steps-fill"></div>
-      </div>
-      <p class="steps-label"><span id="steps-count">9,214</span> / 10,000 steps — he is not getting in the car until this is done</p>
     </div>
   </section>
 
@@ -282,6 +281,6 @@
     <p class="muted">By using this service you agree to hear about the bass amp.</p>
   </footer>
 
-  <script src="app.js?v=3"></script>
+  <script src="app.js?v=4"></script>
 </body>
 </html>
