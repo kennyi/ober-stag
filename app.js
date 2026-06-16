@@ -48,6 +48,63 @@ requestBtn.addEventListener("click", () => {
   rideResponse.style.animation = "";
 });
 
+// ---------- Reviews ----------
+// Add a review with { quote, reviewer }. Add an optional videoId (the bit after
+// youtube.com/shorts/ or youtu.be/) to pair a video testimonial beside the quote.
+const reviews = [
+  { quote: "Collected six of us from three different corners of Kildare at 2am. Didn't complain once. Didn't speak once.", reviewer: "Fallo", videoId: "8nLLvnATK8Y" },
+  { quote: "Drove like an absolute maniac the entire way. Arrived ten minutes early. Couldn't fault it.", reviewer: "Steve" },
+  { quote: "Asked him to come out after. He said no. Asked for a lift home instead. Already in the car park. That's Ober.", reviewer: "Killian" },
+  { quote: "Five stars. He also took the bins out, moved a wardrobe and did the garden. Lovely lad. See you tomorrow, same time.", reviewer: "Louise (mother-in-law-to-be)" },
+  { quote: "Great driver. Great fridge. The coke situation is between me and him.", reviewer: "Dermot (father-in-law-to-be)" },
+  { quote: "Who?", reviewer: "Stephen (shook everyone else's hand)" },
+  { quote: "Sold him a bass amp in school. It was grand. He's been on about it for fifteen years. Anyway, five stars from me.", reviewer: "Ian (he gave me one star back)" },
+  { quote: "Said 'airport? not too bad' and then said nothing else for forty minutes. Perfect journey.", reviewer: "Anonymous rider" },
+  { quote: "He never starts. I never stop. It works.", reviewer: "Olivia (the fiancée, the festival, the force of nature)" },
+];
+
+const reviewsFeatured = document.getElementById("reviews-featured");
+const reviewsGrid = document.getElementById("reviews-grid");
+
+if (reviewsFeatured) {
+  reviewsFeatured.innerHTML = reviews
+    .filter((r) => r.videoId)
+    .map(
+      (r) => `
+    <figure class="review-featured">
+      <div class="review-video">
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/${r.videoId}"
+          title="Video review from ${r.reviewer}"
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
+      <figcaption class="review-quote">
+        <p class="stars">★★★★★</p>
+        <p class="review-text">"${r.quote}"</p>
+        <p class="reviewer">— ${r.reviewer}</p>
+        <p class="review-badge">🎥 Verified video review</p>
+      </figcaption>
+    </figure>`
+    )
+    .join("");
+}
+
+if (reviewsGrid) {
+  reviewsGrid.innerHTML = reviews
+    .filter((r) => !r.videoId)
+    .map(
+      (r) => `
+    <div class="review">
+      <p class="stars">★★★★★</p>
+      <p>"${r.quote}"</p>
+      <p class="reviewer">— ${r.reviewer}</p>
+    </div>`
+    )
+    .join("");
+}
+
 // ---------- Dashcam footage: YouTube embeds ----------
 // To add a video: paste a new { id, title } below.
 // id = the bit after youtu.be/  (e.g. https://youtu.be/ILyfh7CquqY  ->  "ILyfh7CquqY")

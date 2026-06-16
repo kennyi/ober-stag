@@ -339,6 +339,42 @@ body.lemon-mode .hero h1 .accent { color: #c9a800; }
 
 .reviewer { margin-top: 1rem; color: var(--muted); font-size: 0.9rem; }
 
+/* ---------- Featured video reviews ---------- */
+.reviews-featured {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.review-featured {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.75rem;
+  align-items: center;
+  background: var(--card);
+  border: 1px solid var(--accent);
+  border-radius: 1rem;
+  padding: 1.75rem;
+}
+
+.review-video {
+  flex: 0 0 auto;
+  width: 15rem;
+  max-width: 100%;
+  aspect-ratio: 9 / 16;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background: #000;
+}
+.review-video iframe { width: 100%; height: 100%; border: 0; }
+
+.review-quote { flex: 1 1 18rem; margin: 0; }
+
+.review-text { font-size: 1.35rem; margin: 0.5rem 0 1rem; line-height: 1.4; }
+
+.review-badge { color: var(--accent); font-size: 0.85rem; font-weight: 600; margin-top: 0.5rem; }
+
 /* ---------- Ober Eats ---------- */
 .eats-card {
   background: var(--card);
