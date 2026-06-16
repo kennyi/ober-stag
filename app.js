@@ -20,33 +20,80 @@ const accepts = [
 ];
 
 const requestBtn = document.getElementById("request-btn");
-const rideResponse = document.getElementById("ride-response");
+const pickupInput = document.getElementById("pickup");
 const destinationInput = document.getElementById("destination");
+const chat = document.getElementById("chat");
+const appStatus = document.getElementById("app-status");
 
 let declineIndex = 0;
 
-requestBtn.addEventListener("click", () => {
-  const destination = destinationInput.value.trim().toLowerCase();
-  let message;
-
-  if (destination.includes("airport")) {
-    message = accepts[Math.floor(Math.random() * accepts.length)];
-  } else if (destination.includes("gym")) {
-    message = "✅ Request accepted instantly. Fastest pickup in Ober history. He was already in the gear.";
-  } else if (destination.includes("couch") || destination.includes("home")) {
-    message = "✅ Request accepted. Finally, someone who gets it.";
-  } else {
-    message = declines[declineIndex % declines.length];
-    declineIndex++;
+// Decide Ober's reply using the existing gag logic.
+function getReply(destination) {
+  const d = destination.toLowerCase();
+  if (d.includes("airport")) {
+    return accepts[Math.floor(Math.random() * accepts.length)];
+  } else if (d.includes("gym")) {
+    return "✅ Request accepted instantly. Fastest pickup in Ober history. He was already in the gear.";
+  } else if (d.includes("couch") || d.includes("home")) {
+    return "✅ Request accepted. Finally, someone who gets it.";
   }
+  return declines[declineIndex++ % declines.length];
+}
 
-  rideResponse.textContent = message;
-  rideResponse.classList.remove("hidden");
-  // retrigger the slide-in animation
-  rideResponse.style.animation = "none";
-  void rideResponse.offsetHeight;
-  rideResponse.style.animation = "";
-});
+function addBubble(text, kind) {
+  const b = document.createElement("div");
+  b.className = `bubble ${kind}`;
+  b.textContent = text;
+  chat.appendChild(b);
+  chat.scrollTop = chat.scrollHeight;
+  return b;
+}
+
+function showTyping() {
+  const b = document.createElement("div");
+  b.className = "bubble received typing";
+  b.innerHTML = '<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>';
+  chat.appendChild(b);
+  chat.scrollTop = chat.scrollHeight;
+  return b;
+}
+
+if (requestBtn && chat) {
+  requestBtn.addEventListener("click", () => {
+    const pickup = pickupInput.value.trim() || "wherever you are";
+    const destination = destinationInput.value.trim() || "anywhere";
+
+    // Your request, as a sent message.
+    addBubble(`🚗 Pickup: ${pickup} → ${destination}`, "sent");
+
+    // Ober starts "typing", then replies.
+    requestBtn.disabled = true;
+    if (appStatus) {
+      appStatus.classList.add("typing");
+      appStatus.innerHTML = '<span class="app-dot"></span>typing…';
+    }
+    const typing = showTyping();
+    const delay = 800 + Math.random() * 700;
+
+    setTimeout(() => {
+      typing.remove();
+      addBubble(getReply(destination), "received");
+      requestBtn.disabled = false;
+      if (appStatus) {
+        appStatus.classList.remove("typing");
+        appStatus.innerHTML = '<span class="app-dot"></span>online';
+      }
+    }, delay);
+  });
+}
+
+// Seed the chat with an opening greeting so the app isn't empty.
+if (chat) {
+  const greet = document.createElement("div");
+  greet.className = "bubble received";
+  greet.textContent = "Ober here. Where to? (No promises.)";
+  chat.appendChild(greet);
+}
 
 // ---------- Reviews ----------
 // Add a review with { quote, reviewer }. Add an optional videoId (the bit after

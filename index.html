@@ -6,7 +6,7 @@
   <title>OBER — Get there. Eventually.</title>
   <meta name="description" content="Ireland's most reluctant ride-sharing service. One driver. Zero enthusiasm. Five stars." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍋</text></svg>" />
-  <link rel="stylesheet" href="styles.css?v=2" />
+  <link rel="stylesheet" href="styles.css?v=3" />
 </head>
 <body>
 
@@ -51,12 +51,39 @@
     <p class="section-sub">Enter your trip details. Our driver will consider it. Briefly.</p>
 
     <div class="ride-widget">
-      <div class="ride-inputs">
-        <input type="text" id="pickup" placeholder="Pickup — e.g. Somewhere in Kildare, 2am" />
-        <input type="text" id="destination" placeholder="Destination — e.g. Airport" />
-        <button id="request-btn">Request Ober</button>
+      <div class="ride-form">
+        <div class="ride-inputs">
+          <input type="text" id="pickup" placeholder="Pickup — e.g. Somewhere in Kildare, 2am" />
+          <input type="text" id="destination" placeholder="Destination — e.g. Airport" />
+          <button id="request-btn">Request Ober</button>
+        </div>
+        <p class="ride-hint">Tip: he respects exactly three destinations. The rest, you'll see.</p>
       </div>
-      <div id="ride-response" class="ride-response hidden"></div>
+
+      <!-- Fake Pixel 10 running the "Ober" chat app -->
+      <div class="phone" aria-hidden="true">
+        <div class="phone-screen">
+          <div class="phone-statusbar">
+            <span class="phone-time" id="phone-time">9:41</span>
+            <span class="phone-camera"></span>
+            <span class="phone-icons">
+              <span class="phone-ico">📶</span><span class="phone-ico">📡</span><span class="phone-ico">🔋</span>
+            </span>
+          </div>
+          <div class="app-bar">
+            <span class="app-back">‹</span>
+            <img class="app-avatar" src="assets/img/PXL_20220115_001216262.jpg" alt="" />
+            <div class="app-driver">
+              <p class="app-name">Oran "Ober" Clare <span class="app-rating">★ 5.0</span></p>
+              <p class="app-status" id="app-status"><span class="app-dot"></span>online</p>
+            </div>
+            <span class="app-logo">OBER<span class="logo-dot">.</span></span>
+          </div>
+          <div class="chat" id="chat">
+            <div class="chat-day">Ober • now</div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Ride tiers -->
@@ -230,6 +257,6 @@
     <p class="muted">By using this service you agree to hear about the bass amp.</p>
   </footer>
 
-  <script src="app.js?v=2"></script>
+  <script src="app.js?v=3"></script>
 </body>
 </html>
