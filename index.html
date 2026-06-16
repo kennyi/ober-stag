@@ -26,14 +26,23 @@
 
   <!-- ===================== HERO ===================== -->
   <header class="hero" id="top">
-    <p class="hero-eyebrow">Proudly serving Naas, Eadestown &amp; anywhere the lads are stranded</p>
-    <h1>Get there.<br><span class="accent">Eventually.</span></h1>
-    <p class="hero-sub">
-      Ireland's most reluctant ride-sharing service.<br>
-      One driver. Zero enthusiasm. Five stars.
-    </p>
-    <a href="#ride" class="cta">Request a ride</a>
-    <p class="hero-fineprint">Requests subject to refusal. All requests are refused.</p>
+    <!-- Background promo video. Drop a muted MP4 at assets/video/hero.mp4 and it
+         autoplays here. Until then, the solid hero background shows (graceful). -->
+    <video class="hero-video" autoplay muted loop playsinline preload="auto">
+      <source src="assets/video/hero.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow">Proudly serving Naas, Eadestown &amp; anywhere the lads are stranded</p>
+      <h1>Get there.<br><span class="accent">Eventually.</span></h1>
+      <p class="hero-sub">
+        Ireland's most reluctant ride-sharing service.<br>
+        One driver. Zero enthusiasm. Five stars.
+      </p>
+      <a href="#ride" class="cta">Request a ride</a>
+      <p class="hero-fineprint">Requests subject to refusal. All requests are refused.</p>
+    </div>
   </header>
 
   <!-- ===================== RIDE REQUEST ===================== -->
