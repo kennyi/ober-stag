@@ -178,7 +178,7 @@ if (chat) {
 // Add a review with { quote, reviewer }. Add an optional videoId (the bit after
 // youtube.com/shorts/ or youtu.be/) to pair a video testimonial beside the quote.
 const reviews = [
-  { quote: "Collected six of us from three different corners of Kildare at 2am. Didn't complain once. Didn't speak once.", reviewer: "Fallo", videoId: "8nLLvnATK8Y" },
+  { quote: "Collected six of us from three different corners of Kildare at 2am. Didn't complain once. Didn't speak once.", reviewer: "Fallo", videoId: "UAZ_mpt0G14", end: 9 },
   { quote: "Drove like an absolute maniac the entire way. Arrived ten minutes early. Couldn't fault it.", reviewer: "Steve" },
   { quote: "Asked him to come out after. He said no. Asked for a lift home instead. Already in the car park. That's Ober.", reviewer: "Killian" },
   { quote: "Five stars. He also took the bins out, moved a wardrobe and did the garden. Lovely lad. See you tomorrow, same time.", reviewer: "Louise (mother-in-law-to-be)" },
@@ -195,12 +195,18 @@ const reviewsGrid = document.getElementById("reviews-grid");
 if (reviewsFeatured) {
   reviewsFeatured.innerHTML = reviews
     .filter((r) => r.videoId)
-    .map(
-      (r) => `
+    .map((r) => {
+      // Optional trimming: start/end (seconds) become YouTube embed params.
+      const params = new URLSearchParams();
+      if (r.start) params.set("start", r.start);
+      if (r.end) params.set("end", r.end);
+      const q = params.toString();
+      const src = `https://www.youtube-nocookie.com/embed/${r.videoId}${q ? "?" + q : ""}`;
+      return `
     <figure class="review-featured">
       <div class="review-video">
         <iframe
-          src="https://www.youtube-nocookie.com/embed/${r.videoId}"
+          src="${src}"
           title="Video review from ${r.reviewer}"
           loading="lazy"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -212,8 +218,8 @@ if (reviewsFeatured) {
         <p class="reviewer">— ${r.reviewer}</p>
         <p class="review-badge">🎥 Verified video review</p>
       </figcaption>
-    </figure>`
-    )
+    </figure>`;
+    })
     .join("");
 }
 
