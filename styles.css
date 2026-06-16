@@ -363,6 +363,35 @@ body.lemon-mode .hero h1 .accent { color: #c9a800; }
   30% { transform: translateY(-4px); opacity: 1; }
 }
 
+/* Voice note bubble */
+.bubble.voice { display: flex; align-items: center; gap: 9px; padding: 8px 11px; min-width: 175px; }
+.voice-play {
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  background: var(--accent);
+  color: #1a1500;
+  font-size: 0.72rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.voice-wave { display: flex; align-items: center; gap: 2px; height: 26px; flex: 1; }
+.voice-wave span { width: 2px; background: #8a8f98; border-radius: 2px; opacity: 0.7; }
+.bubble.voice.playing .voice-wave span {
+  background: var(--accent);
+  animation: voice-pulse 0.9s infinite ease-in-out;
+}
+.voice-dur { font-size: 0.64rem; color: #8a8f98; flex: 0 0 auto; }
+
+@keyframes voice-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
 @media (max-width: 760px) {
   .ride-widget { grid-template-columns: 1fr; }
   .phone { justify-self: center; }

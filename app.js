@@ -58,6 +58,80 @@ function showTyping() {
   return b;
 }
 
+// Voice notes from Ober — sometimes he replies to a refusal with one of these.
+// (Add more clips here; .ogg works on Android/desktop. Add .mp3 versions for iPhones.)
+const voiceClips = [
+  { src: "assets/audio/oran-shit.ogg", label: "0:11" },
+  { src: "assets/audio/oran-eyes.ogg", label: "0:15" },
+];
+
+function isAcceptDestination(d) {
+  d = d.toLowerCase();
+  return d.includes("airport") || d.includes("gym") || d.includes("couch") || d.includes("home");
+}
+
+let currentAudio = null;
+
+function addVoiceBubble(clip) {
+  const src = clip.src;
+  const wrap = document.createElement("div");
+  wrap.className = "bubble received voice";
+
+  const btn = document.createElement("button");
+  btn.className = "voice-play";
+  btn.type = "button";
+  btn.setAttribute("aria-label", "Play voice message from Ober");
+  btn.textContent = "▶";
+
+  const wave = document.createElement("div");
+  wave.className = "voice-wave";
+  [6, 12, 18, 9, 22, 14, 8, 17, 21, 11, 7, 19, 12, 23, 9, 15, 13, 20, 8, 13].forEach((h) => {
+    const bar = document.createElement("span");
+    bar.style.height = h + "px";
+    wave.appendChild(bar);
+  });
+
+  const dur = document.createElement("span");
+  dur.className = "voice-dur";
+  dur.textContent = clip.label || "🎤";
+
+  const audio = new Audio(src);
+  audio.preload = "metadata";
+  function showDuration() {
+    if (isFinite(audio.duration) && audio.duration > 0) {
+      const m = Math.floor(audio.duration / 60);
+      const s = Math.floor(audio.duration % 60);
+      dur.textContent = `${m}:${String(s).padStart(2, "0")}`;
+    }
+  }
+  audio.addEventListener("loadedmetadata", showDuration);
+  audio.addEventListener("durationchange", showDuration);
+  audio.addEventListener("play", () => { btn.textContent = "⏸"; wrap.classList.add("playing"); });
+  audio.addEventListener("pause", () => { btn.textContent = "▶"; wrap.classList.remove("playing"); });
+  audio.addEventListener("ended", () => { btn.textContent = "▶"; wrap.classList.remove("playing"); });
+
+  function toggle() {
+    if (audio.paused) {
+      if (currentAudio && currentAudio !== audio) currentAudio.pause();
+      currentAudio = audio;
+      audio.play().catch(() => {});
+    } else {
+      audio.pause();
+    }
+  }
+  btn.addEventListener("click", toggle);
+
+  wrap.append(btn, wave, dur);
+  chat.appendChild(wrap);
+  chat.scrollTop = chat.scrollHeight;
+
+  // Try to autoplay (works once the user has interacted — i.e. after their click).
+  // Silently ignored on stricter browsers; they can tap the play button instead.
+  if (currentAudio && currentAudio !== audio) currentAudio.pause();
+  currentAudio = audio;
+  audio.play().catch(() => {});
+}
+
 if (requestBtn && chat) {
   requestBtn.addEventListener("click", () => {
     const pickup = pickupInput.value.trim() || "wherever you are";
@@ -77,7 +151,12 @@ if (requestBtn && chat) {
 
     setTimeout(() => {
       typing.remove();
-      addBubble(getReply(destination), "received");
+      // On a refusal, sometimes he just sends a voice note instead of typing back.
+      if (!isAcceptDestination(destination) && voiceClips.length && Math.random() < 0.45) {
+        addVoiceBubble(voiceClips[Math.floor(Math.random() * voiceClips.length)]);
+      } else {
+        addBubble(getReply(destination), "received");
+      }
       requestBtn.disabled = false;
       if (appStatus) {
         appStatus.classList.remove("typing");
