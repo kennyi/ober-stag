@@ -6,7 +6,7 @@
   <title>OBER — Get there. Eventually.</title>
   <meta name="description" content="Ireland's most reluctant ride-sharing service. One driver. Zero enthusiasm. Five stars." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍋</text></svg>" />
-  <link rel="stylesheet" href="styles.css?v=21" />
+  <link rel="stylesheet" href="styles.css?v=22" />
 </head>
 <body>
 
@@ -64,6 +64,7 @@
           <div class="app-bar app-bar-request">
             <span class="app-logo">OBER<span class="logo-dot">.</span></span>
             <span class="app-step" id="app-step">Step 1 of 4</span>
+            <button class="app-home" id="app-home" type="button" aria-label="Start over" title="Start over">⌂</button>
           </div>
           <div class="app-flow" id="app-flow">
             <!-- Step 1: destination -->
@@ -138,13 +139,19 @@
     </div>
 
     <!-- Live driver location tracker -->
-    <div class="tracker">
+    <div class="tracker" id="tracker">
       <h3>Live driver location</h3>
-      <div class="tracker-map">
-        <iframe id="tracker-frame" title="Live driver location" loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          src="https://maps.google.com/maps?q=53.1846,-6.6260&z=15&hl=en&output=embed"></iframe>
-        <span class="tracker-pulse" aria-hidden="true"></span>
+      <div class="tracker-body">
+        <div class="tracker-map">
+          <iframe id="tracker-frame" title="Live driver location" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://maps.google.com/maps?q=53.1846,-6.6260&z=15&hl=en&output=embed"></iframe>
+          <span class="tracker-pulse" aria-hidden="true"></span>
+        </div>
+        <div class="tracker-angelo" id="tracker-angelo" hidden>
+          <button class="tracker-angelo-close" id="tracker-angelo-close" type="button" aria-label="Dismiss">×</button>
+          <img src="assets/img/Oranangelo.jpeg" alt="The Creation of Oran" />
+        </div>
       </div>
       <p class="tracker-status" id="tracker-status">📍 Doing loops of Eadestown for the step count…</p>
       <div class="steps-bar">
@@ -299,22 +306,13 @@
     <p class="logo">OBER<span class="logo-dot">.</span></p>
     <p>© 2026 Ober Technologies (a lad in a Kia). Not affiliated with Uber, fun after 9pm, or rounds.</p>
     <p class="muted">By using this service you agree to hear about the bass amp.</p>
-    <p class="build-stamp muted">Build v21 · last updated <span id="build-date">—</span></p>
+    <p class="build-stamp muted">Build v22 · last updated <span id="build-date">—</span></p>
     <!-- Cryptic switch: do not flip -->
     <button class="oa-switch" id="oranangelo-switch" type="button" aria-label="Do not flip" aria-pressed="false">
       <span class="oa-switch-knob"></span>
     </button>
   </footer>
 
-  <!-- OranAngelo overlay (Creation of Adam parody) -->
-  <div class="oa-overlay" id="oranangelo-overlay" aria-hidden="true">
-    <button class="oa-close" type="button" aria-label="Dismiss">×</button>
-    <figure class="oa-figure">
-      <img src="assets/img/Oranangelo.jpeg" alt="The Creation of Oran" />
-      <figcaption>The Creation of Oran · ceiling not included</figcaption>
-    </figure>
-  </div>
-
-  <script src="app.js?v=21"></script>
+  <script src="app.js?v=22"></script>
 </body>
 </html>

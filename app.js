@@ -229,6 +229,24 @@ if (appFlow) {
       }
     });
   });
+
+  // Home button: wipe the booking and jump straight back to step 1.
+  const appHome = document.getElementById("app-home");
+  if (appHome) {
+    appHome.addEventListener("click", () => {
+      destinationInput.value = "";
+      pickupInput.value = "";
+      selectedType = null;
+      confirmedType = null;
+      if (typeReveal) {
+        typeReveal.hidden = true;
+        typeReveal.innerHTML = "";
+      }
+      typeList.querySelectorAll(".type-opt").forEach((b) => b.classList.remove("selected"));
+      showStep(1);
+    });
+  }
+
   showStep(1);
 }
 
@@ -707,27 +725,28 @@ function rainLemons() {
 }
 
 // ---------- OranAngelo easter egg ----------
+// Flipping the footer switch scrolls up to the live tracker, locks the map to
+// the Sistine Chapel and reveals the OranAngelo painting beside it. The X (or
+// the switch / Esc) restores the normal location-cycling map.
 const oaSwitch = document.getElementById("oranangelo-switch");
-const oaOverlay = document.getElementById("oranangelo-overlay");
+const tracker = document.getElementById("tracker");
+const trackerAngelo = document.getElementById("tracker-angelo");
+const trackerAngeloClose = document.getElementById("tracker-angelo-close");
 
-if (oaSwitch && oaOverlay) {
-  const oaClose = oaOverlay.querySelector(".oa-close");
-
+if (oaSwitch && tracker && trackerAngelo) {
   function setEgg(on) {
     oranangeloActive = on;
     oaSwitch.classList.toggle("on", on);
     oaSwitch.setAttribute("aria-pressed", String(on));
-    oaOverlay.classList.toggle("show", on);
-    oaOverlay.setAttribute("aria-hidden", String(!on));
-    // Reroute the live tracker (map + label) to Rome, or restore it.
+    tracker.classList.toggle("angelo-active", on);
+    trackerAngelo.hidden = !on;
+    // Lock the map to Rome, or drop back into the normal cycle.
     showSpot(on ? VATICAN_SPOT : trackerSpots[spotIndex]);
+    if (on) tracker.scrollIntoView({ behavior: "smooth", block: "center" });
   }
 
   oaSwitch.addEventListener("click", () => setEgg(!oranangeloActive));
-  oaClose?.addEventListener("click", () => setEgg(false));
-  oaOverlay.addEventListener("click", (e) => {
-    if (e.target === oaOverlay) setEgg(false);
-  });
+  trackerAngeloClose?.addEventListener("click", () => setEgg(false));
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && oranangeloActive) setEgg(false);
   });
