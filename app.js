@@ -414,12 +414,12 @@ if (videoGrid) {
 // Each dish pairs a name + description with a photo or clip. Swap the media
 // `src` here to re-pair a dish with a different file.
 const eatsMenu = [
-  { name: "Oberrito", price: "Market price", desc: "Fully loaded, fully exposed. Served couch-side, no plate.", media: { type: "img", src: "assets/img/Naked1.jpg" } },
+  { name: "Oberrito", price: "Market price", desc: "Fully loaded, fully exposed. Served couch-side, no plate.", media: { type: "img", src: "assets/img/UberEats5.jpg" } },
   { name: "Ober Chicken Boot Sandwich", price: "Two left feet", desc: "Two silver boots, one questionable dance. Hold the cutlery.", media: { type: "video", src: "assets/img/Chicken Dance Boots.mp4" } },
-  { name: "Ober Wangs", price: "By the dozen", desc: "Flap-fried and flapping. Comes with the wing dance, free of charge.", media: { type: "img", src: "assets/img/UberEats2.gif" } },
-  { name: "Greek Yobert", price: "Floor price", desc: "Floor-churned, locally sourced from the lino. Live cultures, live regrets.", media: { type: "img", src: "assets/img/UberEats4.jpg" } },
-  { name: "Lemonober", price: "Sour deal", desc: "When life gives him lemons, he eats them whole. Rind and all.", media: { type: "img", src: "assets/img/UberEats6.jpg" } },
-  { name: "Oboned", price: "On the house, man", desc: "Crisp in, lights on, nobody home. Chef's medicated special.", media: { type: "img", src: "assets/img/UberEats5.jpg" } },
+  { name: "Ober Wangs", price: "By the dozen", desc: "Flap-fried and flapping. Comes with the wing dance, free of charge.", media: { type: "img", src: "assets/img/Uber Eats Gif.gif" } },
+  { name: "Greek Yobert", price: "Floor price", desc: "Floor-churned, locally sourced from the lino. Live cultures, live regrets.", media: { type: "img", src: "assets/img/UberEats2.gif" } },
+  { name: "Lemonober", price: "Sour deal", desc: "When life gives him lemons, he eats them whole. Rind and all.", media: { type: "img", src: "assets/img/UberEats4.jpg" } },
+  { name: "Oboned", price: "On the house, man", desc: "Crisp in, lights on, nobody home. Chef's medicated special.", media: { type: "img", src: "assets/img/UberEats6.jpg" } },
 ];
 
 const eatsMenuEl = document.getElementById("eats-menu");
