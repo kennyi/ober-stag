@@ -483,6 +483,9 @@ const trackerLines = [
   "📍 One more lap. He said that four laps ago.",
 ];
 
+const VATICAN_LINE = "📍 Doing loops of the Sistine Chapel, Vatican City…";
+let oranangeloActive = false;
+
 let steps = 9214;
 
 setInterval(() => {
@@ -494,6 +497,10 @@ setInterval(() => {
 }, 1500);
 
 setInterval(() => {
+  if (oranangeloActive) {
+    trackerStatus.textContent = VATICAN_LINE;
+    return;
+  }
   trackerStatus.textContent =
     trackerLines[Math.floor(Math.random() * trackerLines.length)];
 }, 6000);
@@ -547,4 +554,31 @@ function rainLemons() {
     });
     setTimeout(() => lemon.remove(), 5500);
   }
+}
+
+// ---------- OranAngelo easter egg ----------
+const oaSwitch = document.getElementById("oranangelo-switch");
+const oaOverlay = document.getElementById("oranangelo-overlay");
+
+if (oaSwitch && oaOverlay) {
+  const oaClose = oaOverlay.querySelector(".oa-close");
+
+  function setEgg(on) {
+    oranangeloActive = on;
+    oaSwitch.classList.toggle("on", on);
+    oaSwitch.setAttribute("aria-pressed", String(on));
+    oaOverlay.classList.toggle("show", on);
+    oaOverlay.setAttribute("aria-hidden", String(!on));
+    // Reroute (or restore) the live tracker immediately.
+    trackerStatus.textContent = on ? VATICAN_LINE : trackerLines[0];
+  }
+
+  oaSwitch.addEventListener("click", () => setEgg(!oranangeloActive));
+  oaClose?.addEventListener("click", () => setEgg(false));
+  oaOverlay.addEventListener("click", (e) => {
+    if (e.target === oaOverlay) setEgg(false);
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && oranangeloActive) setEgg(false);
+  });
 }

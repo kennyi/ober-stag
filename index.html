@@ -6,7 +6,7 @@
   <title>OBER — Get there. Eventually.</title>
   <meta name="description" content="Ireland's most reluctant ride-sharing service. One driver. Zero enthusiasm. Five stars." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍋</text></svg>" />
-  <link rel="stylesheet" href="styles.css?v=12" />
+  <link rel="stylesheet" href="styles.css?v=13" />
 </head>
 <body>
 
@@ -187,6 +187,38 @@
       </ul>
       <p class="eats-footer">⭐ "Jar Jar Burgers" — loyalty so strong it became a nickname.</p>
     </div>
+
+    <!-- Documented evidence of the eating -->
+    <div class="eats-media">
+      <figure class="eats-item">
+        <video src="assets/img/Chicken Dance Boots.mp4" autoplay muted loop playsinline preload="metadata"></video>
+        <figcaption>The chicken era. Boots on. Fully committed.</figcaption>
+      </figure>
+      <figure class="eats-item">
+        <img src="assets/img/Uber Eats Gif.gif" alt="" loading="lazy" />
+        <figcaption>Dinner, on a loop, for the 47th consecutive night.</figcaption>
+      </figure>
+      <figure class="eats-item">
+        <img src="assets/img/UberEats2.gif" alt="" loading="lazy" />
+        <figcaption>He found the one. He will not be browsing the menu.</figcaption>
+      </figure>
+      <figure class="eats-item">
+        <img src="assets/img/UberEats3.jpg" alt="" loading="lazy" />
+        <figcaption>Same order. Same face. Same satisfaction.</figcaption>
+      </figure>
+      <figure class="eats-item">
+        <img src="assets/img/UberEats4.jpg" alt="" loading="lazy" />
+        <figcaption>A man and his burger. No notes.</figcaption>
+      </figure>
+      <figure class="eats-item">
+        <img src="assets/img/UberEats5.jpg" alt="" loading="lazy" />
+        <figcaption>Crisp drool face. A delicacy.</figcaption>
+      </figure>
+      <figure class="eats-item">
+        <img src="assets/img/UberEats6.jpg" alt="" loading="lazy" />
+        <figcaption>Lemon-adjacent. Always.</figcaption>
+      </figure>
+    </div>
   </section>
 
   <!-- ===================== FAQ ===================== -->
@@ -271,8 +303,21 @@
     <p class="logo">OBER<span class="logo-dot">.</span></p>
     <p>© 2026 Ober Technologies (a lad in a Kia). Not affiliated with Uber, fun after 9pm, or rounds.</p>
     <p class="muted">By using this service you agree to hear about the bass amp.</p>
+    <!-- Cryptic switch: do not flip -->
+    <button class="oa-switch" id="oranangelo-switch" type="button" aria-label="Do not flip" aria-pressed="false">
+      <span class="oa-switch-knob"></span>
+    </button>
   </footer>
 
-  <script src="app.js?v=12"></script>
+  <!-- OranAngelo overlay (Creation of Adam parody) -->
+  <div class="oa-overlay" id="oranangelo-overlay" aria-hidden="true">
+    <button class="oa-close" type="button" aria-label="Dismiss">×</button>
+    <figure class="oa-figure">
+      <img src="assets/img/Oranangelo.jpeg" alt="The Creation of Oran" />
+      <figcaption>The Creation of Oran · ceiling not included</figcaption>
+    </figure>
+  </div>
+
+  <script src="app.js?v=13"></script>
 </body>
 </html>
