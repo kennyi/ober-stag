@@ -946,6 +946,8 @@ body.lemon-mode .hero h1 .accent { color: #c9a800; }
 
 .footer .logo { font-size: 2rem; margin-bottom: 1rem; display: block; }
 
+.build-stamp { margin-top: 0.75rem; font-size: 0.72rem; letter-spacing: 0.03em; opacity: 0.7; }
+
 /* Cryptic OranAngelo switch — easy to miss, hard to ignore once seen */
 .oa-switch {
   margin-top: 2.5rem;

@@ -653,3 +653,14 @@ if (oaSwitch && oaOverlay) {
     if (e.key === "Escape" && oranangeloActive) setEgg(false);
   });
 }
+
+// ---------- Build stamp: when was this page last deployed? ----------
+// document.lastModified comes from the page's Last-Modified header, which on
+// GitHub Pages reflects the deploy time — no build step needed.
+const buildDate = document.getElementById("build-date");
+if (buildDate) {
+  const d = new Date(document.lastModified);
+  buildDate.textContent = isNaN(d)
+    ? document.lastModified
+    : d.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
+}
