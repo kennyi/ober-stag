@@ -63,7 +63,7 @@ shopt -s nullglob
 processed=0
 
 # Iterate over the pristine backup; write results into assets/…
-while IFS= read -r -d '' src; do
+while IFS= read -r -d '' src <&3; do
   rel="${src#"$ORIG_DIR"/}"     # e.g. img/Fat baby.jpeg
   dst="assets/$rel"
   mkdir -p "$(dirname "$dst")"
@@ -103,7 +103,7 @@ while IFS= read -r -d '' src; do
       cp -a "$src" "$dst" ;;
   esac
   printf '  ✓ %s\n' "$rel"
-done < <(find "$ORIG_DIR" -type f -print0)
+done 3< <(find "$ORIG_DIR" -type f -print0)
 
 after=$(du -sh assets/img assets/video 2>/dev/null | awk '{s+=$1} END{print}' >/dev/null; du -shc assets/img assets/video 2>/dev/null | tail -1 | cut -f1)
 
