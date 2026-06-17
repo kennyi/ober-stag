@@ -385,7 +385,14 @@ function renderCarousel() {
   );
   Array.from(carThumbs.children).forEach((t, i) => t.classList.toggle("active", i === carIndex));
   const activeThumb = carThumbs.children[carIndex];
-  if (activeThumb) activeThumb.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
+  // Scroll only the thumbnail strip horizontally — never the page (scrollIntoView
+  // would yank the whole window down to the carousel on load).
+  if (activeThumb) {
+    carThumbs.scrollTo({
+      left: activeThumb.offsetLeft - (carThumbs.clientWidth - activeThumb.clientWidth) / 2,
+      behavior: "smooth",
+    });
+  }
 }
 
 function carGoTo(i) {
