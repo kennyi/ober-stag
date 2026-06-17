@@ -375,7 +375,7 @@ if (videoGrid) {
 // To add a photo: paste a new { src, caption, category } below.
 // src = a file in the repo ("assets/img/Face1.jpg") OR any full image URL.
 // category groups the carousel: Childhood · Dressup · Nude/Balls · Catbol · Olivia.
-const photos = [
+const allPhotos = [
   // ----- Childhood -----
   { src: "assets/img/Bubble Baby.jpeg", caption: "Bubble bath surge pricing. Started young.", category: "Childhood" },
   { src: "assets/img/Cute baby.jpeg", caption: "Five-star rating from birth. Never improved.", category: "Childhood" },
@@ -422,7 +422,6 @@ const photos = [
   // ----- Nude/Balls -----
   { src: "assets/img/Naked1.jpg", caption: "Bollock naked and proud. Standard tier.", category: "Nude/Balls" },
   { src: "assets/img/Naked2.jpg", caption: "Nothing to declare.", category: "Nude/Balls" },
-  { src: "assets/img/Naked3.jpg", caption: "Au naturel. As nature and the couch intended.", category: "Nude/Balls" },
   { src: "assets/img/Naked4.jpg", caption: "No uniform, no shame, no lift.", category: "Nude/Balls" },
   { src: "assets/img/Naked5.jpg", caption: "Stripped of everything but the attitude.", category: "Nude/Balls" },
   { src: "assets/img/Naked6.jpg", caption: "Free and unbothered.", category: "Nude/Balls" },
@@ -441,6 +440,17 @@ const photos = [
   { src: "assets/img/Olivia3.jpg", caption: "Better half. Does the actual driving.", category: "Olivia" },
   { src: "assets/img/Oran Family.jpeg", caption: "The Clares. A whole family of no's.", category: "Olivia" },
 ];
+
+// Any photo already shown elsewhere — the tier reveals, the licence, the chat
+// avatar — is excluded from the carousel so nothing repeats. Tier photos come
+// from rideTypes; licence/avatar are read straight from the DOM, so this stays
+// correct automatically if those picks ever change.
+const usedElsewhere = new Set(rideTypes.map((t) => t.photo));
+document.querySelectorAll(".licence-photo, .app-avatar").forEach((img) => {
+  const src = img.getAttribute("src");
+  if (src) usedElsewhere.add(src);
+});
+const photos = allPhotos.filter((p) => !usedElsewhere.has(p.src));
 
 const carousel = document.getElementById("carousel");
 const carImg = document.getElementById("car-img");
