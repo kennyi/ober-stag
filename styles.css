@@ -194,7 +194,7 @@ body.lemon-mode .hero h1 .accent { color: #c9a800; }
     "form phone"
     "licence phone";
   gap: 1.5rem 2.5rem;
-  align-items: start;
+  align-items: stretch;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 1rem;
@@ -237,7 +237,8 @@ body.lemon-mode .hero h1 .accent { color: #c9a800; }
 
 /* ---------- Fake Pixel 10 phone ---------- */
 .phone {
-  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
   width: 300px;
   max-width: 100%;
   padding: 10px;
@@ -251,7 +252,9 @@ body.lemon-mode .hero h1 .accent { color: #c9a800; }
   position: relative;
   display: flex;
   flex-direction: column;
-  height: 460px;
+  flex: 1;
+  min-height: 460px;
+  max-height: 600px;
   background: #0b0b0d;
   border-radius: 34px;
   overflow: hidden;
@@ -500,7 +503,8 @@ body.lemon-mode .hero h1 .accent { color: #c9a800; }
 .licence-sig {
   margin-top: 8px;
   font-family: "Brush Script MT", "Segoe Script", "Snell Roundhand", cursive;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
+  white-space: nowrap;
   color: #16162e;
   border-bottom: 1px solid rgba(0, 0, 0, 0.25);
   padding-bottom: 2px;
@@ -516,7 +520,6 @@ body.lemon-mode .hero h1 .accent { color: #c9a800; }
   text-transform: uppercase;
   letter-spacing: 0.01em;
 }
-.lic-driverno { margin-top: 10px; border: none; font-size: 0.78rem; letter-spacing: 0.04em; }
 .lic-num { color: #1d4ed8; font-weight: 800; margin-right: 6px; }
 .lic-label {
   color: #8a7f97;
