@@ -593,16 +593,31 @@ if (carousel && photos.length) {
 const stepsCount = document.getElementById("steps-count");
 const stepsFill = document.getElementById("steps-fill");
 const trackerStatus = document.getElementById("tracker-status");
+const trackerFrame = document.getElementById("tracker-frame");
 
-const trackerLines = [
-  "📍 Doing loops of Eadestown for the step count…",
-  "📍 Walking a suspiciously precise circuit of the estate…",
-  "📍 Pacing the kitchen. It counts. It all counts.",
-  "📍 One more lap. He said that four laps ago.",
+// Keyless Google Maps embed — swapping the coords makes the pin "jump".
+const mapUrl = (lat, lng, z = 15) =>
+  `https://maps.google.com/maps?q=${lat},${lng}&z=${z}&hl=en&output=embed`;
+
+// Where Oran is "spotted" — he never actually goes anywhere useful.
+const trackerSpots = [
+  { line: "📍 Doing loops of Eadestown for the step count…", lat: 53.1846, lng: -6.6260, z: 15 },
+  { line: "📍 Parked outside the gym. Hasn't gone in.", lat: 53.2189, lng: -6.6614, z: 16 },
+  { line: "📍 'Quick stop' at the chipper in Naas. (It is never quick.)", lat: 53.2206, lng: -6.6592, z: 16 },
+  { line: "📍 Pulled into a job in Monread. The bins won't bring themselves out.", lat: 53.2270, lng: -6.6840, z: 15 },
+  { line: "📍 One more lap of the estate. He said that four laps ago.", lat: 53.1815, lng: -6.6205, z: 16 },
+  { line: "📍 Back at the couch, Eadestown. The couch is winning.", lat: 53.1852, lng: -6.6248, z: 17 },
 ];
 
 const VATICAN_LINE = "📍 Doing loops of the Sistine Chapel, Vatican City…";
+const VATICAN_SPOT = { line: VATICAN_LINE, lat: 41.9029, lng: 12.4545, z: 16 };
 let oranangeloActive = false;
+let spotIndex = 0;
+
+function showSpot(spot) {
+  trackerStatus.textContent = spot.line;
+  if (trackerFrame) trackerFrame.src = mapUrl(spot.lat, spot.lng, spot.z);
+}
 
 let steps = 9214;
 
@@ -614,13 +629,15 @@ setInterval(() => {
   stepsFill.style.width = (steps / 10000) * 100 + "%";
 }, 1500);
 
+// Jump him around the map (unless the OranAngelo easter egg has him in Rome).
+showSpot(trackerSpots[0]);
 setInterval(() => {
   if (oranangeloActive) {
-    trackerStatus.textContent = VATICAN_LINE;
+    showSpot(VATICAN_SPOT);
     return;
   }
-  trackerStatus.textContent =
-    trackerLines[Math.floor(Math.random() * trackerLines.length)];
+  spotIndex = (spotIndex + 1) % trackerSpots.length;
+  showSpot(trackerSpots[spotIndex]);
 }, 6000);
 
 // ---------- Countdown to the stag ----------
@@ -687,8 +704,8 @@ if (oaSwitch && oaOverlay) {
     oaSwitch.setAttribute("aria-pressed", String(on));
     oaOverlay.classList.toggle("show", on);
     oaOverlay.setAttribute("aria-hidden", String(!on));
-    // Reroute (or restore) the live tracker immediately.
-    trackerStatus.textContent = on ? VATICAN_LINE : trackerLines[0];
+    // Reroute the live tracker (map + label) to Rome, or restore it.
+    showSpot(on ? VATICAN_SPOT : trackerSpots[spotIndex]);
   }
 
   oaSwitch.addEventListener("click", () => setEgg(!oranangeloActive));

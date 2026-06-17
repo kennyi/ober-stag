@@ -593,7 +593,35 @@ body.lemon-mode .hero h1 .accent { color: #c9a800; }
   padding: 2rem;
 }
 
-.tracker h3 { margin-bottom: 0.5rem; }
+.tracker h3 { margin-bottom: 0.75rem; }
+
+.tracker-map {
+  position: relative;
+  height: 300px;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  margin-bottom: 1rem;
+}
+.tracker-map iframe { width: 100%; height: 100%; border: 0; display: block; }
+/* Decorative "live" pulse over the map */
+.tracker-pulse {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #35c759;
+  box-shadow: 0 0 0 0 rgba(53, 199, 89, 0.6);
+  animation: trackerPulse 1.8s infinite;
+  pointer-events: none;
+}
+@keyframes trackerPulse {
+  0% { box-shadow: 0 0 0 0 rgba(53, 199, 89, 0.6); }
+  70% { box-shadow: 0 0 0 12px rgba(53, 199, 89, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(53, 199, 89, 0); }
+}
 
 .tracker-status { color: var(--muted); margin-bottom: 1.25rem; }
 
