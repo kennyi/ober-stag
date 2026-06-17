@@ -6,7 +6,7 @@
   <title>OBER — Get there. Eventually.</title>
   <meta name="description" content="Ireland's most reluctant ride-sharing service. One driver. Zero enthusiasm. Five stars." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍋</text></svg>" />
-  <link rel="stylesheet" href="styles.css?v=17" />
+  <link rel="stylesheet" href="styles.css?v=18" />
 </head>
 <body>
 
@@ -198,7 +198,14 @@
     <h2>Riders love Ober</h2>
     <p class="section-sub">Every review verified. Every rating five stars. We don't know how either.</p>
     <div class="reviews-featured" id="reviews-featured"></div>
-    <div class="reviews-grid" id="reviews-grid"></div>
+    <div class="review-slider" id="review-slider">
+      <div class="review-viewport">
+        <div class="review-track" id="review-track"></div>
+      </div>
+      <button class="rev-arrow rev-prev" id="rev-prev" type="button" aria-label="Previous review">‹</button>
+      <button class="rev-arrow rev-next" id="rev-next" type="button" aria-label="Next review">›</button>
+      <div class="review-dots" id="review-dots"></div>
+    </div>
   </section>
 
   <!-- ===================== OBER EATS ===================== -->
@@ -327,7 +334,7 @@
     <p class="logo">OBER<span class="logo-dot">.</span></p>
     <p>© 2026 Ober Technologies (a lad in a Kia). Not affiliated with Uber, fun after 9pm, or rounds.</p>
     <p class="muted">By using this service you agree to hear about the bass amp.</p>
-    <p class="build-stamp muted">Build v17 · last updated <span id="build-date">—</span></p>
+    <p class="build-stamp muted">Build v18 · last updated <span id="build-date">—</span></p>
     <!-- Cryptic switch: do not flip -->
     <button class="oa-switch" id="oranangelo-switch" type="button" aria-label="Do not flip" aria-pressed="false">
       <span class="oa-switch-knob"></span>
@@ -343,6 +350,6 @@
     </figure>
   </div>
 
-  <script src="app.js?v=17"></script>
+  <script src="app.js?v=18"></script>
 </body>
 </html>

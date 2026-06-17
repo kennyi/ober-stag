@@ -297,7 +297,6 @@ const reviews = [
 ];
 
 const reviewsFeatured = document.getElementById("reviews-featured");
-const reviewsGrid = document.getElementById("reviews-grid");
 
 if (reviewsFeatured) {
   reviewsFeatured.innerHTML = reviews
@@ -330,18 +329,56 @@ if (reviewsFeatured) {
     .join("");
 }
 
-if (reviewsGrid) {
-  reviewsGrid.innerHTML = reviews
-    .filter((r) => !r.videoId)
+// Quote reviews become an auto-cycling slider (one at a time, looping).
+const reviewSlider = document.getElementById("review-slider");
+const reviewTrack = document.getElementById("review-track");
+const reviewDots = document.getElementById("review-dots");
+const revPrev = document.getElementById("rev-prev");
+const revNext = document.getElementById("rev-next");
+
+if (reviewTrack) {
+  const quoteReviews = reviews.filter((r) => !r.videoId);
+  reviewTrack.innerHTML = quoteReviews
     .map(
       (r) => `
-    <div class="review">
+    <figure class="review-slide">
       <p class="stars">★★★★★</p>
-      <p>"${r.quote}"</p>
-      <p class="reviewer">— ${r.reviewer}</p>
-    </div>`
+      <blockquote class="review-slide-quote">"${r.quote}"</blockquote>
+      <figcaption class="reviewer">— ${r.reviewer}</figcaption>
+    </figure>`
     )
     .join("");
+  reviewDots.innerHTML = quoteReviews
+    .map((_, i) => `<button class="review-dot" type="button" data-i="${i}" aria-label="Review ${i + 1}"></button>`)
+    .join("");
+
+  const rCount = quoteReviews.length;
+  let rIndex = 0;
+  let rTimer = null;
+
+  function reviewGoTo(i) {
+    rIndex = (i + rCount) % rCount;
+    reviewTrack.style.transform = `translateX(-${rIndex * 100}%)`;
+    Array.from(reviewDots.children).forEach((d, j) => d.classList.toggle("active", j === rIndex));
+  }
+  function reviewStop() { if (rTimer) { clearInterval(rTimer); rTimer = null; } }
+  function reviewStart() { reviewStop(); if (rCount > 1) rTimer = setInterval(() => reviewGoTo(rIndex + 1), 5000); }
+
+  reviewDots.addEventListener("click", (e) => {
+    const d = e.target.closest(".review-dot");
+    if (d) { reviewGoTo(Number(d.dataset.i)); reviewStart(); }
+  });
+  if (revPrev) revPrev.addEventListener("click", () => { reviewGoTo(rIndex - 1); reviewStart(); });
+  if (revNext) revNext.addEventListener("click", () => { reviewGoTo(rIndex + 1); reviewStart(); });
+
+  // Pause while the visitor is reading (hover or keyboard focus).
+  reviewSlider.addEventListener("mouseenter", reviewStop);
+  reviewSlider.addEventListener("mouseleave", reviewStart);
+  reviewSlider.addEventListener("focusin", reviewStop);
+  reviewSlider.addEventListener("focusout", reviewStart);
+
+  reviewGoTo(0);
+  reviewStart();
 }
 
 // ---------- Dashcam footage: YouTube embeds ----------
