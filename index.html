@@ -6,7 +6,7 @@
   <title>OBER — Get there. Eventually.</title>
   <meta name="description" content="Ireland's most reluctant ride-sharing service. One driver. Zero enthusiasm. Five stars." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍋</text></svg>" />
-  <link rel="stylesheet" href="styles.css?v=14" />
+  <link rel="stylesheet" href="styles.css?v=15" />
 </head>
 <body>
 
@@ -50,58 +50,69 @@
     <h2>Request an Ober</h2>
     <p class="section-sub">Enter your trip details. Our driver will consider it. Briefly.</p>
 
-    <div class="ride-widget">
-      <div class="ride-form">
-        <div class="ride-inputs">
-          <input type="text" id="pickup" placeholder="Pickup — e.g. Somewhere in Kildare, 2am" />
-          <input type="text" id="destination" placeholder="Destination — e.g. Airport" />
-          <button id="request-btn">Request Ober</button>
+    <div class="ride-phones">
+      <!-- LEFT phone: the Ober request app (multi-step booking flow) -->
+      <div class="phone phone-request">
+        <div class="phone-screen">
+          <div class="phone-statusbar">
+            <span class="phone-time">9:41</span>
+            <span class="phone-camera"></span>
+            <span class="phone-icons">
+              <span class="phone-ico">📶</span><span class="phone-ico">📡</span><span class="phone-ico">🔋</span>
+            </span>
+          </div>
+          <div class="app-bar app-bar-request">
+            <span class="app-logo">OBER<span class="logo-dot">.</span></span>
+            <span class="app-step" id="app-step">Step 1 of 4</span>
+          </div>
+          <div class="app-flow" id="app-flow">
+            <!-- Step 1: destination -->
+            <div class="step is-active" data-step="1">
+              <p class="step-kicker">New request</p>
+              <h3 class="step-title">Where to?</h3>
+              <p class="step-sub">He respects exactly three destinations. The rest, you'll see.</p>
+              <input type="text" id="destination" class="step-input" placeholder="Destination — e.g. Airport" />
+              <div class="step-actions">
+                <button type="button" class="step-btn step-primary" data-next>Next</button>
+              </div>
+            </div>
+            <!-- Step 2: pickup -->
+            <div class="step" data-step="2">
+              <p class="step-kicker">New request</p>
+              <h3 class="step-title">Where are you?</h3>
+              <p class="step-sub">Be honest. He'll find you either way.</p>
+              <input type="text" id="pickup" class="step-input" placeholder="Pickup — e.g. Somewhere in Kildare, 2am" />
+              <div class="step-actions">
+                <button type="button" class="step-btn step-ghost" data-back>Back</button>
+                <button type="button" class="step-btn step-primary" data-next>Next</button>
+              </div>
+            </div>
+            <!-- Step 3: ride type -->
+            <div class="step" data-step="3">
+              <p class="step-kicker">Choose your ride</p>
+              <h3 class="step-title">Pick your Ober</h3>
+              <div class="type-list" id="type-list"></div>
+              <div class="type-reveal" id="type-reveal" hidden></div>
+              <div class="step-actions">
+                <button type="button" class="step-btn step-ghost" data-back>Back</button>
+              </div>
+            </div>
+            <!-- Step 4: confirm -->
+            <div class="step" data-step="4">
+              <p class="step-kicker">Almost there</p>
+              <h3 class="step-title">Confirm request</h3>
+              <div class="summary" id="summary"></div>
+              <div class="step-actions">
+                <button type="button" class="step-btn step-ghost" data-back>Back</button>
+                <button type="button" class="step-btn step-primary" id="request-btn">Request Ober</button>
+              </div>
+            </div>
+          </div>
         </div>
-        <p class="ride-hint">Tip: he respects exactly three destinations. The rest, you'll see.</p>
       </div>
 
-      <!-- Your driver, as an Irish licence -->
-      <div class="licence" id="driver">
-          <div class="licence-header">
-            <svg class="eu-emblem" viewBox="0 0 60 60" width="50" height="50" aria-hidden="true">
-              <circle cx="30" cy="30" r="29" fill="#003399" />
-              <g fill="#ffcc00" font-size="7" text-anchor="middle" dominant-baseline="central" font-family="serif">
-                <text x="30" y="11">★</text><text x="40" y="13.2">★</text><text x="47.3" y="20">★</text>
-                <text x="50" y="30">★</text><text x="47.3" y="40">★</text><text x="40" y="46.8">★</text>
-                <text x="30" y="49">★</text><text x="20" y="46.8">★</text><text x="12.7" y="40">★</text>
-                <text x="10" y="30">★</text><text x="12.7" y="20">★</text><text x="20" y="13.2">★</text>
-              </g>
-              <text x="30" y="32" fill="#ffcc00" font-size="12" font-weight="bold" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">IRL</text>
-            </svg>
-            <div class="licence-titles">
-              <p class="lic-t1">Ceadúnas Tiomána · Driving Licence</p>
-              <p class="lic-t2">ÉIRE · IRELAND</p>
-            </div>
-            <span class="lic-stamp">★ 5.0<br /><small>RATING LOCKED</small></span>
-          </div>
-
-          <div class="licence-body">
-            <div class="licence-left">
-              <img class="licence-photo" src="assets/img/Face1.jpg" alt="Oran 'Ober' Clare" />
-              <p class="licence-sig">Oran Clare</p>
-            </div>
-            <div class="licence-right">
-              <p class="lic-field"><span class="lic-num">1.</span><span class="lic-label">Surname</span> CLARE</p>
-              <p class="lic-field"><span class="lic-num">2.</span><span class="lic-label">First names</span> ORAN "OBER"</p>
-              <p class="lic-field"><span class="lic-num">3.</span><span class="lic-label">Born</span> MONREAD, NAAS</p>
-              <p class="lic-field"><span class="lic-num">4.</span><span class="lic-label">Authority</span> N.D.L.S. · NAAS DESIGNATED LIFT SERVICE</p>
-              <p class="lic-field"><span class="lic-num">5.</span><span class="lic-label">Address</span> THE COUCH, EADESTOWN</p>
-              <p class="lic-field"><span class="lic-num">6.</span><span class="lic-label">Licence no.</span> OBER·14782·LEMON</p>
-            </div>
-          </div>
-
-          <div class="licence-foot">
-            <p class="licence-note">Vehicle: Kia (spotless, beloved, discussed at length) · College: Print &amp; Design, Mickey Mouse, Dublin · Languages: English, Funny Voices, No · 14,782 trips completed (0 paid)</p>
-          </div>
-      </div>
-
-      <!-- Fake Pixel 10 running the "Ober" chat app -->
-      <div class="phone" aria-hidden="true">
+      <!-- RIGHT phone: Oran's response (only fills in after you book) -->
+      <div class="phone phone-response" aria-hidden="true">
         <div class="phone-screen">
           <div class="phone-statusbar">
             <span class="phone-time" id="phone-time">9:41</span>
@@ -136,32 +147,49 @@
       <p class="steps-label"><span id="steps-count">9,214</span> / 10,000 steps — he is not getting in the car until this is done</p>
     </div>
 
-    <!-- Ride tiers — each card clicks to reveal a photo of Oran (see app.js) -->
-    <div class="tiers">
-      <div class="tier-card" data-reveal="assets/img/Pissing2.jpg">
-        <div class="tier-emoji">🚗</div>
-        <h3>Ober Standard</h3>
-        <p>One Kia. Immaculate. Climate control set to his preference, not yours.</p>
-        <p class="tier-price">€0 — he won't take your money, he'll just remember</p>
-      </div>
-      <div class="tier-card" data-reveal="assets/img/Fat baby.jpeg">
-        <div class="tier-emoji">🚐</div>
-        <h3>Ober XL</h3>
-        <p>Six lads, three pickup points, one county, 2am. Completed in total silence.</p>
-        <p class="tier-price">€0 + lifelong debt</p>
-      </div>
-      <div class="tier-card tier-featured" data-reveal="assets/img/Lemon Baby Weather.jpeg">
-        <div class="tier-emoji">🍋</div>
-        <h3>Ober Lemon</h3>
-        <p>Premium tier. Driver arrives in full costume. Availability: one weekend only, June 2026.</p>
-        <p class="tier-price">Priceless</p>
-      </div>
-      <div class="tier-card" data-reveal="assets/img/Dressup4.jpg">
-        <div class="tier-emoji">🛋️</div>
-        <h3>Ober Couch</h3>
-        <p>He stays home. You stay home. Nobody goes anywhere. Our most popular service.</p>
-        <p class="tier-price">Free, forever</p>
-      </div>
+  </section>
+
+  <!-- ===================== YOUR DRIVER ===================== -->
+  <section class="section section-alt" id="driver">
+    <h2>Meet your driver</h2>
+    <p class="section-sub">Fully licensed. Five-star rated. Rarely available.</p>
+    <div class="licence">
+        <div class="licence-header">
+          <svg class="eu-emblem" viewBox="0 0 60 60" width="50" height="50" aria-hidden="true">
+            <circle cx="30" cy="30" r="29" fill="#003399" />
+            <g fill="#ffcc00" font-size="7" text-anchor="middle" dominant-baseline="central" font-family="serif">
+              <text x="30" y="11">★</text><text x="40" y="13.2">★</text><text x="47.3" y="20">★</text>
+              <text x="50" y="30">★</text><text x="47.3" y="40">★</text><text x="40" y="46.8">★</text>
+              <text x="30" y="49">★</text><text x="20" y="46.8">★</text><text x="12.7" y="40">★</text>
+              <text x="10" y="30">★</text><text x="12.7" y="20">★</text><text x="20" y="13.2">★</text>
+            </g>
+            <text x="30" y="32" fill="#ffcc00" font-size="12" font-weight="bold" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">IRL</text>
+          </svg>
+          <div class="licence-titles">
+            <p class="lic-t1">Ceadúnas Tiomána · Driving Licence</p>
+            <p class="lic-t2">ÉIRE · IRELAND</p>
+          </div>
+          <span class="lic-stamp">★ 5.0<br /><small>RATING LOCKED</small></span>
+        </div>
+
+        <div class="licence-body">
+          <div class="licence-left">
+            <img class="licence-photo" src="assets/img/Face1.jpg" alt="Oran 'Ober' Clare" />
+            <p class="licence-sig">Oran Clare</p>
+          </div>
+          <div class="licence-right">
+            <p class="lic-field"><span class="lic-num">1.</span><span class="lic-label">Surname</span> CLARE</p>
+            <p class="lic-field"><span class="lic-num">2.</span><span class="lic-label">First names</span> ORAN "OBER"</p>
+            <p class="lic-field"><span class="lic-num">3.</span><span class="lic-label">Born</span> MONREAD, NAAS</p>
+            <p class="lic-field"><span class="lic-num">4.</span><span class="lic-label">Authority</span> N.D.L.S. · NAAS DESIGNATED LIFT SERVICE</p>
+            <p class="lic-field"><span class="lic-num">5.</span><span class="lic-label">Address</span> THE COUCH, EADESTOWN</p>
+            <p class="lic-field"><span class="lic-num">6.</span><span class="lic-label">Licence no.</span> OBER·14782·LEMON</p>
+          </div>
+        </div>
+
+        <div class="licence-foot">
+          <p class="licence-note">Vehicle: Kia (spotless, beloved, discussed at length) · College: Print &amp; Design, Mickey Mouse, Dublin · Languages: English, Funny Voices, No · 14,782 trips completed (0 paid)</p>
+        </div>
     </div>
   </section>
 
@@ -318,6 +346,6 @@
     </figure>
   </div>
 
-  <script src="app.js?v=14"></script>
+  <script src="app.js?v=15"></script>
 </body>
 </html>

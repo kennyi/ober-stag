@@ -24,7 +24,7 @@ const pickupInput = document.getElementById("pickup");
 const destinationInput = document.getElementById("destination");
 const chat = document.getElementById("chat");
 const appStatus = document.getElementById("app-status");
-const phone = document.querySelector(".phone");
+const phone = document.querySelector(".phone-response");
 
 // Bring the phone (where Ober replies) into view — matters most on mobile,
 // where it sits below the form.
@@ -142,13 +142,107 @@ function addVoiceBubble(clip) {
   audio.play().catch(() => {});
 }
 
+// ---------- Ride types (the four Obers, now inside the request app) ----------
+const rideTypes = [
+  { id: "standard", emoji: "🚗", name: "Ober Standard", price: "€0", blurb: "One Kia. Immaculate. Climate control set to his preference, not yours.", photo: "assets/img/Pissing2.jpg" },
+  { id: "xl", emoji: "🚐", name: "Ober XL", price: "€0 + lifelong debt", blurb: "Six lads, three pickup points, one county, 2am. Completed in total silence.", photo: "assets/img/Fat baby.jpeg" },
+  { id: "lemon", emoji: "🍋", name: "Ober Lemon", price: "Priceless", blurb: "Premium tier. Driver arrives in full costume. One weekend only, June 2026.", photo: "assets/img/Lemon Baby Weather.jpeg", featured: true },
+  { id: "couch", emoji: "🛋️", name: "Ober Couch", price: "Free, forever", blurb: "He stays home. You stay home. Nobody goes anywhere. Our most popular service.", photo: "assets/img/Dressup4.jpg" },
+];
+
+// ---------- Request flow: the left phone is a step-by-step booking wizard ----------
+const appFlow = document.getElementById("app-flow");
+const appStep = document.getElementById("app-step");
+const typeList = document.getElementById("type-list");
+const typeReveal = document.getElementById("type-reveal");
+const summaryEl = document.getElementById("summary");
+
+const TOTAL_STEPS = 4;
+let stepNum = 1;
+let selectedType = null; // highlighted but not yet confirmed
+let confirmedType = null; // locked in, used in the summary + request
+
+function showStep(n) {
+  stepNum = Math.min(Math.max(n, 1), TOTAL_STEPS);
+  appFlow.querySelectorAll(".step").forEach((s) =>
+    s.classList.toggle("is-active", Number(s.dataset.step) === stepNum)
+  );
+  if (appStep) appStep.textContent = `Step ${stepNum} of ${TOTAL_STEPS}`;
+  if (stepNum === 4) renderSummary();
+  const active = appFlow.querySelector(".step.is-active");
+  const input = active && active.querySelector(".step-input");
+  if (input) input.focus({ preventScroll: true });
+}
+
+function renderTypes() {
+  typeList.innerHTML = rideTypes
+    .map(
+      (t) => `<button type="button" class="type-opt${t.featured ? " featured" : ""}" data-type="${t.id}">
+        <span class="type-emoji">${t.emoji}</span>
+        <span class="type-opt-text"><span class="type-name">${t.name}</span><span class="type-price">${t.price}</span></span>
+      </button>`
+    )
+    .join("");
+}
+
+function selectType(id) {
+  selectedType = rideTypes.find((t) => t.id === id) || null;
+  typeList.querySelectorAll(".type-opt").forEach((b) =>
+    b.classList.toggle("selected", b.dataset.type === id)
+  );
+  if (!selectedType) return;
+  typeReveal.hidden = false;
+  typeReveal.innerHTML = `
+    <img src="${selectedType.photo}" alt="" />
+    <p class="type-blurb">${selectedType.blurb}</p>
+    <button type="button" class="step-btn step-primary" id="type-confirm">Confirm selection</button>`;
+  document.getElementById("type-confirm").addEventListener("click", () => {
+    confirmedType = selectedType;
+    showStep(4);
+  });
+}
+
+function renderSummary() {
+  const dest = destinationInput.value.trim() || "anywhere";
+  const pick = pickupInput.value.trim() || "wherever you are";
+  const t = confirmedType || rideTypes[0];
+  summaryEl.innerHTML = `
+    <div class="sum-row"><span>Destination</span><strong>${dest}</strong></div>
+    <div class="sum-row"><span>Pickup</span><strong>${pick}</strong></div>
+    <div class="sum-row"><span>Ride type</span><strong>${t.emoji} ${t.name}</strong></div>
+    <p class="sum-note">Send it to his phone and see what he says. →</p>`;
+}
+
+if (appFlow) {
+  renderTypes();
+  appFlow.addEventListener("click", (e) => {
+    if (e.target.closest("[data-next]")) showStep(stepNum + 1);
+    else if (e.target.closest("[data-back]")) showStep(stepNum - 1);
+  });
+  typeList.addEventListener("click", (e) => {
+    const opt = e.target.closest(".type-opt");
+    if (opt) selectType(opt.dataset.type);
+  });
+  appFlow.querySelectorAll(".step-input").forEach((input) => {
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        showStep(stepNum + 1);
+      }
+    });
+  });
+  showStep(1);
+}
+
+// ---------- Request Ober: send the booking to the right phone ----------
 if (requestBtn && chat) {
   requestBtn.addEventListener("click", () => {
     const pickup = pickupInput.value.trim() || "wherever you are";
     const destination = destinationInput.value.trim() || "anywhere";
+    const t = confirmedType || rideTypes[0];
 
-    // Your request, as a sent message.
-    addBubble(`🚗 Pickup: ${pickup} → ${destination}`, "sent");
+    // Your request, as a sent message on his phone.
+    addBubble(`🚗 ${t.name}: ${pickup} → ${destination}`, "sent");
     ensurePhoneVisible();
 
     // Ober starts "typing", then replies.
@@ -447,36 +541,6 @@ if (carousel && photos.length) {
   if (carCaption) carCaption.textContent = "Evidence being gathered from the lads…";
   if (carCounter) carCounter.textContent = "0 / 0";
 }
-
-// ---------- Ober types: click a tier to reveal a photo of Oran ----------
-document.querySelectorAll(".tier-card[data-reveal]").forEach((card) => {
-  const reveal = document.createElement("div");
-  reveal.className = "tier-reveal";
-  reveal.innerHTML = `<img src="${card.dataset.reveal}" alt="" loading="lazy" />`;
-  card.appendChild(reveal);
-
-  const hint = document.createElement("p");
-  hint.className = "tier-hint";
-  hint.textContent = "Tap to reveal";
-  card.appendChild(hint);
-
-  card.setAttribute("role", "button");
-  card.setAttribute("tabindex", "0");
-  card.setAttribute("aria-expanded", "false");
-
-  const toggle = () => {
-    const open = card.classList.toggle("open");
-    card.setAttribute("aria-expanded", String(open));
-    hint.textContent = open ? "Tap to hide" : "Tap to reveal";
-  };
-  card.addEventListener("click", toggle);
-  card.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      toggle();
-    }
-  });
-});
 
 // ---------- Step counter: forever almost done ----------
 const stepsCount = document.getElementById("steps-count");
