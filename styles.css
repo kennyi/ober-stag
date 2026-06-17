@@ -190,7 +190,10 @@ body.lemon-mode .hero h1 .accent { color: #c9a800; }
 .ride-widget {
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: 2.5rem;
+  grid-template-areas:
+    "form phone"
+    "licence phone";
+  gap: 1.5rem 2.5rem;
   align-items: start;
   background: var(--card);
   border: 1px solid var(--border);
@@ -199,9 +202,9 @@ body.lemon-mode .hero h1 .accent { color: #c9a800; }
   margin-bottom: 3rem;
 }
 
-.ride-left { display: flex; flex-direction: column; gap: 1.5rem; min-width: 0; }
-.ride-form { min-width: 0; }
-.ride-left .licence { margin: 0; max-width: none; }
+.ride-form { grid-area: form; min-width: 0; }
+.ride-widget .licence { grid-area: licence; margin: 0; max-width: none; }
+.ride-widget .phone { grid-area: phone; }
 
 .ride-inputs { display: flex; flex-direction: column; gap: 0.85rem; }
 
@@ -393,7 +396,13 @@ body.lemon-mode .hero h1 .accent { color: #c9a800; }
 }
 
 @media (max-width: 760px) {
-  .ride-widget { grid-template-columns: 1fr; }
+  .ride-widget {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "form"
+      "phone"
+      "licence";
+  }
   .phone { justify-self: center; }
 }
 

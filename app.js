@@ -24,6 +24,16 @@ const pickupInput = document.getElementById("pickup");
 const destinationInput = document.getElementById("destination");
 const chat = document.getElementById("chat");
 const appStatus = document.getElementById("app-status");
+const phone = document.querySelector(".phone");
+
+// Bring the phone (where Ober replies) into view — matters most on mobile,
+// where it sits below the form.
+function ensurePhoneVisible() {
+  if (!phone) return;
+  const r = phone.getBoundingClientRect();
+  const fullyVisible = r.top >= 0 && r.bottom <= window.innerHeight;
+  if (!fullyVisible) phone.scrollIntoView({ behavior: "smooth", block: "center" });
+}
 
 let declineIndex = 0;
 
@@ -139,6 +149,7 @@ if (requestBtn && chat) {
 
     // Your request, as a sent message.
     addBubble(`🚗 Pickup: ${pickup} → ${destination}`, "sent");
+    ensurePhoneVisible();
 
     // Ober starts "typing", then replies.
     requestBtn.disabled = true;

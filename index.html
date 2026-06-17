@@ -6,7 +6,7 @@
   <title>OBER — Get there. Eventually.</title>
   <meta name="description" content="Ireland's most reluctant ride-sharing service. One driver. Zero enthusiasm. Five stars." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍋</text></svg>" />
-  <link rel="stylesheet" href="styles.css?v=7" />
+  <link rel="stylesheet" href="styles.css?v=8" />
 </head>
 <body>
 
@@ -51,18 +51,17 @@
     <p class="section-sub">Enter your trip details. Our driver will consider it. Briefly.</p>
 
     <div class="ride-widget">
-      <div class="ride-left">
-        <div class="ride-form">
-          <div class="ride-inputs">
-            <input type="text" id="pickup" placeholder="Pickup — e.g. Somewhere in Kildare, 2am" />
-            <input type="text" id="destination" placeholder="Destination — e.g. Airport" />
-            <button id="request-btn">Request Ober</button>
-          </div>
-          <p class="ride-hint">Tip: he respects exactly three destinations. The rest, you'll see.</p>
+      <div class="ride-form">
+        <div class="ride-inputs">
+          <input type="text" id="pickup" placeholder="Pickup — e.g. Somewhere in Kildare, 2am" />
+          <input type="text" id="destination" placeholder="Destination — e.g. Airport" />
+          <button id="request-btn">Request Ober</button>
         </div>
+        <p class="ride-hint">Tip: he respects exactly three destinations. The rest, you'll see.</p>
+      </div>
 
-        <!-- Your driver, as an Irish licence -->
-        <div class="licence" id="driver">
+      <!-- Your driver, as an Irish licence -->
+      <div class="licence" id="driver">
           <div class="licence-header">
             <svg class="eu-emblem" viewBox="0 0 60 60" width="50" height="50" aria-hidden="true">
               <circle cx="30" cy="30" r="29" fill="#003399" />
@@ -91,25 +90,14 @@
               <p class="lic-field"><span class="lic-num">1.</span><span class="lic-label">Surname</span> CLARE</p>
               <p class="lic-field"><span class="lic-num">2.</span><span class="lic-label">First names</span> ORAN "OBER"</p>
               <p class="lic-field"><span class="lic-num">3.</span><span class="lic-label">Born</span> MONREAD, NAAS</p>
-              <p class="lic-field"><span class="lic-num">4a.</span><span class="lic-label">Issued</span> THE AMP INCIDENT</p>
-              <p class="lic-field"><span class="lic-num">4b.</span><span class="lic-label">Expires</span> NEVER · SEE: IAN</p>
               <p class="lic-field"><span class="lic-num">4c.</span><span class="lic-label">Authority</span> N.D.L.S. · NAAS DESIGNATED LIFT SERVICE</p>
               <p class="lic-field"><span class="lic-num">8.</span><span class="lic-label">Address</span> THE COUCH, EADESTOWN</p>
-              <p class="lic-field"><span class="lic-num">9.</span><span class="lic-label">Categories</span> B · COUCH · NO</p>
             </div>
           </div>
 
           <div class="licence-foot">
-            <div class="licence-endorsements">
-              <span class="badge">🚱 Barely Drinks</span>
-              <span class="badge">👟 10,000 Steps</span>
-              <span class="badge">🏋️ Gym Before Anything</span>
-              <span class="badge">🛋️ Couch Certified</span>
-              <span class="badge">❌ Says No</span>
-            </div>
             <p class="licence-note">Vehicle: Kia (spotless, beloved, discussed at length) · College: Print &amp; Design, Mickey Mouse, Dublin · Languages: English, Funny Voices, No · 14,782 trips completed (0 paid)</p>
           </div>
-        </div>
       </div>
 
       <!-- Fake Pixel 10 running the "Ober" chat app -->
@@ -284,6 +272,6 @@
     <p class="muted">By using this service you agree to hear about the bass amp.</p>
   </footer>
 
-  <script src="app.js?v=7"></script>
+  <script src="app.js?v=8"></script>
 </body>
 </html>
