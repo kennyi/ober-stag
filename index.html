@@ -6,7 +6,7 @@
   <title>OBER — Get there. Eventually.</title>
   <meta name="description" content="Ireland's most reluctant ride-sharing service. One driver. Zero enthusiasm. Five stars." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍋</text></svg>" />
-  <link rel="stylesheet" href="styles.css?v=19" />
+  <link rel="stylesheet" href="styles.css?v=20" />
 </head>
 <body>
 
@@ -217,45 +217,9 @@
   <!-- ===================== OBER EATS ===================== -->
   <section class="section section-alt" id="eats">
     <h2>Ober Eats</h2>
-    <p class="section-sub">When you find the one, you commit.</p>
-    <div class="eats-card">
-      <h3>Tonight's menu</h3>
-      <ul class="menu">
-        <li><span>The Burger</span> <span class="menu-note">night 1–47, consecutive</span></li>
-        <li><span>The Burger (again)</span> <span class="menu-note">he's not bored, you're bored</span></li>
-        <li><span>Chicken Wings Era</span> <span class="menu-note">discontinued — a moment of silence</span></li>
-        <li><span>The Steak Phase</span> <span class="menu-note">coming soon, for four months, then never again</span></li>
-      </ul>
-      <p class="eats-footer">⭐ "Jar Jar Burgers" — loyalty so strong it became a nickname.</p>
-    </div>
-
-    <!-- Documented evidence of the eating -->
-    <div class="eats-media">
-      <figure class="eats-item">
-        <video src="assets/img/Chicken Dance Boots.mp4" autoplay muted loop playsinline preload="metadata"></video>
-        <figcaption>The chicken era. Boots on. Fully committed.</figcaption>
-      </figure>
-      <figure class="eats-item">
-        <img src="assets/img/Uber Eats Gif.gif" alt="" loading="lazy" />
-        <figcaption>Dinner, on a loop, for the 47th consecutive night.</figcaption>
-      </figure>
-      <figure class="eats-item">
-        <img src="assets/img/UberEats2.gif" alt="" loading="lazy" />
-        <figcaption>He found the one. He will not be browsing the menu.</figcaption>
-      </figure>
-      <figure class="eats-item">
-        <img src="assets/img/UberEats4.jpg" alt="" loading="lazy" />
-        <figcaption>A man and his burger. No notes.</figcaption>
-      </figure>
-      <figure class="eats-item">
-        <img src="assets/img/UberEats5.jpg" alt="" loading="lazy" />
-        <figcaption>Crisp drool face. A delicacy.</figcaption>
-      </figure>
-      <figure class="eats-item">
-        <img src="assets/img/UberEats6.jpg" alt="" loading="lazy" />
-        <figcaption>Lemon-adjacent. Always.</figcaption>
-      </figure>
-    </div>
+    <p class="section-sub">When you find the one, you commit. Tonight's menu:</p>
+    <div class="eats-menu" id="eats-menu"></div>
+    <p class="eats-footer">⭐ "Jar Jar Burgers" — loyalty so strong it became a nickname.</p>
   </section>
 
   <!-- ===================== FAQ ===================== -->
@@ -284,15 +248,11 @@
       </details>
       <details>
         <summary>What music will be playing?</summary>
-        <p>Bass. Sort of.</p>
+        <p>Shite you didn't even listen to when you were 16.</p>
       </details>
       <details>
         <summary>My driver pulled into a house in Eadestown and a woman handed him a list. How long will this take?</summary>
         <p>The jobs take as long as the jobs take. The garden won't do itself. The bins won't bring themselves out. Your trip will resume shortly.</p>
-      </details>
-      <details>
-        <summary>Is the service available in August 2026?</summary>
-        <p>No. Driver unavailable — he's marrying Olivia. He poked her sister on Facebook once and it escalated beautifully. He's also becoming Ian's brother-in-law, which means he is never, ever getting rid of him.</p>
       </details>
     </div>
   </section>
@@ -320,7 +280,6 @@
     <h2>The Evidence Locker</h2>
     <p class="section-sub">Exhibit by exhibit. Click the arrows, the thumbnails, or use ← → keys.</p>
     <div class="carousel" id="carousel">
-      <div class="car-cats" id="car-cats"></div>
       <div class="carousel-stage">
         <button class="car-nav car-prev" id="car-prev" type="button" aria-label="Previous exhibit">‹</button>
         <figure class="car-figure">
@@ -340,7 +299,7 @@
     <p class="logo">OBER<span class="logo-dot">.</span></p>
     <p>© 2026 Ober Technologies (a lad in a Kia). Not affiliated with Uber, fun after 9pm, or rounds.</p>
     <p class="muted">By using this service you agree to hear about the bass amp.</p>
-    <p class="build-stamp muted">Build v19 · last updated <span id="build-date">—</span></p>
+    <p class="build-stamp muted">Build v20 · last updated <span id="build-date">—</span></p>
     <!-- Cryptic switch: do not flip -->
     <button class="oa-switch" id="oranangelo-switch" type="button" aria-label="Do not flip" aria-pressed="false">
       <span class="oa-switch-knob"></span>
@@ -356,6 +315,6 @@
     </figure>
   </div>
 
-  <script src="app.js?v=19"></script>
+  <script src="app.js?v=20"></script>
 </body>
 </html>

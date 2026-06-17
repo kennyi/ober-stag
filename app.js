@@ -1,22 +1,26 @@
 // OBER — interactive gags
 
-// ---------- Ride request: he always says no ----------
+// ---------- Ride request: he always says no (just more colourfully) ----------
 const declines = [
+  "Are you having a fuckin laugh?",
+  "You can suck my cock and balls.",
+  "Do I look like a lemon to you?",
+  "I'd rather suck Steve's toe.",
   "Ober has reviewed your request. No.",
   "Your driver is 3 minutes away. He is not coming.",
-  "Request declined. Reason: gym at 6am.",
-  "Request declined. Reason: he's mid-episode. It's a really good one.",
-  "Request declined. Reason: 8,400 steps. So close. Can't risk it.",
-  "Driver unavailable — Louise caught him at the door. There are jobs.",
   "Surge pricing in effect: ×0. He's on the couch and the couch is winning.",
-  "Your request has been added to the queue. The queue is the bin.",
   "Ober considered it. He made the face. You know the face. It's a no.",
   "Request declined. He'd love to, genuinely. That was a lie. No.",
 ];
 
-const accepts = [
-  "✅ Request accepted. \"Airport? Not too bad.\" — your driver, en route, already there.",
-  "✅ Request accepted. The one destination he respects. Wheels rolling.",
+// Destination-specific replies — matched on a keyword anywhere in the destination.
+const specificReplies = [
+  { match: "fishery lane", reply: "Oh, where I hit that dog?" },
+  { match: "hollywood park", reply: "Steve can fuck right off." },
+  { match: "johnstown", reply: "That lad has had enough lifts from me." },
+  { match: "airport", reply: "Ya, not too bad." },
+  { match: "red lane", reply: "Donkey Legs is on the way YEEHAWW" },
+  { match: "red cow", reply: "Fucking Olivia wants me to collect her again." },
 ];
 
 const requestBtn = document.getElementById("request-btn");
@@ -37,16 +41,14 @@ function ensurePhoneVisible() {
 
 let declineIndex = 0;
 
-// Decide Ober's reply using the existing gag logic.
-function getReply(destination) {
+// A specific reply for known destinations, or null if it's just another no.
+function getSpecificReply(destination) {
   const d = destination.toLowerCase();
-  if (d.includes("airport")) {
-    return accepts[Math.floor(Math.random() * accepts.length)];
-  } else if (d.includes("gym")) {
-    return "✅ Request accepted instantly. Fastest pickup in Ober history. He was already in the gear.";
-  } else if (d.includes("couch") || d.includes("home")) {
-    return "✅ Request accepted. Finally, someone who gets it.";
-  }
+  const hit = specificReplies.find((s) => d.includes(s.match));
+  return hit ? hit.reply : null;
+}
+
+function getDecline() {
   return declines[declineIndex++ % declines.length];
 }
 
@@ -75,10 +77,6 @@ const voiceClips = [
   { src: "assets/audio/oran-eyes.ogg", label: "0:15" },
 ];
 
-function isAcceptDestination(d) {
-  d = d.toLowerCase();
-  return d.includes("airport") || d.includes("gym") || d.includes("couch") || d.includes("home");
-}
 
 let currentAudio = null;
 
@@ -256,11 +254,15 @@ if (requestBtn && chat) {
 
     setTimeout(() => {
       typing.remove();
-      // On a refusal, sometimes he just sends a voice note instead of typing back.
-      if (!isAcceptDestination(destination) && voiceClips.length && Math.random() < 0.45) {
+      const specific = getSpecificReply(destination);
+      if (specific) {
+        // Known destination — always give the bespoke reply.
+        addBubble(specific, "received");
+      } else if (voiceClips.length && Math.random() < 0.45) {
+        // Otherwise he sometimes just fires back a voice note instead of typing.
         addVoiceBubble(voiceClips[Math.floor(Math.random() * voiceClips.length)]);
       } else {
-        addBubble(getReply(destination), "received");
+        addBubble(getDecline(), "received");
       }
       requestBtn.disabled = false;
       if (appStatus) {
@@ -283,17 +285,17 @@ if (chat) {
 // Add a review with { quote, reviewer }. Add an optional videoId (the bit after
 // youtube.com/shorts/ or youtu.be/) to pair a video testimonial beside the quote.
 const reviews = [
-  { quote: "Collected six of us from three different corners of Kildare at 2am. Didn't complain once. Didn't speak once.", reviewer: "Fallo", videoId: "UAZ_mpt0G14", end: 9 },
+  { quote: "What the fuck was that.", reviewer: "Fallo", videoId: "UAZ_mpt0G14", end: 9 },
+  { quote: "He's a sheister.", reviewer: "Andrew Tipple" },
+  { quote: "MY BOY'S A LEMON", reviewer: "Bernie Clare" },
   { quote: "Drove like an absolute maniac the entire way. Arrived ten minutes early. Couldn't fault it.", reviewer: "Steve" },
   { quote: "Asked him to come out after. He said no. Asked for a lift home instead. Already in the car park. That's Ober.", reviewer: "Killian" },
-  { quote: "He's a nice lad, bit special — but I call Ian for the important jobs.", reviewer: "Louise" },
-  { quote: "Fridge is always stocked with ice and Coke. The rum's my own affair. Five stars.", reviewer: "Dermot" },
+  { quote: "He's a nice lad, bit special — but I call Ian for the important jobs.", reviewer: "Louise Griffin" },
+  { quote: "Fridge is always stocked with ice and Coke. The rum's my own affair. Five stars.", reviewer: "Dermot Griffin" },
   { quote: "Who?", reviewer: "Stephen Grainger" },
   { quote: "Sold that bozo a broken amp and he's never charged me once for a lift. Top tier service. 5 stars.", reviewer: "Ian" },
   { quote: "Said 'airport? not too bad' and then said nothing else for forty minutes. Perfect journey.", reviewer: "Anonymous rider" },
-  { quote: "He never starts. I never stop. It works.", reviewer: "Olivia" },
-  { quote: "He's a sheister.", reviewer: "Andrew Tipple" },
-  { quote: "MY BOY'S A LEMON", reviewer: "Bernie Clare" },
+  { quote: "Confirmed micropenis. 4 stars.", reviewer: "Olivia" },
 ];
 
 const reviewsFeatured = document.getElementById("reviews-featured");
@@ -362,7 +364,7 @@ if (reviewTrack) {
     Array.from(reviewDots.children).forEach((d, j) => d.classList.toggle("active", j === rIndex));
   }
   function reviewStop() { if (rTimer) { clearInterval(rTimer); rTimer = null; } }
-  function reviewStart() { reviewStop(); if (rCount > 1) rTimer = setInterval(() => reviewGoTo(rIndex + 1), 5000); }
+  function reviewStart() { reviewStop(); if (rCount > 1) rTimer = setInterval(() => reviewGoTo(rIndex + 1), 4000); }
 
   reviewDots.addEventListener("click", (e) => {
     const d = e.target.closest(".review-dot");
@@ -405,6 +407,38 @@ if (videoGrid) {
       <figcaption>${v.title}</figcaption>
     </figure>`
     )
+    .join("");
+}
+
+// ---------- Ober Eats: the menu ----------
+// Each dish pairs a name + description with a photo or clip. Swap the media
+// `src` here to re-pair a dish with a different file.
+const eatsMenu = [
+  { name: "Oberrito", price: "Market price", desc: "Fully loaded, fully exposed. Served couch-side, no plate.", media: { type: "img", src: "assets/img/Naked1.jpg" } },
+  { name: "Ober Chicken Boot Sandwich", price: "Two left feet", desc: "Two silver boots, one questionable dance. Hold the cutlery.", media: { type: "video", src: "assets/img/Chicken Dance Boots.mp4" } },
+  { name: "Ober Wangs", price: "By the dozen", desc: "Flap-fried and flapping. Comes with the wing dance, free of charge.", media: { type: "img", src: "assets/img/UberEats2.gif" } },
+  { name: "Greek Yobert", price: "Floor price", desc: "Floor-churned, locally sourced from the lino. Live cultures, live regrets.", media: { type: "img", src: "assets/img/UberEats4.jpg" } },
+  { name: "Lemonober", price: "Sour deal", desc: "When life gives him lemons, he eats them whole. Rind and all.", media: { type: "img", src: "assets/img/UberEats6.jpg" } },
+  { name: "Oboned", price: "On the house, man", desc: "Crisp in, lights on, nobody home. Chef's medicated special.", media: { type: "img", src: "assets/img/UberEats5.jpg" } },
+];
+
+const eatsMenuEl = document.getElementById("eats-menu");
+if (eatsMenuEl) {
+  eatsMenuEl.innerHTML = eatsMenu
+    .map((d) => {
+      const media =
+        d.media.type === "video"
+          ? `<video src="${d.media.src}" autoplay muted loop playsinline preload="metadata"></video>`
+          : `<img src="${d.media.src}" alt="" loading="lazy" />`;
+      return `
+    <article class="eats-dish">
+      <div class="eats-dish-media">${media}</div>
+      <div class="eats-dish-text">
+        <p class="eats-dish-head"><span class="eats-dish-name">${d.name}</span><span class="eats-dish-dots"></span><span class="eats-dish-price">${d.price}</span></p>
+        <p class="eats-dish-desc">${d.desc}</p>
+      </div>
+    </article>`;
+    })
     .join("");
 }
 
@@ -493,19 +527,12 @@ const carousel = document.getElementById("carousel");
 const carImg = document.getElementById("car-img");
 const carCaption = document.getElementById("car-caption");
 const carCounter = document.getElementById("car-counter");
-const carCats = document.getElementById("car-cats");
 const carThumbs = document.getElementById("car-thumbs");
 const carPrev = document.getElementById("car-prev");
 const carNext = document.getElementById("car-next");
 const carFs = document.getElementById("car-fs");
 
 let carIndex = 0;
-
-// Categories in order of first appearance, with the index of their first photo.
-const categories = [...new Set(photos.map((p) => p.category).filter(Boolean))];
-const categoryStart = Object.fromEntries(
-  categories.map((c) => [c, photos.findIndex((p) => p.category === c)])
-);
 
 function renderCarousel() {
   const p = photos[carIndex];
@@ -521,9 +548,6 @@ function renderCarousel() {
   } else {
     carCounter.textContent = `${carIndex + 1} / ${photos.length}`;
   }
-  Array.from(carCats.children).forEach((c) =>
-    c.classList.toggle("active", c.dataset.cat === p.category)
-  );
   Array.from(carThumbs.children).forEach((t, i) => t.classList.toggle("active", i === carIndex));
   const activeThumb = carThumbs.children[carIndex];
   // Scroll only the thumbnail strip horizontally — never the page (scrollIntoView
@@ -548,14 +572,6 @@ function carInView() {
 }
 
 if (carousel && photos.length) {
-  carCats.innerHTML = categories
-    .map((c) => `<button class="car-cat" type="button" data-cat="${c}">${c}</button>`)
-    .join("");
-  carCats.addEventListener("click", (e) => {
-    const c = e.target.closest(".car-cat");
-    if (c) carGoTo(categoryStart[c.dataset.cat]);
-  });
-
   carThumbs.innerHTML = photos
     .map(
       (p, i) =>
@@ -601,15 +617,14 @@ const mapUrl = (lat, lng, z = 15) =>
 
 // Where Oran is "spotted" — he never actually goes anywhere useful.
 const trackerSpots = [
-  { line: "📍 Doing loops of Eadestown for the step count…", lat: 53.1846, lng: -6.6260, z: 15 },
-  { line: "📍 Parked outside the gym. Hasn't gone in.", lat: 53.2189, lng: -6.6614, z: 16 },
-  { line: "📍 'Quick stop' at the chipper in Naas. (It is never quick.)", lat: 53.2206, lng: -6.6592, z: 16 },
-  { line: "📍 Pulled into a job in Monread. The bins won't bring themselves out.", lat: 53.2270, lng: -6.6840, z: 15 },
-  { line: "📍 One more lap of the estate. He said that four laps ago.", lat: 53.1815, lng: -6.6205, z: 16 },
-  { line: "📍 Back at the couch, Eadestown. The couch is winning.", lat: 53.1852, lng: -6.6248, z: 17 },
+  { line: "📍 Pulling his plumbs on the couch at home", lat: 53.192444, lng: -6.594105, z: 16 },
+  { line: "📍 Johnstown, collecting Ian again", lat: 53.227483, lng: -6.607912, z: 16 },
+  { line: "📍 Visiting Mammy and Daddy", lat: 53.233739, lng: -6.649594, z: 16 },
+  { line: "📍 Oh look, Steve needs a lift again", lat: 53.222843, lng: -6.658297, z: 16 },
+  { line: "📍 Up in the office… pullin his plumbs still", lat: 53.312831, lng: -6.344898, z: 16 },
 ];
 
-const VATICAN_LINE = "📍 Doing loops of the Sistine Chapel, Vatican City…";
+const VATICAN_LINE = "📍 Oranangelo in the Sistine Chapel";
 const VATICAN_SPOT = { line: VATICAN_LINE, lat: 41.9029, lng: 12.4545, z: 16 };
 let oranangeloActive = false;
 let spotIndex = 0;
