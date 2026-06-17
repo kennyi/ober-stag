@@ -428,6 +428,7 @@ body.lemon-mode .hero h1 .accent { color: #c9a800; }
   border: 1px solid var(--border);
   border-radius: 1rem;
   padding: 2rem;
+  cursor: pointer;
   transition: transform 0.2s, border-color 0.2s;
 }
 .tier-card:hover { transform: translateY(-4px); border-color: var(--accent); }
@@ -444,6 +445,34 @@ body.lemon-mode .hero h1 .accent { color: #c9a800; }
   margin-top: 1rem;
   color: var(--accent) !important;
   font-weight: 600;
+}
+
+/* Click-to-reveal photo beneath each tier */
+.tier-reveal {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.45s ease, opacity 0.45s ease, margin-top 0.45s ease;
+}
+.tier-card.open .tier-reveal {
+  max-height: 460px;
+  opacity: 1;
+  margin-top: 1rem;
+}
+.tier-reveal img {
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  border-radius: 0.6rem;
+  display: block;
+}
+.tier-hint {
+  margin-top: 0.75rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent) !important;
+  opacity: 0.75;
 }
 
 /* ---------- Driver licence ---------- */
@@ -731,6 +760,28 @@ body.lemon-mode .hero h1 .accent { color: #c9a800; }
 
 /* ---------- Evidence Locker carousel ---------- */
 .carousel { max-width: 62rem; margin: 0 auto; }
+
+.car-cats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.car-cat {
+  flex: 0 0 auto;
+  padding: 0.35rem 0.9rem;
+  border-radius: 2rem;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.car-cat:hover { border-color: var(--accent); color: var(--text); }
+.car-cat.active { background: var(--accent); color: #111; border-color: var(--accent); }
 
 .carousel-stage {
   position: relative;

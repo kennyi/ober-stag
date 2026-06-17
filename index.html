@@ -6,7 +6,7 @@
   <title>OBER — Get there. Eventually.</title>
   <meta name="description" content="Ireland's most reluctant ride-sharing service. One driver. Zero enthusiasm. Five stars." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍋</text></svg>" />
-  <link rel="stylesheet" href="styles.css?v=11" />
+  <link rel="stylesheet" href="styles.css?v=12" />
 </head>
 <body>
 
@@ -136,27 +136,27 @@
       <p class="steps-label"><span id="steps-count">9,214</span> / 10,000 steps — he is not getting in the car until this is done</p>
     </div>
 
-    <!-- Ride tiers -->
+    <!-- Ride tiers — each card clicks to reveal a photo of Oran (see app.js) -->
     <div class="tiers">
-      <div class="tier-card">
+      <div class="tier-card" data-reveal="assets/img/Pissing2.jpg">
         <div class="tier-emoji">🚗</div>
         <h3>Ober Standard</h3>
         <p>One Kia. Immaculate. Climate control set to his preference, not yours.</p>
         <p class="tier-price">€0 — he won't take your money, he'll just remember</p>
       </div>
-      <div class="tier-card">
+      <div class="tier-card" data-reveal="assets/img/Fat baby.jpeg">
         <div class="tier-emoji">🚐</div>
         <h3>Ober XL</h3>
         <p>Six lads, three pickup points, one county, 2am. Completed in total silence.</p>
         <p class="tier-price">€0 + lifelong debt</p>
       </div>
-      <div class="tier-card tier-featured">
+      <div class="tier-card tier-featured" data-reveal="assets/img/Lemon Baby Weather.jpeg">
         <div class="tier-emoji">🍋</div>
         <h3>Ober Lemon</h3>
         <p>Premium tier. Driver arrives in full costume. Availability: one weekend only, June 2026.</p>
         <p class="tier-price">Priceless</p>
       </div>
-      <div class="tier-card">
+      <div class="tier-card" data-reveal="assets/img/Dressup4.jpg">
         <div class="tier-emoji">🛋️</div>
         <h3>Ober Couch</h3>
         <p>He stays home. You stay home. Nobody goes anywhere. Our most popular service.</p>
@@ -251,6 +251,7 @@
     <h2>The Evidence Locker</h2>
     <p class="section-sub">Exhibit by exhibit. Click the arrows, the thumbnails, or use ← → keys.</p>
     <div class="carousel" id="carousel">
+      <div class="car-cats" id="car-cats"></div>
       <div class="carousel-stage">
         <button class="car-nav car-prev" id="car-prev" type="button" aria-label="Previous exhibit">‹</button>
         <figure class="car-figure">
@@ -272,6 +273,6 @@
     <p class="muted">By using this service you agree to hear about the bass amp.</p>
   </footer>
 
-  <script src="app.js?v=11"></script>
+  <script src="app.js?v=12"></script>
 </body>
 </html>

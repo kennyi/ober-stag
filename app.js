@@ -192,12 +192,14 @@ const reviews = [
   { quote: "Collected six of us from three different corners of Kildare at 2am. Didn't complain once. Didn't speak once.", reviewer: "Fallo", videoId: "UAZ_mpt0G14", end: 9 },
   { quote: "Drove like an absolute maniac the entire way. Arrived ten minutes early. Couldn't fault it.", reviewer: "Steve" },
   { quote: "Asked him to come out after. He said no. Asked for a lift home instead. Already in the car park. That's Ober.", reviewer: "Killian" },
-  { quote: "Five stars. He also took the bins out, moved a wardrobe and did the garden. Lovely lad. See you tomorrow, same time.", reviewer: "Louise (mother-in-law-to-be)" },
-  { quote: "Great driver. Great fridge. The coke situation is between me and him.", reviewer: "Dermot (father-in-law-to-be)" },
-  { quote: "Who?", reviewer: "Stephen (shook everyone else's hand)" },
-  { quote: "Sold him a bass amp in school. It was grand. He's been on about it for fifteen years. Anyway, five stars from me.", reviewer: "Ian (he gave me one star back)" },
+  { quote: "He's a nice lad, bit special — but I call Ian for the important jobs.", reviewer: "Louise" },
+  { quote: "Fridge is always stocked with ice and Coke. The rum's my own affair. Five stars.", reviewer: "Dermot" },
+  { quote: "Who?", reviewer: "Stephen Grainger" },
+  { quote: "Sold that bozo a broken amp and he's never charged me once for a lift. Top tier service. 5 stars.", reviewer: "Ian" },
   { quote: "Said 'airport? not too bad' and then said nothing else for forty minutes. Perfect journey.", reviewer: "Anonymous rider" },
-  { quote: "He never starts. I never stop. It works.", reviewer: "Olivia (the fiancée, the festival, the force of nature)" },
+  { quote: "He never starts. I never stop. It works.", reviewer: "Olivia" },
+  { quote: "He's a sheister.", reviewer: "Andrew Tipple" },
+  { quote: "MY BOY'S A LEMON", reviewer: "Bernie Clare" },
 ];
 
 const reviewsFeatured = document.getElementById("reviews-featured");
@@ -350,6 +352,7 @@ const carousel = document.getElementById("carousel");
 const carImg = document.getElementById("car-img");
 const carCaption = document.getElementById("car-caption");
 const carCounter = document.getElementById("car-counter");
+const carCats = document.getElementById("car-cats");
 const carThumbs = document.getElementById("car-thumbs");
 const carPrev = document.getElementById("car-prev");
 const carNext = document.getElementById("car-next");
@@ -357,13 +360,29 @@ const carFs = document.getElementById("car-fs");
 
 let carIndex = 0;
 
+// Categories in order of first appearance, with the index of their first photo.
+const categories = [...new Set(photos.map((p) => p.category).filter(Boolean))];
+const categoryStart = Object.fromEntries(
+  categories.map((c) => [c, photos.findIndex((p) => p.category === c)])
+);
+
 function renderCarousel() {
   const p = photos[carIndex];
   if (!p) return;
   carImg.src = p.src;
   carImg.alt = p.caption || "";
   carCaption.textContent = p.caption || "";
-  carCounter.textContent = `${carIndex + 1} / ${photos.length}`;
+  // Counter shows position within the current category: "Childhood · 3 / 25".
+  if (p.category) {
+    const inCat = photos.filter((x) => x.category === p.category);
+    const pos = inCat.indexOf(p) + 1;
+    carCounter.textContent = `${p.category} · ${pos} / ${inCat.length}`;
+  } else {
+    carCounter.textContent = `${carIndex + 1} / ${photos.length}`;
+  }
+  Array.from(carCats.children).forEach((c) =>
+    c.classList.toggle("active", c.dataset.cat === p.category)
+  );
   Array.from(carThumbs.children).forEach((t, i) => t.classList.toggle("active", i === carIndex));
   const activeThumb = carThumbs.children[carIndex];
   if (activeThumb) activeThumb.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
@@ -381,6 +400,14 @@ function carInView() {
 }
 
 if (carousel && photos.length) {
+  carCats.innerHTML = categories
+    .map((c) => `<button class="car-cat" type="button" data-cat="${c}">${c}</button>`)
+    .join("");
+  carCats.addEventListener("click", (e) => {
+    const c = e.target.closest(".car-cat");
+    if (c) carGoTo(categoryStart[c.dataset.cat]);
+  });
+
   carThumbs.innerHTML = photos
     .map(
       (p, i) =>
@@ -413,6 +440,36 @@ if (carousel && photos.length) {
   if (carCaption) carCaption.textContent = "Evidence being gathered from the lads…";
   if (carCounter) carCounter.textContent = "0 / 0";
 }
+
+// ---------- Ober types: click a tier to reveal a photo of Oran ----------
+document.querySelectorAll(".tier-card[data-reveal]").forEach((card) => {
+  const reveal = document.createElement("div");
+  reveal.className = "tier-reveal";
+  reveal.innerHTML = `<img src="${card.dataset.reveal}" alt="" loading="lazy" />`;
+  card.appendChild(reveal);
+
+  const hint = document.createElement("p");
+  hint.className = "tier-hint";
+  hint.textContent = "Tap to reveal";
+  card.appendChild(hint);
+
+  card.setAttribute("role", "button");
+  card.setAttribute("tabindex", "0");
+  card.setAttribute("aria-expanded", "false");
+
+  const toggle = () => {
+    const open = card.classList.toggle("open");
+    card.setAttribute("aria-expanded", String(open));
+    hint.textContent = open ? "Tap to hide" : "Tap to reveal";
+  };
+  card.addEventListener("click", toggle);
+  card.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      toggle();
+    }
+  });
+});
 
 // ---------- Step counter: forever almost done ----------
 const stepsCount = document.getElementById("steps-count");
