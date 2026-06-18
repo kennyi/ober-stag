@@ -1139,7 +1139,6 @@ body.lemon-mode .hero h1 .accent { color: #c9a800; }
   max-height: 64vh;
   object-fit: cover;
   border-radius: 1rem;
-  filter: grayscale(1) contrast(1.05);
   box-shadow: 0 16px 50px rgba(0, 0, 0, 0.6);
 }
 

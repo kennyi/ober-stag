@@ -791,7 +791,9 @@ if (catbolBtn && catbolOverlay) {
       `<div class="reel-line reel-dates">June 2022 — June 2026</div>`,
       `<div class="reel-line reel-blessing">Ar dheis Dé go raibh a anam</div>`,
     ];
-    catbolPhotos.forEach((src, i) => {
+    // Skip the finale image so it only appears once (at the very end).
+    const reelPhotos = catbolPhotos.filter((s) => s !== "assets/img/Catbol1.jpg");
+    reelPhotos.forEach((src, i) => {
       seq.push(`<div class="reel-line reel-photo"><img src="${src}" alt="Catbol" /></div>`);
       if (i === 3) seq.push(`<div class="reel-line reel-quote">${reelLines[0]}</div>`);
       if (i === 7) seq.push(`<div class="reel-line reel-quote">${reelLines[1]}</div>`);
