@@ -520,10 +520,6 @@ const allPhotos = [
   { src: "assets/img/Naked9.jpg", caption: "Born ready, dressed never.", category: "Nude/Balls" },
   { src: "assets/img/Pissing2.jpg", caption: "Standard tier. Pictured relieving himself of all standards.", category: "Nude/Balls" },
 
-  // ----- Catbol in memoriam -----
-  { src: "assets/img/Catbol1.jpg", caption: "Catbol. Gone, never forgotten. In memoriam.", category: "Catbol" },
-  { src: "assets/img/Catbol2.jpg", caption: "The realest passenger he ever had.", category: "Catbol" },
-
   // ----- Olivia -----
   { src: "assets/img/Olivia Kiss.jpg", caption: "Olivia said yes. To the photo, not the lift.", category: "Olivia" },
   { src: "assets/img/Olivia1.jpg", caption: "The woman who answers when you can't reach Oran.", category: "Olivia" },
@@ -762,10 +758,15 @@ const catbolBtn = document.getElementById("catbol-btn");
 const catbolOverlay = document.getElementById("catbol-overlay");
 const catbolClose = document.getElementById("catbol-close");
 const catbolGallery = document.getElementById("catbol-gallery");
+const catbolPour = document.getElementById("catbol-pour");
 
 if (catbolBtn && catbolOverlay) {
+  // Photos animate in one after another (staggered rise) on open.
   catbolGallery.innerHTML = catbolPhotos
-    .map((src) => `<img src="${src}" alt="Catbol" loading="lazy" />`)
+    .map(
+      (src, i) =>
+        `<img src="${src}" alt="Catbol" loading="lazy" style="animation-delay:${i * 0.15}s" />`
+    )
     .join("");
 
   const openCatbol = () => {
@@ -777,12 +778,48 @@ if (catbolBtn && catbolOverlay) {
     catbolOverlay.setAttribute("aria-hidden", "true");
   };
 
+  // "Pour one out" — rain pints and paw prints down the memorial.
+  function pourOneOut() {
+    const glyphs = ["🍺", "🐾", "🤍", "🥛"];
+    for (let i = 0; i < 28; i++) {
+      const drop = document.createElement("div");
+      drop.className = "catbol-drop";
+      drop.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
+      drop.style.left = Math.random() * 100 + "vw";
+      drop.style.fontSize = 1.2 + Math.random() * 1.8 + "rem";
+      drop.style.animationDuration = 2.4 + Math.random() * 2.2 + "s";
+      drop.style.animationDelay = Math.random() * 0.8 + "s";
+      catbolOverlay.appendChild(drop);
+      setTimeout(() => drop.remove(), 5200);
+    }
+  }
+
   catbolBtn.addEventListener("click", openCatbol);
   catbolClose.addEventListener("click", closeCatbol);
+  if (catbolPour) catbolPour.addEventListener("click", pourOneOut);
   catbolOverlay.addEventListener("click", (e) => {
     if (e.target === catbolOverlay) closeCatbol();
   });
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && catbolOverlay.classList.contains("show")) closeCatbol();
   });
+}
+
+// ---------- Greatest Hits: self-hosted video clips ----------
+// Add a clip: drop the file in assets/video/ and add its filename below.
+// The section stays hidden until there's at least one clip.
+const clips = [
+  // "Trump.mp4",
+  // "Donkey Legs.mp4",
+];
+const greatestHits = document.getElementById("greatest-hits");
+const clipsGrid = document.getElementById("clips-grid");
+if (greatestHits && clipsGrid && clips.length) {
+  clipsGrid.innerHTML = clips
+    .map(
+      (file) =>
+        `<div class="clip"><video src="assets/video/${file}" controls preload="metadata" playsinline></video></div>`
+    )
+    .join("");
+  greatestHits.hidden = false;
 }
