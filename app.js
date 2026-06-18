@@ -813,6 +813,11 @@ const clips = [
   "Sick Doctor Niall.mp4",
   "Pissing.mp4",
   "Giving Lift.mp4",
+  "Dobby.mp4",
+  "Mashed Banana.mp4",
+  "Mayday.mp4",
+  "Oran German.mp4",
+  "Patrice.mp4",
 ];
 const greatestHits = document.getElementById("greatest-hits");
 const clipsTrack = document.getElementById("clips-track");
