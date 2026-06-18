@@ -914,6 +914,12 @@ if (catbolBtn && catbolOverlay) {
     }
   }
 
+  // ----- Memorial song: loops while open, stops on close -----
+  // Drop the track at assets/audio/catbol.mp3 (mp3 = best browser support).
+  const catbolSong = new Audio("assets/audio/catbol.mp3");
+  catbolSong.loop = true;
+  catbolSong.preload = "none";
+
   // ----- Lifecycle -----
   function openCatbol() {
     catbolOverlay.classList.add("show");
@@ -922,6 +928,7 @@ if (catbolBtn && catbolOverlay) {
     initThree();
     startThree();
     startReel();
+    try { catbolSong.currentTime = 0; catbolSong.play().catch(() => {}); } catch (e) {}
   }
   function closeCatbol() {
     catbolOverlay.classList.remove("show");
@@ -929,6 +936,7 @@ if (catbolBtn && catbolOverlay) {
     document.body.classList.remove("intro-open");
     cancelAnimationFrame(reelRAF);
     stopThree();
+    catbolSong.pause();
   }
 
   catbolBtn.addEventListener("click", openCatbol);
