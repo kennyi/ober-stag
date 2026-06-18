@@ -620,15 +620,15 @@ const mapUrl = (lat, lng, z = 15) =>
 
 // Where Oran is "spotted" — he never actually goes anywhere useful.
 const trackerSpots = [
-  { line: "📍 Pulling his plumbs on the couch at home", lat: 53.192444, lng: -6.594105, z: 16 },
-  { line: "📍 Johnstown, collecting Ian again", lat: 53.227483, lng: -6.607912, z: 16 },
-  { line: "📍 Visiting Mammy and Daddy", lat: 53.233739, lng: -6.649594, z: 16 },
-  { line: "📍 Oh look, Steve needs a lift again", lat: 53.222843, lng: -6.658297, z: 16 },
-  { line: "📍 Up in the office… pullin his plumbs still", lat: 53.312831, lng: -6.344898, z: 16 },
+  { line: "📍 Pulling his plumbs on the couch at home", lat: 53.192444, lng: -6.594105, z: 13 },
+  { line: "📍 Johnstown, collecting Ian again", lat: 53.227483, lng: -6.607912, z: 13 },
+  { line: "📍 Visiting Mammy and Daddy", lat: 53.233739, lng: -6.649594, z: 13 },
+  { line: "📍 Oh look, Steve needs a lift again", lat: 53.222843, lng: -6.658297, z: 13 },
+  { line: "📍 Up in the office… pullin his plumbs still", lat: 53.312831, lng: -6.344898, z: 13 },
 ];
 
 const VATICAN_LINE = "📍 Oranangelo in the Sistine Chapel";
-const VATICAN_SPOT = { line: VATICAN_LINE, lat: 41.9029, lng: 12.4545, z: 16 };
+const VATICAN_SPOT = { line: VATICAN_LINE, lat: 41.9029, lng: 12.4545, z: 14 };
 let oranangeloActive = false;
 let spotIndex = 0;
 

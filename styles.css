@@ -621,7 +621,7 @@ body.lemon-mode .hero h1 .accent { color: #c9a800; }
 .tracker-map {
   position: relative;
   flex: 1 1 280px;
-  height: 320px;
+  height: 440px;
   border-radius: 0.75rem;
   overflow: hidden;
   border: 1px solid var(--border);
@@ -632,7 +632,7 @@ body.lemon-mode .hero h1 .accent { color: #c9a800; }
 .tracker-angelo {
   position: relative;
   flex: 1 1 280px;
-  height: 320px;
+  height: 440px;
   border-radius: 0.75rem;
   overflow: hidden;
   border: 1px solid var(--border);
@@ -694,6 +694,11 @@ body.lemon-mode .hero h1 .accent { color: #c9a800; }
 }
 
 .steps-label { margin-top: 0.75rem; font-size: 0.9rem; color: var(--muted); }
+
+/* ---------- Dashcam (inside Reviews) ---------- */
+.dashcam { margin-bottom: 2.5rem; }
+.dashcam-title { font-size: 1.4rem; margin-bottom: 0.25rem; }
+.dashcam-sub { color: var(--muted); margin-bottom: 1.25rem; }
 
 /* ---------- Reviews ---------- */
 .stars { color: var(--accent); letter-spacing: 0.15em; margin-bottom: 0.75rem; }

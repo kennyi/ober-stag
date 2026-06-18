@@ -6,7 +6,7 @@
   <title>OBER — Get there. Eventually.</title>
   <meta name="description" content="Ireland's most reluctant ride-sharing service. One driver. Zero enthusiasm. Five stars." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍋</text></svg>" />
-  <link rel="stylesheet" href="styles.css?v=26" />
+  <link rel="stylesheet" href="styles.css?v=27" />
 </head>
 <body>
 
@@ -17,7 +17,6 @@
       <a href="#ride">Ride</a>
       <a href="#driver">Your Driver</a>
       <a href="#reviews">Reviews</a>
-      <a href="#footage">Footage</a>
       <a href="#eats">Ober Eats</a>
       <a href="#faq">FAQ</a>
     </div>
@@ -145,7 +144,7 @@
         <div class="tracker-map">
           <iframe id="tracker-frame" title="Live driver location" loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
-            src="https://maps.google.com/maps?q=53.1846,-6.6260&z=15&hl=en&output=embed"></iframe>
+            src="https://maps.google.com/maps?q=53.1846,-6.6260&z=13&hl=en&output=embed"></iframe>
           <span class="tracker-pulse" aria-hidden="true"></span>
         </div>
         <div class="tracker-angelo" id="tracker-angelo" hidden>
@@ -210,6 +209,13 @@
   <section class="section" id="reviews">
     <h2>Riders love Ober</h2>
     <p class="section-sub">Every review verified. Every rating five stars. We don't know how either.</p>
+
+    <div class="dashcam">
+      <h3 class="dashcam-title">Dashcam Footage</h3>
+      <p class="dashcam-sub">Every Ober ride is recorded. For insurance purposes. And for this exact moment.</p>
+      <div class="video-grid" id="video-grid"></div>
+    </div>
+
     <div class="reviews-featured" id="reviews-featured"></div>
     <div class="review-slider" id="review-slider">
       <div class="review-viewport">
@@ -274,13 +280,6 @@
     </div>
   </section>
 
-  <!-- ===================== DASHCAM FOOTAGE ===================== -->
-  <section class="section section-alt" id="footage">
-    <h2>Dashcam Footage</h2>
-    <p class="section-sub">Every Ober ride is recorded. For insurance purposes. And for this exact moment.</p>
-    <div class="video-grid" id="video-grid"></div>
-  </section>
-
   <!-- ===================== STAG ANNOUNCEMENT ===================== -->
   <section class="section section-dark" id="stag">
     <h2>⚠️ Service interruption notice</h2>
@@ -329,7 +328,7 @@
     <p class="logo">OBER<span class="logo-dot">.</span></p>
     <p>© 2026 Ober Technologies (a lad in a Kia). Not affiliated with Uber, fun after 9pm, or rounds.</p>
     <p class="muted">By using this service you agree to hear about the bass amp.</p>
-    <p class="build-stamp muted">Build v26 · last updated <span id="build-date">—</span></p>
+    <p class="build-stamp muted">Build v27 · last updated <span id="build-date">—</span></p>
     <div class="footer-buttons">
       <button class="catbol-btn" id="catbol-btn" type="button" aria-label="In memory of Catbol" title="In memory of Catbol">🐱</button>
       <!-- Cryptic switch: do not flip -->
@@ -354,6 +353,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=26"></script>
+  <script src="app.js?v=27"></script>
 </body>
 </html>
