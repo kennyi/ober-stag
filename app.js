@@ -815,6 +815,7 @@ const clips = [
   "Mashed Banana.mp4",
   "Oran German.mp4",
   "Patrice.mp4",
+  "Licking foot AI.mp4",
 ];
 const greatestHits = document.getElementById("greatest-hits");
 const clipsTrack = document.getElementById("clips-track");
