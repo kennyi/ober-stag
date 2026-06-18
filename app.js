@@ -304,7 +304,8 @@ if (chat) {
 // youtube.com/shorts/ or youtu.be/) to pair a video testimonial beside the quote.
 const reviews = [
   { quote: "What the fuck was that.", reviewer: "Fallo", videoId: "UAZ_mpt0G14", end: 9 },
-  { quote: "He's a sheister.", reviewer: "Andrew Tipple" },
+  { quote: "Very obliging if you're in a tight spot. The resentment is barely noticeable.", reviewer: "Andrew Tipple" },
+  { quote: "He's a sheister.", reviewer: "Andy Brown" },
   { quote: "MY BOY'S A LEMON", reviewer: "Bernie Clare" },
   { quote: "Drove like an absolute maniac the entire way. Arrived ten minutes early. Couldn't fault it.", reviewer: "Steve" },
   { quote: "Asked him to come out after. He said no. Asked for a lift home instead. Already in the car park. That's Ober.", reviewer: "Killian" },
@@ -437,7 +438,7 @@ const eatsMenu = [
   { name: "Ober Wangs", price: "By the dozen", desc: "Flap-fried and flapping. Comes with the wing dance, free of charge.", media: { type: "img", src: "assets/img/Uber Eats Gif.gif" } },
   { name: "Greek Yobert", price: "Floor price", desc: "Floor-churned, locally sourced from the lino. Live cultures, live regrets.", media: { type: "img", src: "assets/img/UberEats2.gif" } },
   { name: "Lemonober", price: "Sour deal", desc: "When life gives him lemons, he eats them whole. Rind and all.", media: { type: "img", src: "assets/img/UberEats4.jpg" } },
-  { name: "Oboned", price: "On the house, man", desc: "Crisp in, lights on, nobody home. Chef's medicated special.", media: { type: "img", src: "assets/img/UberEats6.jpg" } },
+  { name: "Obeaned", price: "On the house, man", desc: "Crisp in, lights on, nobody home. Chef's medicated special.", media: { type: "img", src: "assets/img/UberEats6.jpg" } },
 ];
 
 const eatsMenuEl = document.getElementById("eats-menu");
@@ -491,6 +492,7 @@ const allPhotos = [
   { src: "assets/img/Hair5.jpg", caption: "Peak follicle. Couldn't be reached for a lift.", category: "Childhood" },
   { src: "assets/img/Messer1.jpg", caption: "Messer by trade. Driver by rumour.", category: "Childhood" },
   { src: "assets/img/Messer2.jpg", caption: "Up to no good and somehow still your top-rated driver.", category: "Childhood" },
+  { src: "assets/img/Oran Family.jpeg", caption: "The Clares. A whole family of no's.", category: "Childhood" },
 
   // ----- Playing Dressup -----
   { src: "assets/img/Dressup.jpg", caption: "Committed to the bit since day one.", category: "Dressup" },
@@ -506,7 +508,6 @@ const allPhotos = [
   { src: "assets/img/Spider Boy.jpeg", caption: "Friendly neighbourhood non-driver.", category: "Dressup" },
   { src: "assets/img/Super Boy.jpeg", caption: "Saves the day. Won't save you a seat.", category: "Dressup" },
   { src: "assets/img/Wizard boy.jpeg", caption: "Magic everywhere except your ETA.", category: "Dressup" },
-  { src: "assets/img/Festival Gif.gif", caption: "Festival mode: fully booked, never moving.", category: "Dressup" },
 
   // ----- Nude/Balls -----
   { src: "assets/img/Naked1.jpg", caption: "Bollock naked and proud. Standard tier.", category: "Nude/Balls" },
@@ -523,11 +524,9 @@ const allPhotos = [
   { src: "assets/img/Catbol1.jpg", caption: "Catbol. Gone, never forgotten. In memoriam.", category: "Catbol" },
   { src: "assets/img/Catbol2.jpg", caption: "The realest passenger he ever had.", category: "Catbol" },
 
-  // ----- Olivia & family -----
+  // ----- Olivia -----
   { src: "assets/img/Olivia Kiss.jpg", caption: "Olivia said yes. To the photo, not the lift.", category: "Olivia" },
   { src: "assets/img/Olivia1.jpg", caption: "The woman who answers when you can't reach Oran.", category: "Olivia" },
-  { src: "assets/img/Olivia3.jpg", caption: "Better half. Does the actual driving.", category: "Olivia" },
-  { src: "assets/img/Oran Family.jpeg", caption: "The Clares. A whole family of no's.", category: "Olivia" },
 ];
 
 // Any photo already shown elsewhere — the tier reveals, the licence, the chat
@@ -544,7 +543,6 @@ const photos = allPhotos.filter((p) => !usedElsewhere.has(p.src));
 const carousel = document.getElementById("carousel");
 const carImg = document.getElementById("car-img");
 const carCaption = document.getElementById("car-caption");
-const carCounter = document.getElementById("car-counter");
 const carThumbs = document.getElementById("car-thumbs");
 const carPrev = document.getElementById("car-prev");
 const carNext = document.getElementById("car-next");
@@ -558,14 +556,6 @@ function renderCarousel() {
   carImg.src = p.src;
   carImg.alt = p.caption || "";
   carCaption.textContent = p.caption || "";
-  // Counter shows position within the current category: "Childhood · 3 / 25".
-  if (p.category) {
-    const inCat = photos.filter((x) => x.category === p.category);
-    const pos = inCat.indexOf(p) + 1;
-    carCounter.textContent = `${p.category} · ${pos} / ${inCat.length}`;
-  } else {
-    carCounter.textContent = `${carIndex + 1} / ${photos.length}`;
-  }
   Array.from(carThumbs.children).forEach((t, i) => t.classList.toggle("active", i === carIndex));
   const activeThumb = carThumbs.children[carIndex];
   // Scroll only the thumbnail strip horizontally — never the page (scrollIntoView
@@ -620,7 +610,6 @@ if (carousel && photos.length) {
 } else if (carousel) {
   if (carImg) carImg.remove();
   if (carCaption) carCaption.textContent = "Evidence being gathered from the lads…";
-  if (carCounter) carCounter.textContent = "0 / 0";
 }
 
 // ---------- Step counter: forever almost done ----------
@@ -761,4 +750,39 @@ if (buildDate) {
   buildDate.textContent = isNaN(d)
     ? document.lastModified
     : d.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
+}
+
+// ---------- Catbol in Memoriam ----------
+// Add more photos here as they're gathered.
+const catbolPhotos = [
+  "assets/img/Catbol1.jpg",
+  "assets/img/Catbol2.jpg",
+];
+const catbolBtn = document.getElementById("catbol-btn");
+const catbolOverlay = document.getElementById("catbol-overlay");
+const catbolClose = document.getElementById("catbol-close");
+const catbolGallery = document.getElementById("catbol-gallery");
+
+if (catbolBtn && catbolOverlay) {
+  catbolGallery.innerHTML = catbolPhotos
+    .map((src) => `<img src="${src}" alt="Catbol" loading="lazy" />`)
+    .join("");
+
+  const openCatbol = () => {
+    catbolOverlay.classList.add("show");
+    catbolOverlay.setAttribute("aria-hidden", "false");
+  };
+  const closeCatbol = () => {
+    catbolOverlay.classList.remove("show");
+    catbolOverlay.setAttribute("aria-hidden", "true");
+  };
+
+  catbolBtn.addEventListener("click", openCatbol);
+  catbolClose.addEventListener("click", closeCatbol);
+  catbolOverlay.addEventListener("click", (e) => {
+    if (e.target === catbolOverlay) closeCatbol();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && catbolOverlay.classList.contains("show")) closeCatbol();
+  });
 }

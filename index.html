@@ -6,7 +6,7 @@
   <title>OBER — Get there. Eventually.</title>
   <meta name="description" content="Ireland's most reluctant ride-sharing service. One driver. Zero enthusiasm. Five stars." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍋</text></svg>" />
-  <link rel="stylesheet" href="styles.css?v=22" />
+  <link rel="stylesheet" href="styles.css?v=23" />
 </head>
 <body>
 
@@ -219,6 +219,16 @@
       <button class="rev-arrow rev-next" id="rev-next" type="button" aria-label="Next review">›</button>
       <div class="review-dots" id="review-dots"></div>
     </div>
+
+    <div class="review-film">
+      <h3 class="review-film-title">The full review</h3>
+      <div class="review-film-frame">
+        <iframe src="https://www.youtube-nocookie.com/embed/ZPeJallrUU0"
+          title="The full Ober video review" loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
+    </div>
   </section>
 
   <!-- ===================== OBER EATS ===================== -->
@@ -294,7 +304,6 @@
           <figcaption id="car-caption"></figcaption>
         </figure>
         <button class="car-nav car-next" id="car-next" type="button" aria-label="Next exhibit">›</button>
-        <span class="car-counter" id="car-counter"></span>
         <button class="car-fs" id="car-fs" type="button" aria-label="Toggle fullscreen">⛶</button>
       </div>
       <div class="car-thumbs" id="car-thumbs"></div>
@@ -306,13 +315,28 @@
     <p class="logo">OBER<span class="logo-dot">.</span></p>
     <p>© 2026 Ober Technologies (a lad in a Kia). Not affiliated with Uber, fun after 9pm, or rounds.</p>
     <p class="muted">By using this service you agree to hear about the bass amp.</p>
-    <p class="build-stamp muted">Build v22 · last updated <span id="build-date">—</span></p>
-    <!-- Cryptic switch: do not flip -->
-    <button class="oa-switch" id="oranangelo-switch" type="button" aria-label="Do not flip" aria-pressed="false">
-      <span class="oa-switch-knob"></span>
-    </button>
+    <p class="build-stamp muted">Build v23 · last updated <span id="build-date">—</span></p>
+    <div class="footer-buttons">
+      <button class="catbol-btn" id="catbol-btn" type="button" aria-label="In memory of Catbol" title="In memory of Catbol">🐱</button>
+      <!-- Cryptic switch: do not flip -->
+      <button class="oa-switch" id="oranangelo-switch" type="button" aria-label="Do not flip" aria-pressed="false">
+        <span class="oa-switch-knob"></span>
+      </button>
+    </div>
   </footer>
 
-  <script src="app.js?v=22"></script>
+  <!-- Catbol in Memoriam -->
+  <div class="catbol-overlay" id="catbol-overlay" aria-hidden="true">
+    <button class="catbol-close" id="catbol-close" type="button" aria-label="Close">×</button>
+    <div class="catbol-memorial">
+      <p class="catbol-candle">🕯️</p>
+      <h2 class="catbol-title">Catbol</h2>
+      <p class="catbol-sub">In loving memory · the realest passenger he ever had</p>
+      <div class="catbol-gallery" id="catbol-gallery"></div>
+      <p class="catbol-foot">Forever in the back seat. 🐾</p>
+    </div>
+  </div>
+
+  <script src="app.js?v=23"></script>
 </body>
 </html>
