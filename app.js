@@ -922,13 +922,14 @@ if (catbolBtn && catbolOverlay) {
 
   // ----- Lifecycle -----
   function openCatbol() {
+    // Kick the song off first so it starts the instant you click.
+    try { catbolSong.currentTime = 0; catbolSong.play().catch(() => {}); } catch (e) {}
     catbolOverlay.classList.add("show");
     catbolOverlay.setAttribute("aria-hidden", "false");
     document.body.classList.add("intro-open");
     initThree();
     startThree();
     startReel();
-    try { catbolSong.currentTime = 0; catbolSong.play().catch(() => {}); } catch (e) {}
   }
   function closeCatbol() {
     catbolOverlay.classList.remove("show");
@@ -938,6 +939,11 @@ if (catbolBtn && catbolOverlay) {
     stopThree();
     catbolSong.pause();
   }
+
+  // Warm the song up on hover/touch so it's buffered before the click.
+  const warmSong = () => { try { catbolSong.load(); } catch (e) {} };
+  catbolBtn.addEventListener("pointerenter", warmSong, { once: true });
+  catbolBtn.addEventListener("pointerdown", warmSong, { once: true });
 
   catbolBtn.addEventListener("click", openCatbol);
   catbolClose.addEventListener("click", closeCatbol);
