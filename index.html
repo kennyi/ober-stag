@@ -6,7 +6,7 @@
   <title>OBER — Get there. Eventually.</title>
   <meta name="description" content="Ireland's most reluctant ride-sharing service. One driver. Zero enthusiasm. Five stars." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍋</text></svg>" />
-  <link rel="stylesheet" href="styles.css?v=33" />
+  <link rel="stylesheet" href="styles.css?v=34" />
 </head>
 <body>
 
@@ -336,7 +336,7 @@
     <p class="logo">OBER<span class="logo-dot">.</span></p>
     <p>© 2026 Ober Technologies (a lad in a Kia). Not affiliated with Uber, fun after 9pm, or rounds.</p>
     <p class="muted">By using this service you agree to hear about the bass amp.</p>
-    <p class="build-stamp muted">Build v33 · last updated <span id="build-date">—</span></p>
+    <p class="build-stamp muted">Build v34 · last updated <span id="build-date">—</span></p>
     <div class="footer-buttons">
       <button class="catbol-btn" id="catbol-btn" type="button" aria-label="In memory of Catbol" title="In memory of Catbol">🐱</button>
       <!-- Cryptic switch: do not flip -->
@@ -346,21 +346,27 @@
     </div>
   </footer>
 
-  <!-- Catbol in Memoriam -->
+  <!-- Catbol in Memoriam — cinematic credits reel -->
   <div class="catbol-overlay" id="catbol-overlay" aria-hidden="true">
+    <canvas class="catbol-canvas" id="catbol-canvas"></canvas>
     <button class="catbol-close" id="catbol-close" type="button" aria-label="Close">×</button>
-    <div class="catbol-memorial">
-      <p class="catbol-candle">🕯️</p>
-      <h2 class="catbol-title">Catbol</h2>
-      <p class="catbol-dates">June 2022 — June 2026</p>
-      <p class="catbol-blessing">Ar dheis Dé go raibh a anam</p>
-      <p class="catbol-sub">In loving memory · the realest passenger he ever had</p>
-      <div class="catbol-gallery" id="catbol-gallery"></div>
-      <button class="catbol-pour" id="catbol-pour" type="button">🍺 Pour one out for Catbol</button>
-      <p class="catbol-foot">Forever in the back seat. 🐾</p>
+    <div class="catbol-stage" id="catbol-stage">
+      <div class="catbol-reel" id="catbol-reel"></div>
     </div>
+    <div class="catbol-final" id="catbol-final">
+      <img src="assets/img/Catbol1.jpg" alt="Catbol" />
+      <p class="catbol-final-name">Catbol</p>
+      <p class="catbol-final-dates">June 2022 — June 2026</p>
+      <p class="catbol-final-blessing">Ar dheis Dé go raibh a anam</p>
+      <div class="catbol-actions">
+        <button class="catbol-pour" id="catbol-pour" type="button">🍺 Pour one out for Catbol</button>
+        <button class="catbol-replay" id="catbol-replay" type="button">↺ Replay</button>
+      </div>
+    </div>
+    <button class="catbol-skip" id="catbol-skip" type="button">Skip to the end ↓</button>
   </div>
 
-  <script src="app.js?v=33"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="app.js?v=34"></script>
 </body>
 </html>

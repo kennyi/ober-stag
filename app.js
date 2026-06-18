@@ -769,49 +769,174 @@ const catbolPhotos = [
 const catbolBtn = document.getElementById("catbol-btn");
 const catbolOverlay = document.getElementById("catbol-overlay");
 const catbolClose = document.getElementById("catbol-close");
-const catbolGallery = document.getElementById("catbol-gallery");
+const catbolStage = document.getElementById("catbol-stage");
+const catbolReel = document.getElementById("catbol-reel");
+const catbolFinal = document.getElementById("catbol-final");
+const catbolSkip = document.getElementById("catbol-skip");
+const catbolReplay = document.getElementById("catbol-replay");
 const catbolPour = document.getElementById("catbol-pour");
+const catbolCanvas = document.getElementById("catbol-canvas");
 
 if (catbolBtn && catbolOverlay) {
-  // Photos animate in one after another (staggered rise) on open.
-  catbolGallery.innerHTML = catbolPhotos
-    .map(
-      (src, i) =>
-        `<img src="${src}" alt="Catbol" loading="lazy" style="animation-delay:${i * 0.15}s" />`
-    )
-    .join("");
+  // ----- Build the credits reel from the photos + memorial lines -----
+  const reelLines = [
+    "The realest passenger he ever had.",
+    "Never paid a fare. Never had to.",
+    "Always shotgun. Never seatbelt.",
+  ];
+  function buildReel() {
+    const seq = [
+      `<div class="reel-line reel-eyebrow">In loving memory of</div>`,
+      `<div class="reel-line reel-name">Catbol</div>`,
+      `<div class="reel-line reel-dates">June 2022 — June 2026</div>`,
+      `<div class="reel-line reel-blessing">Ar dheis Dé go raibh a anam</div>`,
+    ];
+    catbolPhotos.forEach((src, i) => {
+      seq.push(`<div class="reel-line reel-photo"><img src="${src}" alt="Catbol" /></div>`);
+      if (i === 3) seq.push(`<div class="reel-line reel-quote">${reelLines[0]}</div>`);
+      if (i === 7) seq.push(`<div class="reel-line reel-quote">${reelLines[1]}</div>`);
+      if (i === 10) seq.push(`<div class="reel-line reel-quote">${reelLines[2]}</div>`);
+    });
+    seq.push(`<div class="reel-line reel-quote">Gone, but forever in the back seat.</div>`);
+    seq.push(`<div class="reel-line reel-quote">We'll never forget you. 🐾</div>`);
+    catbolReel.innerHTML = seq.join("");
+  }
+  buildReel();
 
-  const openCatbol = () => {
-    catbolOverlay.classList.add("show");
-    catbolOverlay.setAttribute("aria-hidden", "false");
-  };
-  const closeCatbol = () => {
-    catbolOverlay.classList.remove("show");
-    catbolOverlay.setAttribute("aria-hidden", "true");
-  };
+  // ----- The slow credit roll (time-driven so we get an end callback) -----
+  const REEL_MS = 36000;
+  let reelStart = 0;
+  let reelRAF = 0;
 
-  // "Pour one out" — rain pints and paw prints down the memorial.
+  function stepReel(ts) {
+    if (!reelStart) reelStart = ts;
+    const t = Math.min((ts - reelStart) / REEL_MS, 1);
+    const startY = catbolStage.clientHeight;
+    const endY = -catbolReel.scrollHeight;
+    catbolReel.style.transform = `translateY(${startY + (endY - startY) * t}px)`;
+    if (t < 1) reelRAF = requestAnimationFrame(stepReel);
+    else showFinal();
+  }
+  function startReel() {
+    catbolFinal.classList.remove("show");
+    if (catbolSkip) catbolSkip.style.display = "";
+    reelStart = 0;
+    cancelAnimationFrame(reelRAF);
+    reelRAF = requestAnimationFrame(stepReel);
+  }
+  function showFinal() {
+    cancelAnimationFrame(reelRAF);
+    if (catbolSkip) catbolSkip.style.display = "none";
+    catbolFinal.classList.add("show");
+  }
+
+  // ----- three.js: black-and-white paw prints drifting up behind it -----
+  let tInit = false, tRun = false, tRAF = 0, tRenderer, tScene, tCam;
+  const tSprites = [];
+
+  function pawTexture() {
+    const c = document.createElement("canvas");
+    c.width = c.height = 128;
+    const g = c.getContext("2d");
+    g.fillStyle = "#ffffff";
+    g.beginPath(); g.ellipse(64, 84, 27, 21, 0, 0, Math.PI * 2); g.fill(); // pad
+    [[34, 48, 11], [54, 34, 12], [78, 34, 12], [96, 48, 11]].forEach(([x, y, r]) => {
+      g.beginPath(); g.arc(x, y, r, 0, Math.PI * 2); g.fill(); // toe beans
+    });
+    return new THREE.CanvasTexture(c);
+  }
+  function seedSprite(s, anywhere) {
+    s.position.x = (Math.random() * 2 - 1) * 8;
+    s.position.y = anywhere ? (Math.random() * 2 - 1) * 8 : -8 - Math.random() * 3;
+    s.position.z = (Math.random() * 2 - 1) * 2;
+    const sc = 0.4 + Math.random() * 0.9;
+    s.scale.set(sc, sc, 1);
+    s.userData.spd = 0.012 + Math.random() * 0.03;
+    s.userData.sway = Math.random() * Math.PI * 2;
+    s.material.rotation = Math.random() * Math.PI * 2;
+  }
+  function sizeThree() {
+    if (!tRenderer) return;
+    const w = catbolCanvas.clientWidth || window.innerWidth;
+    const h = catbolCanvas.clientHeight || window.innerHeight;
+    tRenderer.setSize(w, h, false);
+    tCam.aspect = w / h;
+    tCam.updateProjectionMatrix();
+  }
+  function initThree() {
+    if (tInit || typeof THREE === "undefined" || !catbolCanvas) return;
+    try {
+      tRenderer = new THREE.WebGLRenderer({ canvas: catbolCanvas, alpha: true, antialias: true });
+      tRenderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      tScene = new THREE.Scene();
+      tCam = new THREE.PerspectiveCamera(60, 1, 0.1, 100);
+      tCam.position.z = 10;
+      const tex = pawTexture();
+      for (let i = 0; i < 32; i++) {
+        const mat = new THREE.SpriteMaterial({ map: tex, transparent: true, opacity: 0.1 + Math.random() * 0.22, depthTest: false });
+        const s = new THREE.Sprite(mat);
+        seedSprite(s, true);
+        tScene.add(s);
+        tSprites.push(s);
+      }
+      sizeThree();
+      window.addEventListener("resize", sizeThree);
+      tInit = true;
+    } catch (e) { /* no WebGL — reel still plays */ }
+  }
+  function animThree() {
+    if (!tRun) return;
+    tSprites.forEach((s) => {
+      s.position.y += s.userData.spd;
+      s.userData.sway += 0.01;
+      s.position.x += Math.sin(s.userData.sway) * 0.004;
+      s.material.rotation += 0.0015;
+      if (s.position.y > 9) seedSprite(s, false);
+    });
+    tRenderer.render(tScene, tCam);
+    tRAF = requestAnimationFrame(animThree);
+  }
+  function startThree() { if (tInit && !tRun) { tRun = true; sizeThree(); animThree(); } }
+  function stopThree() { tRun = false; cancelAnimationFrame(tRAF); }
+
+  // ----- Pour one out: rain black cats + paws -----
   function pourOneOut() {
-    const glyphs = ["🍺", "🐾", "🤍", "🥛"];
-    for (let i = 0; i < 28; i++) {
+    const glyphs = ["🐾", "🐈‍⬛", "🤍"];
+    for (let i = 0; i < 30; i++) {
       const drop = document.createElement("div");
       drop.className = "catbol-drop";
       drop.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
       drop.style.left = Math.random() * 100 + "vw";
       drop.style.fontSize = 1.2 + Math.random() * 1.8 + "rem";
       drop.style.animationDuration = 2.4 + Math.random() * 2.2 + "s";
-      drop.style.animationDelay = Math.random() * 0.8 + "s";
+      drop.style.animationDelay = Math.random() * 0.6 + "s";
       catbolOverlay.appendChild(drop);
-      setTimeout(() => drop.remove(), 5200);
+      setTimeout(() => drop.remove(), 5400);
     }
+  }
+
+  // ----- Lifecycle -----
+  function openCatbol() {
+    catbolOverlay.classList.add("show");
+    catbolOverlay.setAttribute("aria-hidden", "false");
+    document.body.classList.add("intro-open");
+    initThree();
+    startThree();
+    startReel();
+  }
+  function closeCatbol() {
+    catbolOverlay.classList.remove("show");
+    catbolOverlay.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("intro-open");
+    cancelAnimationFrame(reelRAF);
+    stopThree();
   }
 
   catbolBtn.addEventListener("click", openCatbol);
   catbolClose.addEventListener("click", closeCatbol);
+  if (catbolSkip) catbolSkip.addEventListener("click", showFinal);
+  if (catbolReplay) catbolReplay.addEventListener("click", startReel);
   if (catbolPour) catbolPour.addEventListener("click", pourOneOut);
-  catbolOverlay.addEventListener("click", (e) => {
-    if (e.target === catbolOverlay) closeCatbol();
-  });
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && catbolOverlay.classList.contains("show")) closeCatbol();
   });

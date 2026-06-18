@@ -1100,75 +1100,118 @@ body.lemon-mode .hero h1 .accent { color: #c9a800; }
 }
 .catbol-btn:hover { opacity: 1; transform: scale(1.1); }
 
-/* ---------- Catbol in Memoriam overlay ---------- */
+/* ---------- Catbol in Memoriam: cinematic credits reel ---------- */
 .catbol-overlay {
   position: fixed;
   inset: 0;
   z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 5vmin;
-  background: rgba(5, 5, 8, 0.95);
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 25%, #15151e 0%, #050507 70%);
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
 }
 .catbol-overlay.show { opacity: 1; visibility: visible; }
-.catbol-memorial { text-align: center; max-width: 54rem; }
-.catbol-candle { font-size: 2.5rem; margin-bottom: 0.25rem; animation: catbolFlicker 2.4s infinite; }
-.catbol-title { font-size: clamp(2.6rem, 7vw, 4rem); margin: 0; color: #fff; letter-spacing: 0.02em; }
-.catbol-dates { color: var(--accent); font-size: 1.1rem; letter-spacing: 0.08em; margin-top: 0.35rem; }
-.catbol-blessing {
-  font-style: italic;
-  font-size: 1.25rem;
-  color: #e7e7ea;
-  margin: 0.75rem 0 0.25rem;
+
+.catbol-canvas { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; pointer-events: none; }
+
+.catbol-stage { position: absolute; inset: 0; z-index: 1; overflow: hidden; }
+.catbol-reel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  padding: 0 1.5rem 6rem;
+  text-align: center;
+  will-change: transform;
 }
-.catbol-sub { color: var(--muted); margin: 0.25rem 0 1.75rem; }
-.catbol-gallery { display: flex; flex-wrap: wrap; gap: 1.25rem; justify-content: center; }
-.catbol-gallery img {
-  width: 22rem;
-  height: 22rem;
-  max-width: 86vw;
+.reel-line { color: #e9e9ee; max-width: 34rem; }
+.reel-eyebrow { text-transform: uppercase; letter-spacing: 0.35em; font-size: 0.8rem; color: var(--accent); }
+.reel-name { font-size: clamp(3rem, 12vw, 6rem); font-weight: 800; letter-spacing: 0.02em; color: #fff; }
+.reel-dates { font-size: 1.2rem; letter-spacing: 0.1em; color: var(--accent); }
+.reel-blessing { font-style: italic; font-size: 1.4rem; color: #cfd0d6; }
+.reel-quote { font-size: 1.5rem; line-height: 1.5; }
+.reel-photo img {
+  width: min(82vw, 30rem);
+  max-height: 64vh;
   object-fit: cover;
   border-radius: 1rem;
-  border: 1px solid var(--border);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  filter: grayscale(1) contrast(1.05);
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.6);
+}
+
+/* Final freeze-frame on the cutest one (in colour) */
+.catbol-final {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 5vmin;
+  text-align: center;
   opacity: 0;
-  animation: catbolRise 0.7s ease forwards;
+  visibility: hidden;
+  transition: opacity 1.2s ease, visibility 1.2s ease;
 }
-@keyframes catbolRise {
-  from { opacity: 0; transform: translateY(24px) scale(0.96); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+.catbol-final.show { opacity: 1; visibility: visible; }
+.catbol-final img {
+  width: min(80vw, 24rem);
+  border-radius: 1rem;
+  box-shadow: 0 0 60px rgba(247, 213, 29, 0.22), 0 16px 50px rgba(0, 0, 0, 0.6);
 }
-.catbol-pour {
-  margin-top: 1.75rem;
+.catbol-final-name { font-size: 2.6rem; font-weight: 800; color: #fff; margin: 0; }
+.catbol-final-dates { color: var(--accent); letter-spacing: 0.08em; }
+.catbol-final-blessing { font-style: italic; color: #cfd0d6; }
+.catbol-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; margin-top: 0.6rem; }
+
+.catbol-pour, .catbol-replay {
   padding: 0.85rem 1.6rem;
   border: none;
   border-radius: 2rem;
-  background: var(--accent);
-  color: #111;
   font-weight: 700;
   font-size: 1rem;
   cursor: pointer;
   transition: transform 0.15s;
 }
-.catbol-pour:hover { transform: scale(1.05); }
-/* Falling pints / paws for "pour one out" */
+.catbol-pour { background: var(--accent); color: #111; }
+.catbol-replay { background: #20232a; color: #e7e7ea; }
+.catbol-pour:hover, .catbol-replay:hover { transform: scale(1.05); }
+
+.catbol-skip {
+  position: absolute;
+  bottom: 1.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  background: rgba(255, 255, 255, 0.1);
+  color: #cfd0d6;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 2rem;
+  padding: 0.5rem 1.2rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.catbol-skip:hover { background: rgba(255, 255, 255, 0.2); color: #fff; }
+
+/* Falling paws / cats for "pour one out" */
 .catbol-drop {
   position: absolute;
   top: -3rem;
-  z-index: 1;
+  z-index: 4;
   pointer-events: none;
   animation-name: catbolDrop;
   animation-timing-function: linear;
   animation-fill-mode: forwards;
 }
 @keyframes catbolDrop {
-  to { transform: translateY(115vh) rotate(160deg); opacity: 0.2; }
+  to { transform: translateY(115vh) rotate(160deg); opacity: 0.15; }
 }
-.catbol-foot { color: var(--accent); margin-top: 1.75rem; }
 
 /* ---------- Greatest Hits clip carousel ---------- */
 .clips-carousel { position: relative; max-width: 60rem; margin: 0 auto; }
@@ -1206,6 +1249,7 @@ body.lemon-mode .hero h1 .accent { color: #c9a800; }
   position: absolute;
   top: 1.2rem;
   right: 1.5rem;
+  z-index: 5;
   width: 2.6rem;
   height: 2.6rem;
   border: none;
