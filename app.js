@@ -52,6 +52,21 @@ function getDecline() {
   return declines[declineIndex++ % declines.length];
 }
 
+// Absurdly far-flung destinations — the moon, another country, etc. — earn the
+// "oran-shit" voice note rather than a typed reply.
+const ridiculous = [
+  "moon", "mars", "space", "planet", "jupiter", "saturn", "venus", "orbit",
+  "galaxy", "nasa", "outer", "india", "china", "japan", "australia", "america",
+  "usa", "united states", "canada", "brazil", "mexico", "spain", "france",
+  "germany", "italy", "portugal", "africa", "egypt", "dubai", "thailand",
+  "vietnam", "russia", "tokyo", "paris", "london", "new york", "vegas",
+  "new zealand", "korea", "antarctica", "narnia", "mordor", "hogwarts", "timbuktu",
+];
+function isRidiculous(destination) {
+  const d = destination.toLowerCase();
+  return ridiculous.some((k) => d.includes(k));
+}
+
 function addBubble(text, kind) {
   const b = document.createElement("div");
   b.className = `bubble ${kind}`;
@@ -273,9 +288,13 @@ if (requestBtn && chat) {
     setTimeout(() => {
       typing.remove();
       const specific = getSpecificReply(destination);
+      const oranShit = voiceClips.find((c) => c.src.includes("oran-shit")) || voiceClips[0];
       if (specific) {
         // Known destination — always give the bespoke reply.
         addBubble(specific, "received");
+      } else if (isRidiculous(destination) && oranShit) {
+        // Somewhere absurd (the moon, another country…) — hit them with the voice note.
+        addVoiceBubble(oranShit);
       } else if (voiceClips.length && Math.random() < 0.45) {
         // Otherwise he sometimes just fires back a voice note instead of typing.
         addVoiceBubble(voiceClips[Math.floor(Math.random() * voiceClips.length)]);
