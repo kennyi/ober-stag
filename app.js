@@ -809,8 +809,10 @@ if (catbolBtn && catbolOverlay) {
 // Add a clip: drop the file in assets/video/ and add its filename below.
 // The section stays hidden until there's at least one clip.
 const clips = [
-  // "Trump.mp4",
-  // "Donkey Legs.mp4",
+  "Trump1.mp4",
+  "Sick Doctor Niall.mp4",
+  "Pissing.mp4",
+  "Giving Lift.mp4",
 ];
 const greatestHits = document.getElementById("greatest-hits");
 const clipsGrid = document.getElementById("clips-grid");
