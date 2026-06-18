@@ -811,11 +811,8 @@ if (catbolBtn && catbolOverlay) {
 const clips = [
   "Trump1.mp4",
   "Sick Doctor Niall.mp4",
-  "Pissing.mp4",
-  "Giving Lift.mp4",
   "Dobby.mp4",
   "Mashed Banana.mp4",
-  "Mayday.mp4",
   "Oran German.mp4",
   "Patrice.mp4",
 ];
