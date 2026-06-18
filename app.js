@@ -467,62 +467,58 @@ if (eatsMenuEl) {
 // category groups the carousel: Childhood · Dressup · Nude/Balls · Catbol · Olivia.
 const allPhotos = [
   // ----- Childhood -----
-  { src: "assets/img/Bubble Baby.jpeg", caption: "Bubble bath surge pricing. Started young.", category: "Childhood" },
+  { src: "assets/img/Bubble Baby.jpeg", caption: "Bubble Bozo", category: "Childhood" },
   { src: "assets/img/Cute baby.jpeg", caption: "Five-star rating from birth. Never improved.", category: "Childhood" },
   { src: "assets/img/Fat baby.jpeg", caption: "Already built for the couch.", category: "Childhood" },
   { src: "assets/img/Fat Baby2.jpeg", caption: "Carb-loading for a career of sitting still.", category: "Childhood" },
-  { src: "assets/img/Fat Baby3.jpeg", caption: "Peak performance. Downhill from here.", category: "Childhood" },
-  { src: "assets/img/Fat Baby4.jpeg", caption: "The chins that launched a thousand naps.", category: "Childhood" },
+  { src: "assets/img/Fat Baby3.jpeg", caption: "My child is about 60kgs", category: "Childhood" },
+  { src: "assets/img/Fat Baby4.jpeg", caption: "Why are you doing this to me?", category: "Childhood" },
   { src: "assets/img/Lemon Baby Weather.jpeg", caption: "Lemon jumper, lethal weather. A legend in fleece.", category: "Childhood" },
-  { src: "assets/img/Funny boy.jpeg", caption: "Class clown. Still won't drive you home.", category: "Childhood" },
-  { src: "assets/img/School boy.jpeg", caption: "Top of the class in everything but punctuality.", category: "Childhood" },
+  { src: "assets/img/Funny boy.jpeg", caption: "Started early on the weights.", category: "Childhood" },
+  { src: "assets/img/School boy.jpeg", caption: "Top of the class in everything but maths.", category: "Childhood" },
   { src: "assets/img/Face1.jpg", caption: "The face that turns down every lift.", category: "Childhood" },
   { src: "assets/img/Face2.jpg", caption: "Customer service, pictured.", category: "Childhood" },
   { src: "assets/img/Face3.jpg", caption: "Mid-thought. The thought was 'no'.", category: "Childhood" },
-  { src: "assets/img/Face4.jpg", caption: "Caught between a yes and a couch.", category: "Childhood" },
+  { src: "assets/img/Face4.jpg", caption: "Donkey brains", category: "Childhood" },
   { src: "assets/img/Face5.jpg", caption: "This is him listening to your destination.", category: "Childhood" },
-  { src: "assets/img/Face6.png", caption: "Founding member. The amp era.", category: "Childhood" },
-  { src: "assets/img/Face7.png", caption: "Guns out, couch adjacent.", category: "Childhood" },
-  { src: "assets/img/Face8.png", caption: "Off duty. Still off duty.", category: "Childhood" },
-  { src: "assets/img/Face9.png", caption: "Gym every morning. This is the gym working.", category: "Childhood" },
-  { src: "assets/img/Hair.jpg", caption: "The hair had its own surge pricing.", category: "Childhood" },
-  { src: "assets/img/Hair2.jpeg", caption: "A fringe you could set your watch by.", category: "Childhood" },
-  { src: "assets/img/Hair2.jpg", caption: "Big hair, bigger excuses.", category: "Childhood" },
-  { src: "assets/img/Hair3.jpeg", caption: "Volume turned up, availability turned down.", category: "Childhood" },
-  { src: "assets/img/Hair5.jpg", caption: "Peak follicle. Couldn't be reached for a lift.", category: "Childhood" },
-  { src: "assets/img/Messer1.jpg", caption: "Messer by trade. Driver by rumour.", category: "Childhood" },
-  { src: "assets/img/Messer2.jpg", caption: "Up to no good and somehow still your top-rated driver.", category: "Childhood" },
-  { src: "assets/img/Oran Family.jpeg", caption: "The Clares. A whole family of no's.", category: "Childhood" },
+  { src: "assets/img/Face6.png", caption: "Have ye got 2 euro for a bus to Carlow", category: "Childhood" },
+  { src: "assets/img/Face7.png", caption: "When I grow up I wanna be a coconut and live in the big city all by myself", category: "Childhood" },
+  { src: "assets/img/Face8.png", caption: "My hero.", category: "Childhood" },
+  { src: "assets/img/Face9.png", caption: "Back when I was a skinny boi", category: "Childhood" },
+  { src: "assets/img/Hair.jpg", caption: "", category: "Childhood" },
+  { src: "assets/img/Hair2.jpeg", caption: "Lights down low", category: "Childhood" },
+  { src: "assets/img/Hair2.jpg", caption: "Ah this era.", category: "Childhood" },
+  { src: "assets/img/Hair3.jpeg", caption: "Snowbozo.", category: "Childhood" },
+  { src: "assets/img/Hair5.jpg", caption: "", category: "Childhood" },
+  { src: "assets/img/Messer1.jpg", caption: "Sucking toes on request.", category: "Childhood" },
+  { src: "assets/img/Messer2.jpg", caption: "I'm pointing the way.", category: "Childhood" },
+  { src: "assets/img/Oran Family.jpeg", caption: "Our first lemon.", category: "Childhood" },
 
   // ----- Playing Dressup -----
-  { src: "assets/img/Dressup.jpg", caption: "Committed to the bit since day one.", category: "Dressup" },
-  { src: "assets/img/Dressup2.jpg", caption: "Costume on. Shift, off.", category: "Dressup" },
+  { src: "assets/img/Dressup.jpg", caption: "Loves a hat", category: "Dressup" },
+  { src: "assets/img/Dressup2.jpg", caption: "Ya not too bad", category: "Dressup" },
   { src: "assets/img/Dressup3.jpg", caption: "Method actor. The method is avoiding work.", category: "Dressup" },
   { src: "assets/img/Dressup4.jpg", caption: "Couch Certified — pictured in his natural habitat.", category: "Dressup" },
-  { src: "assets/img/Dressup5.jpg", caption: "Full commitment, zero context.", category: "Dressup" },
   { src: "assets/img/Dressup6.jpg", caption: "Dressed for a job he'll never accept.", category: "Dressup" },
-  { src: "assets/img/Dressup7.jpg", caption: "Available for weddings and christenings. Lifts, no.", category: "Dressup" },
-  { src: "assets/img/Dressup8.jpg", caption: "Eccentric isn't a phase, it's a personality.", category: "Dressup" },
-  { src: "assets/img/Dressup9.jpg", caption: "The fit is immaculate. The schedule is not.", category: "Dressup" },
-  { src: "assets/img/Dressup10.jpg", caption: "He said no to this. Olivia said yes for him.", category: "Dressup" },
+  { src: "assets/img/Dressup7.jpg", caption: "Long John Ober", category: "Dressup" },
+  { src: "assets/img/Dressup9.jpg", caption: "Pink Pony Ober", category: "Dressup" },
+  { src: "assets/img/Dressup10.jpg", caption: "I'm gonna keep on dancin", category: "Dressup" },
   { src: "assets/img/Spider Boy.jpeg", caption: "Friendly neighbourhood non-driver.", category: "Dressup" },
   { src: "assets/img/Super Boy.jpeg", caption: "Saves the day. Won't save you a seat.", category: "Dressup" },
-  { src: "assets/img/Wizard boy.jpeg", caption: "Magic everywhere except your ETA.", category: "Dressup" },
+  { src: "assets/img/Wizard boy.jpeg", caption: "You're a wizard, Ober", category: "Dressup" },
 
   // ----- Nude/Balls -----
   { src: "assets/img/Naked1.jpg", caption: "Bollock naked and proud. Standard tier.", category: "Nude/Balls" },
-  { src: "assets/img/Naked2.jpg", caption: "Nothing to declare.", category: "Nude/Balls" },
   { src: "assets/img/Naked4.jpg", caption: "No uniform, no shame, no lift.", category: "Nude/Balls" },
-  { src: "assets/img/Naked5.jpg", caption: "Stripped of everything but the attitude.", category: "Nude/Balls" },
-  { src: "assets/img/Naked6.jpg", caption: "Free and unbothered.", category: "Nude/Balls" },
-  { src: "assets/img/Naked7.jpg", caption: "The full Oran experience.", category: "Nude/Balls" },
-  { src: "assets/img/Naked8.jpg", caption: "Clothing optional. Driving, also optional.", category: "Nude/Balls" },
-  { src: "assets/img/Naked9.jpg", caption: "Born ready, dressed never.", category: "Nude/Balls" },
+  { src: "assets/img/Naked5.jpg", caption: "Caught mid shit", category: "Nude/Balls" },
+  { src: "assets/img/Naked6.jpg", caption: "Camel Tober", category: "Nude/Balls" },
+  { src: "assets/img/Naked8.jpg", caption: "Natural habitat", category: "Nude/Balls" },
+  { src: "assets/img/Naked9.jpg", caption: "Strip Pober", category: "Nude/Balls" },
   { src: "assets/img/Pissing2.jpg", caption: "Standard tier. Pictured relieving himself of all standards.", category: "Nude/Balls" },
 
   // ----- Olivia -----
-  { src: "assets/img/Olivia Kiss.jpg", caption: "Olivia said yes. To the photo, not the lift.", category: "Olivia" },
-  { src: "assets/img/Olivia1.jpg", caption: "The woman who answers when you can't reach Oran.", category: "Olivia" },
+  { src: "assets/img/Olivia Kiss.jpg", caption: "He prefers kissing the mudcrab", category: "Olivia" },
+  { src: "assets/img/Olivia1.jpg", caption: "Come on bol, let's go out", category: "Olivia" },
 ];
 
 // Any photo already shown elsewhere — the tier reveals, the licence, the chat
@@ -552,6 +548,7 @@ function renderCarousel() {
   carImg.src = p.src;
   carImg.alt = p.caption || "";
   carCaption.textContent = p.caption || "";
+  carCaption.style.display = p.caption ? "" : "none";
   Array.from(carThumbs.children).forEach((t, i) => t.classList.toggle("active", i === carIndex));
   const activeThumb = carThumbs.children[carIndex];
   // Scroll only the thumbnail strip horizontally — never the page (scrollIntoView
