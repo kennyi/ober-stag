@@ -751,6 +751,18 @@ if (buildDate) {
 // ---------- Catbol in Memoriam ----------
 // Add more photos here as they're gathered.
 const catbolPhotos = [
+  "assets/img/Catbol/Catbol Cute.jpg",
+  "assets/img/Catbol/PXL_20220623_174550694.jpg",
+  "assets/img/Catbol/PXL_20220625_234335427.jpg",
+  "assets/img/Catbol/PXL_20220711_222231330.jpg",
+  "assets/img/Catbol/PXL_20220731_174424613.jpg",
+  "assets/img/Catbol/PXL_20220826_224318366.MP.jpg",
+  "assets/img/Catbol/PXL_20220826_224406363.MP.jpg",
+  "assets/img/Catbol/PXL_20220901_211658355.MP.jpg",
+  "assets/img/Catbol/PXL_20220904_212502885.jpg",
+  "assets/img/Catbol/PXL_20221022_223559392.MP.jpg",
+  "assets/img/Catbol/PXL_20221211_205105234.jpg",
+  "assets/img/Catbol/PXL_20230107_174555118.jpg",
   "assets/img/Catbol1.jpg",
   "assets/img/Catbol2.jpg",
 ];
@@ -816,6 +828,8 @@ const clips = [
   "Oran German.mp4",
   "Patrice.mp4",
   "Licking foot AI.mp4",
+  "Donkey Legs Kick.mp4",
+  "Cotton Eye Joe.mp4",
 ];
 const greatestHits = document.getElementById("greatest-hits");
 const clipsTrack = document.getElementById("clips-track");
