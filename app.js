@@ -852,3 +852,18 @@ if (greatestHits && clipsTrack && clips.length) {
   }
   clipGoTo(0);
 }
+
+// ---------- Intro gate: blacked-out splash, dismissed by "Enter site" ----------
+const introGate = document.getElementById("intro-gate");
+const introEnter = document.getElementById("intro-enter");
+const introVideo = document.getElementById("intro-video");
+
+if (introGate && introEnter) {
+  document.body.classList.add("intro-open");
+  introEnter.addEventListener("click", () => {
+    if (introVideo) introVideo.pause();
+    introGate.classList.add("hide");
+    document.body.classList.remove("intro-open");
+    setTimeout(() => introGate.remove(), 700);
+  });
+}

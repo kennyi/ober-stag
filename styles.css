@@ -1219,3 +1219,45 @@ body.lemon-mode .hero h1 .accent { color: #c9a800; }
 }
 .catbol-close:hover { background: var(--accent); color: #111; }
 @keyframes catbolFlicker { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
+
+/* ---------- Intro gate (blacked-out splash on load) ---------- */
+.intro-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5vmin;
+  background: #000;
+  transition: opacity 0.6s ease;
+}
+.intro-gate.hide { opacity: 0; pointer-events: none; }
+.intro-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.75rem;
+  max-width: 100%;
+}
+.intro-video {
+  max-width: min(92vw, 40rem);
+  max-height: 68vh;
+  border-radius: 0.75rem;
+  background: #000;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+.intro-enter {
+  padding: 0.95rem 3rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: var(--accent);
+  color: #111;
+  font-weight: 800;
+  font-size: 1.15rem;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+.intro-enter:hover { transform: scale(1.05); }
+body.intro-open { overflow: hidden; }
