@@ -859,11 +859,19 @@ const introEnter = document.getElementById("intro-enter");
 const introVideo = document.getElementById("intro-video");
 
 if (introGate && introEnter) {
-  document.body.classList.add("intro-open");
-  introEnter.addEventListener("click", () => {
-    if (introVideo) introVideo.pause();
-    introGate.classList.add("hide");
-    document.body.classList.remove("intro-open");
-    setTimeout(() => introGate.remove(), 700);
-  });
+  let entered = false;
+  try { entered = sessionStorage.getItem("oberEntered") === "1"; } catch (e) {}
+
+  if (entered) {
+    introGate.remove(); // already entered this session — skip the splash
+  } else {
+    document.body.classList.add("intro-open");
+    introEnter.addEventListener("click", () => {
+      try { sessionStorage.setItem("oberEntered", "1"); } catch (e) {}
+      if (introVideo) introVideo.pause();
+      introGate.classList.add("hide");
+      document.body.classList.remove("intro-open");
+      setTimeout(() => introGate.remove(), 700);
+    });
+  }
 }
