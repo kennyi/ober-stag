@@ -6,7 +6,7 @@
   <title>OBER — Get there. Eventually.</title>
   <meta name="description" content="Ireland's most reluctant ride-sharing service. One driver. Zero enthusiasm. Five stars." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍋</text></svg>" />
-  <link rel="stylesheet" href="styles.css?v=25" />
+  <link rel="stylesheet" href="styles.css?v=26" />
 </head>
 <body>
 
@@ -313,8 +313,15 @@
   <!-- ===================== GREATEST HITS (self-hosted clips) ===================== -->
   <section class="section" id="greatest-hits" hidden>
     <h2>Greatest Hits</h2>
-    <p class="section-sub">The footage that speaks for itself.</p>
-    <div class="clips-grid" id="clips-grid"></div>
+    <p class="section-sub">The footage that speaks for itself. Use the arrows.</p>
+    <div class="clips-carousel" id="clips-carousel">
+      <button class="clip-nav clip-prev" id="clip-prev" type="button" aria-label="Previous clip">‹</button>
+      <div class="clips-viewport">
+        <div class="clips-track" id="clips-track"></div>
+      </div>
+      <button class="clip-nav clip-next" id="clip-next" type="button" aria-label="Next clip">›</button>
+      <p class="clips-counter" id="clips-counter"></p>
+    </div>
   </section>
 
   <!-- ===================== FOOTER ===================== -->
@@ -322,7 +329,7 @@
     <p class="logo">OBER<span class="logo-dot">.</span></p>
     <p>© 2026 Ober Technologies (a lad in a Kia). Not affiliated with Uber, fun after 9pm, or rounds.</p>
     <p class="muted">By using this service you agree to hear about the bass amp.</p>
-    <p class="build-stamp muted">Build v25 · last updated <span id="build-date">—</span></p>
+    <p class="build-stamp muted">Build v26 · last updated <span id="build-date">—</span></p>
     <div class="footer-buttons">
       <button class="catbol-btn" id="catbol-btn" type="button" aria-label="In memory of Catbol" title="In memory of Catbol">🐱</button>
       <!-- Cryptic switch: do not flip -->
@@ -347,6 +354,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=25"></script>
+  <script src="app.js?v=26"></script>
 </body>
 </html>

@@ -815,13 +815,35 @@ const clips = [
   "Giving Lift.mp4",
 ];
 const greatestHits = document.getElementById("greatest-hits");
-const clipsGrid = document.getElementById("clips-grid");
-if (greatestHits && clipsGrid && clips.length) {
-  clipsGrid.innerHTML = clips
+const clipsTrack = document.getElementById("clips-track");
+const clipsCounter = document.getElementById("clips-counter");
+const clipPrev = document.getElementById("clip-prev");
+const clipNext = document.getElementById("clip-next");
+
+if (greatestHits && clipsTrack && clips.length) {
+  greatestHits.hidden = false;
+  clipsTrack.innerHTML = clips
     .map(
       (file) =>
-        `<div class="clip"><video src="assets/video/${file}" controls preload="metadata" playsinline></video></div>`
+        `<div class="clip-slide"><video src="assets/video/${file}" controls preload="metadata" playsinline></video></div>`
     )
     .join("");
-  greatestHits.hidden = false;
+
+  const clipCount = clips.length;
+  let clipIndex = 0;
+
+  function clipGoTo(i) {
+    clipIndex = (i + clipCount) % clipCount;
+    clipsTrack.style.transform = `translateX(-${clipIndex * 100}%)`;
+    clipsTrack.querySelectorAll("video").forEach((v) => v.pause()); // stop the one you're leaving
+    if (clipsCounter) clipsCounter.textContent = `${clipIndex + 1} / ${clipCount}`;
+  }
+
+  clipPrev?.addEventListener("click", () => clipGoTo(clipIndex - 1));
+  clipNext?.addEventListener("click", () => clipGoTo(clipIndex + 1));
+  if (clipCount < 2) {
+    if (clipPrev) clipPrev.style.display = "none";
+    if (clipNext) clipNext.style.display = "none";
+  }
+  clipGoTo(0);
 }

@@ -1165,19 +1165,38 @@ body.lemon-mode .hero h1 .accent { color: #c9a800; }
 }
 .catbol-foot { color: var(--accent); margin-top: 1.75rem; }
 
-/* ---------- Greatest Hits clips ---------- */
-.clips-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
-  gap: 1.5rem;
-}
-.clip {
-  border-radius: 1rem;
-  overflow: hidden;
-  border: 1px solid var(--border);
+/* ---------- Greatest Hits clip carousel ---------- */
+.clips-carousel { position: relative; max-width: 60rem; margin: 0 auto; }
+.clips-viewport { overflow: hidden; border-radius: 1rem; border: 1px solid var(--border); background: #000; }
+.clips-track { display: flex; transition: transform 0.45s ease; }
+.clip-slide {
+  flex: 0 0 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: #000;
 }
-.clip video { width: 100%; display: block; aspect-ratio: 16 / 9; object-fit: cover; background: #000; }
+.clip-slide video { max-width: 100%; max-height: 72vh; display: block; background: #000; }
+.clip-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.clip-prev { left: 0.6rem; }
+.clip-next { right: 0.6rem; }
+.clip-nav:hover { background: var(--accent); color: #111; }
+.clips-counter { text-align: center; color: var(--muted); margin-top: 0.9rem; font-size: 0.9rem; }
 .catbol-close {
   position: absolute;
   top: 1.2rem;
